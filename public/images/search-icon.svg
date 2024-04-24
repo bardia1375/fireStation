@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35.843" height="35.839" viewBox="0 0 35.843 35.839">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#05185e"/>
+      <stop offset="1" stop-color="#4b86ac"/>
+    </linearGradient>
+  </defs>
+  <g id="search-icon" transform="translate(0.504 0.5)">
+    <path id="_1_Search" data-name="1 Search" d="M30.687,34.839a4.126,4.126,0,0,1-2.937-1.217L22.137,28a14.927,14.927,0,1,1-7.2-28A14.928,14.928,0,0,1,28,22.137l5.623,5.613a4.153,4.153,0,0,1-2.935,7.089ZM14.93,4.149A10.781,10.781,0,1,0,25.71,14.93,10.794,10.794,0,0,0,14.93,4.149Z" transform="translate(0 0)" stroke="rgba(0,0,0,0)" stroke-width="1" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

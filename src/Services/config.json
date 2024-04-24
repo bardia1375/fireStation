@@ -1,0 +1,4 @@
+{
+  "api": "http://5.200.70.115:5039/api/customerportal/",
+  "authapi": "http://5.200.70.115:5039/api/customerportal/"
+}

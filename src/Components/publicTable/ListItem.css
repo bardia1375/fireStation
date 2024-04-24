@@ -1,0 +1,124 @@
+.inner_content-res {
+    display: none;
+     font-family: Vazir;
+}  
+.order_body-item-into td, .order_body-item-into-three td{
+    width: 70%;
+}
+.order_body-item-into , .order_body-item-into-three  {
+    display: flex;
+    width: 100%;
+    padding: 6px 0px;
+    align-items: center;
+    text-align: center;
+    font-family: BYekan Medium;
+}
+
+.order_body-item-into td , .order_body-item-into-three td{
+   font-size: 15px;
+}
+.order_body-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 0px;
+    background-color: #F6F6F6;
+    height: 50px;
+    border-bottom: 2px solid white;
+}
+.order_body-item-into-first {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    padding: 10px 0px;
+    align-items: center;
+    text-align: center;
+}
+
+.order_body-item-into-two {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    padding: 10px 0px;
+    align-items: center;
+    text-align: center;
+}
+
+.order_body-item-into-two td, .order_body-item-into-first td{
+    font-size: 16px;
+    width: 30%;
+    font-family: Yekan Medium;
+    color: #6E6D6D;
+}
+.order_body-item-into-two {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px 0px;
+}
+
+.order_body-item-into-price {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 60px;
+}
+
+.order_body-item-into-price td{
+    font-size: 22px;
+    font-weight: 500;
+    font-family: Yekan Medium;
+    color: #6E6D6D;
+    margin-left: 70px;
+}
+
+.order_body-item-into-factor {
+   border: 1px solid #E67205;
+   padding: 3px 10px;
+   border-radius: 50px;
+}
+
+.order_body-item-into-factor a{
+    text-decoration: none;
+    color: #E67205;
+ }
+ 
+.content_back {
+    max-height: 0em;
+    transition: 1s ease-in;
+    overflow: hidden;
+    background-color: #eee;
+    margin-top: 1px !important;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 97%;
+    margin: 0px 10px;
+  }
+  .order_check_icon {
+    position: absolute;
+    background-color: white;
+    padding: 6px;
+    border-radius: 100px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    right: 4px;
+}
+
+.order_check_icon input{
+    width: 17px;
+    cursor: pointer;
+    height: 17px;
+}
+.trashImg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.trashImg img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform:translateX(-0.5px) ;
+}

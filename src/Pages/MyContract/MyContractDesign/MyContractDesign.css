@@ -1,0 +1,1328 @@
+.myContractDesign {
+    margin: 0px 40px;
+    /* height: 610px; */
+    background-color: white;
+    border-radius: 20px;
+    padding: 0px 10px;
+    padding-top: 34px;
+    border: 1px solid rgb(204, 204, 204);
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.3);
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.myContractDesign a {
+    color: white;
+}
+
+.myContractDesign-header {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.myContractDesign_header-res {
+    display: none;
+}
+
+.myContractDesign-header-title-res {
+    display: none;
+    font-size: 12px;
+    margin-top: 20px;
+    color: #966C5A;
+}
+
+.myContractDesign-header h2{
+    color: #B5988B;
+}
+
+
+.myContractDesign-body {
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    
+    background-image: linear-gradient(to bottom, #eee, white);
+    border-radius: 10px;
+    /* padding: 0px 30px; */
+    margin-top: 85px;
+    position: relative;
+}
+
+.myContractDesign-body-main {
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to bottom, #eee, white);
+    border-radius: 10px;
+    /* padding: 0px 30px; */
+    margin-top: 3px;
+}
+
+.myContractDesign_no_carousel_plan {
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to bottom, #eee, white);
+    border-radius: 0px;
+    padding: 0px 0px;
+    margin-top: 0px;
+}
+
+.myContractDesign_carousel_plan {
+    display: none;
+}
+
+
+.myContractDesign-body-side {
+    position: absolute;
+    margin-top: -40px;
+    left: 0;
+    right: 0;
+}
+
+.myContractDesign-body-title {
+    display: flex;
+    justify-content: space-between;
+  
+}
+
+.myContractDesign-body-title-into {
+    color: #BABABA !important;
+    justify-content: center;
+    margin-top: 5px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.myContractDesign-body-title-into .activated h4 {
+    color: #F0AC58 !important;
+}
+
+.myContractDesign-body-title-line {
+    width: 41%;
+    height: 6px;
+    background-color: #C8E9F1;
+    position: absolute;
+    margin-right: 0px;
+    fill: #E3E3E3;
+    border: none;
+    border-radius: 50px;
+    bottom:2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.myContractDesign-body-title-line-two {
+    width: 40%;
+    height: 6px;
+    background-color: #E3E3E3;
+    position: absolute;
+    margin-top: 38px;
+    left:60px;
+    fill: #E3E3E3;
+    border: none;
+    border-radius: 50px;
+}
+.myContractDesign-body-title-into > .MuiSvgIcon-root {
+    margin-right: 24px;
+    color: #E3E3E3 ;
+}
+
+.myContractDesign-body-title-into-active {
+    color: #FFD011;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation-name: active_icon;
+    animation-duration: 2s;
+}
+
+
+.myContractDesign-body-title-into-active > .MuiSvgIcon-root {
+    margin-right: 24px;
+    border: 3px solid #f8a75a;
+    border-radius: 100px;
+    outline: 4px solid #fad161;
+    font-size: 14px;
+    margin-top: 5px;
+    color: #F0AC58;
+    animation-name: active_icon_position;
+    animation-duration: 1.9s;
+}
+
+.anime_icon_check {
+    color: #F0AC58;
+}
+
+.anime_constructure > .anime_icon_active {
+    position: absolute;
+    margin-right: 5px;
+    border: 3px solid #f8a75a;
+    border-radius: 100px;
+    outline: 4px solid #fad161;
+    font-size: 14px;
+    width: 15px;
+    height: 15px;
+    color: #F0AC58 !important;
+    margin-top: 1px;
+    opacity: 0; 
+}
+
+/* .anime_line_active {
+    position: absolute;
+    animation-name: active_line_position;
+    animation-duration: 2s;
+    opacity: 0;
+} */
+
+
+.myContractDesign-body-title-line {
+    width: 41%;
+    height: 6px;
+    background-color: #C8E9F1;
+    position: absolute;
+    right: 55px;
+    margin-top: -26.6px;
+    fill: #E3E3E3;
+    border: none;
+    border-radius: 50px;
+    animation-name: active_line;
+    animation-duration: 1.9s;
+    
+}
+
+@keyframes active_icon {
+    0% {
+        opacity: 0;
+        /* margin-right: 10px; */
+    }
+
+    10% {
+        opacity: 0.1;
+        /* margin-right: 20px; */
+    }
+
+    90% {
+        /* margin-right: 44.2%; */
+        opacity: 1;
+    }
+
+    100% {
+        /* margin-right: 44.5%; */
+        opacity: 0;
+    }
+}
+
+@keyframes active_line {
+    0% {
+        opacity: 0;
+        /* margin-right: -400px; */
+    }
+
+    10% {
+        opacity: 0;
+        /* margin-right: -200px; */
+    }
+
+    90% {
+        opacity: 1;
+        /* margin-right: 63px; */
+    }
+
+    93% {
+        opacity: 0.8;
+    }
+
+    95% {
+        opacity: 0.6;
+        /* margin-right: 65px; */
+    }
+
+    100% {
+        opacity: 1;
+        /* margin-right: 63px; */
+    }
+}
+
+
+@keyframes active_icon_position {
+    0% {
+        opacity: 0;
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+@keyframes active_line_position {
+    0% {
+        opacity: 0;
+        margin-right: -300px;
+    }
+
+    10% {
+        opacity: 0.1;
+        margin-right: -100px;
+    }
+
+    90% {
+        margin-right: 0px;
+        opacity: 1;
+    }
+
+    93% {
+        opacity: 0.3;
+    }
+
+    95% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+.in-run-active {
+    color: #3db4bd ;
+    
+}
+
+.in-run-active > .MuiSvgIcon-root {
+    color: #3db4bd ;
+    /* animation-name: active_icon;
+    animation-duration: 2s; */
+    
+}
+
+
+.myContractDesign-body-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #D7D7D7;
+    margin-top: 20px !important;
+    margin: 0px 12px;
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    text-align: center;
+    padding-bottom: 10px;
+    transition: all 0.4s;
+    cursor: pointer;
+    padding: 0px 1px;
+    padding-top: 10px !important;
+}
+
+.plansList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #D7D7D7;
+    margin-top: 45px !important;
+    margin: 0px 22px;
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    text-align: center;
+    padding-bottom: 10px;
+    transition: all 0.4s;
+    cursor: pointer;
+    padding: 0px 0px;
+    padding-top: 20px !important;
+}
+
+.myContractDesign-body-main .react-3d-carousel .slider-container .slider-right div {
+    display: none;
+}
+
+.myContractDesign-body-main .react-3d-carousel .slider-container .slider-left div {
+    display: none;
+}
+
+.plansList:hover {
+    transform: scale(1.06);
+    background-color:#3db4bd;
+    color: white !important;
+}
+
+.plansList:active {
+    transform: scale(1.1);
+    color: white !important;
+}
+
+.plansList-into {
+    display: flex;
+    flex-direction: column;
+}
+
+.plansList-body-item-into {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 3px;
+}
+
+.plansList-body-item-into h3{
+    font-size: 12px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    padding-bottom: 5px;
+    font-family: Vazir Medium;
+}
+
+.plansList-body-item span{
+   display: block;
+}
+
+
+.myContractDesign-footer {
+    margin-top: 10px !important;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    border-radius: 60px;
+    margin: 10px 0px;
+    transition: all 0.5s;
+    flex-direction: row;
+    top: 80px;
+    left: 50px;
+    width: 100%;
+}
+.myContractDesign-header2 {
+    margin-top: 10px !important;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    border-radius: 60px;
+    margin: 10px 0px;
+    transition: all 0.5s;
+    flex-direction: row;
+    top: 80px;
+    left: 50px;
+    width: 50%;
+}
+
+.mycontractDesign_link-route {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to left, #fdcd5c, #f38a39);
+    padding: 3px 21px;
+    border-radius: 60px;
+    white-space: nowrap;
+    z-index: 1000;
+    
+}
+
+.mycontractDesign_link-route h3{
+font-weight: 300;
+font-family: Yekan Bakh;
+  
+}
+
+.mycontractDesign_link-route-dis {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to left, rgb(199, 199, 199), rgb(161, 161, 161));
+    padding: 3px 21px;
+    border-radius: 60px;
+}
+/* ------------------------------------------ planList -------------------------------- */
+
+
+.plansList-body-item-into h2{
+    padding: 2px 2px;
+    border: 1px solid #3db4bd;
+    border-radius: 50px;
+    color: #3db4bd;
+    width: 80%;
+    font-size: 16px;
+    transition: all 0.4s;
+    margin: 10px 0px;
+}
+
+.plansList:hover {
+    color: white !important;
+}
+
+.plansList:hover h2  {
+    color: white !important;
+    border: 1px solid white;
+}
+
+.activeObjec-design {
+    transform: scale(1.06) !important;
+    background-color:#3db4bd;
+    color: white;
+}
+
+.activeObjec-design .plansList-body-item-into h2 {
+    border: 1px solid white;
+    color: white;
+}
+
+.deActiveObjec-design {
+    transform: scale(1);
+}
+
+.plan_font-total {
+    position: absolute;
+    top: -4.3%;
+    background-color: white;
+    border-radius: 100px;
+    padding: 5px;
+    display: flex;
+    color: #3db4bd;
+    align-items: center;
+}
+
+.font-aws-extra {
+    font-size: 19px;
+    height: 24px !important;
+}
+
+.myContractDesign-body-item-plan:target .activeObjec-design {
+    transform: scale(1.17);
+}
+
+.designBody {
+    padding: 20px 10px;
+    width: 100%;
+    height: 100%;
+    /* overflow: auto; */
+    position: relative;
+    margin-top: 20px;
+    /* mask-image: linear-gradient(to bottom, black calc(100% - 48px), transparent 100%); */
+}
+
+.designBodyModal {
+    padding: 80px 10px 10px 10px;
+    margin-right: 5px;
+    width: 97%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, #eee, white);    border-radius: 12px;
+    /* overflow: auto; */
+    position: relative;
+    margin-top: 10px;
+    /* mask-image: linear-gradient(to bottom, black calc(100% - 48px), transparent 100%); */
+}
+
+.designHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* width: 100%; */
+    padding: 10px;
+    color: darkGrey;
+    font-size:Vazir;
+}
+
+.designColumn {
+    background-color: white;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* min-width: 80px; */
+    padding: 0 35px;
+    gap: 30px;
+    padding-top: 4px;
+    padding-bottom: 20px;
+    border-radius: 12px;
+  
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
+    /* box-shadow: darkGrey 0px 6px 12px -2px, darkGrey 0px 3px 7px -3px; */
+}
+
+.designColumnModal {
+    background-size: cover;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 35px;
+    gap: 20px;
+    padding-top: 40px;
+    padding-bottom: 0px;
+    border-right: 1px solid white;
+    z-index: 3;
+ }
+
+.boxshadow {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.border {
+    border: 1px inset darkgrey;
+}
+
+.designColumn:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;}
+
+.designTitles {
+    /* margin: 20px; */
+    /* padding: 20px; */
+    /* margin-bottom: -50px; */
+    background-image: linear-gradient(to left, rgb(199, 199, 199), rgb(161, 161, 161));
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    border-radius: 20px;
+    width: 100%;
+    /* overflow: auto; */
+}
+
+.designTitlesModal {
+    /* margin: 20px; */
+    /* padding: 20px; */
+    /* margin-bottom: -50px; */
+    /* background-image: linear-gradient(to left, rgb(199, 199, 199), rgb(161, 161, 161)); */
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
+    border-radius: 20px;
+    margin-top: -5px;
+    width: 100%;
+   z-index: 2;
+   position: relative;
+    /* overflow: auto; */
+}
+
+/* .designTitlesModal :last-child div {
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+} */
+
+.designItems {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    align-items: center;
+    height: 50px;
+}
+
+.designItemsModal {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    align-items: center;
+    height: 60px;
+}
+
+.designTitles :first-child {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+.designTitles :last-child {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* 
+@media only screen and (max-width: 1920px) {
+    @keyframes active_icon {
+        0% {
+            opacity: 0;
+            margin-right: 10px;
+        }
+    
+        10% {
+            opacity: 0.1;
+            margin-right: 20px;
+        }
+    
+        90% {
+            margin-right: 500px;
+            opacity: 1;
+        }
+    
+        100% {
+            margin-right: 503px;
+            opacity: 0;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 1600px) {
+    @keyframes active_icon {
+        0% {
+            opacity: 0;
+            margin-right: 10px;
+        }
+    
+        10% {
+            opacity: 0.1;
+            margin-right: 20px;
+        }
+    
+        90% {
+            margin-right: 410px;
+            opacity: 1;
+        }
+    
+        100% {
+            margin-right: 413px;
+            opacity: 0;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 1450px) {
+    @keyframes active_icon {
+        0% {
+            opacity: 0;
+            margin-right: 10px;
+        }
+    
+        10% {
+            opacity: 0.1;
+            margin-right: 20px;
+        }
+    
+        90% {
+            margin-right: 410px;
+            opacity: 1;
+        }
+    
+        100% {
+            margin-right: 413px;
+            opacity: 0;
+        }
+    }
+} */
+
+
+@media only screen and (max-width: 1570px) {
+
+        
+    .plansList {
+        margin: 0px 15px;
+    }
+
+
+    
+}
+
+@media only screen and (max-width: 1500px) {
+
+    .myContractDesign-body-title-line {
+        width: 40%;
+    }
+
+    .myContractDesign-body-title-line-two {
+        width: 39%;
+    }
+
+    .myContractDesign-body-main {
+        padding: 0px 10px;
+    }
+    .plansList {
+        margin: 0px 10px;
+    }
+
+    .myContractDesign-body {
+        padding: 0px 15px;
+        margin-top: 75px;
+    }
+    
+}
+
+@media only screen and (max-width: 1400px) {
+
+    .myContractDesign-body-title-line-two {
+        width: 38%;
+    }
+
+    
+    @keyframes active_icon {
+        0% {
+            opacity: 0;
+            margin-right: -60px;
+        }
+
+        10% {
+            opacity: 0.1;
+            margin-right: -30px;
+        }
+
+        90% {
+            margin-right: 20px;
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+    
+}
+
+@media only screen and (max-width: 1350px) {
+
+    .myContractDesign-body-title-line {
+        width: 39%;
+    }
+
+    .myContractDesign-body-title-line-two {
+        width: 37%;
+    }
+
+    .myContractDesign-body-main {
+        padding: 0px 5px;
+    }
+    .plansList {
+        margin: 0px 5px;
+    }
+
+    .myContractDesign-body {
+        padding: 0px 10px;
+        margin-top: 45px;
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+
+ 
+
+    .myContractDesign-body-title-line-two {
+        width: 35%;
+    }
+
+    @keyframes active_icon {
+        0% {
+            opacity: 0;
+            margin-right: 10px;
+        }
+
+        10% {
+            opacity: 0.1;
+            margin-right: 20px;
+        }
+
+        90% {
+            margin-right: 43%;
+            opacity: 1;
+        }
+
+        100% {
+            margin-right: 43.7%;
+            opacity: 0;
+        }
+    }
+    
+}
+
+@media only screen and (max-width: 1270px) {
+
+    .myContractDesign-body-main {
+        padding: 0px 0px;
+    }
+    .plansList {
+        margin: 0px 5px;
+    }
+
+    .myContractDesign-body {
+        padding: 0px 10px;
+        margin-top: 45px;
+    }
+    
+}
+
+@media only screen and (max-width: 1200px) {
+
+    .myContractDesign-body-title-line {
+        width: 36%;
+    }
+
+    .plansList-body-item-into h3{
+        font-size: 11px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+        padding-bottom: 5px;
+        font-family: Vazir Medium;
+    }
+
+    .plansList-body-item-into h2{
+        padding: 2px 2px;
+        border: 1px solid #3db4bd;
+        border-radius: 50px;
+        color: #3db4bd;
+        width: 80%;
+        font-size: 14px;
+        transition: all 0.4s;
+        margin: 10px 0px;
+    }
+
+        
+    .font-aws-extra {
+        font-size: 19px;
+        height: 24px !important;
+    }
+
+    
+    .myContractDesign-body {
+        padding: 0px 0px;
+        margin-top: 45px;
+    }
+    
+
+}
+
+@media only screen and (max-width: 1100px) {
+
+        
+    .myContractDesign-body-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #D7D7D7;
+        margin-top: 20px !important;
+        margin: 0px 12px;
+        box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.6);
+        border-radius: 5px;
+        text-align: center;
+        padding-bottom: 10px;
+        transition: all 0.4s;
+        cursor: pointer;
+        padding: 0px 1px;
+        padding-top: 10px !important;
+
+    }
+    .myContractDesign-body-main {
+        margin-bottom: 20px;
+    }
+    .myContractDesign-footer {
+        display: none;
+    }
+
+    .plansList {
+        width: 15vw;
+        transition: all 0.4s;
+    }    
+
+    .myContractDesign_no_carousel_plan {
+        display: none;
+    }
+    
+    .myContractDesign_carousel_plan {
+        display: block;
+    }
+    
+    .react-3d-carousel .slider-container .slider-right {
+        margin-left: 200px !important;
+    }
+
+    .react-3d-carousel .slider-container .slider-left {
+        margin-right: 200px !important;
+    }
+    .react-3d-carousel .slider-container .slider-content .slider-single.proactive { 
+        width: 0px;
+        background-color: none;
+        margin: 0px 100px;
+        pointer-events: none;
+    }
+    .react-3d-carousel .slider-container .slider-content .slider-single.preactive{
+        margin-left: -100px !important;
+        pointer-events: none;
+    }
+
+    /* .react-3d-carousel .slider-container .slider-content .slider-single.active {
+        color: white;
+        background-color:#3db4bd !important;
+    } */
+
+    .react-3d-carousel .slider-container .slider-right div {
+        color: #37B3B8 !important;
+        border: none !important;
+    }
+
+    .react-3d-carousel .slider-container .slider-left div {
+        color: #37B3B8 !important;
+        border: none !important;
+    }
+
+    .myContractDesign-body-main .react-3d-carousel .slider-container .slider-right div {
+        display: block !important;
+    }
+
+    .myContractDesign-body-main .react-3d-carousel .slider-container .slider-left div {
+        display: block !important;
+    }
+
+    .plansList:hover {
+        transform: scale(1.12);
+        color: white;
+        background-color:#3db4bd;
+    }
+
+    .plansList:active {
+        transform: scale(0);
+        color: white;
+        background-color:#3db4bd;
+    }
+
+    
+    /* .activeObjec-design {
+        transform: scale(1);
+        background-color:#3db4bd;
+        color: white;
+    } */
+    .plansList-body-item-into {
+        transition: all 0.4s;
+    }
+    .plansList-body-item-into:hover {
+        color: white;
+        background-color:#3db4bd;
+    }
+    
+    .plansList-body-item-into:hover h2  {
+        color: white;
+        background-color:#3db4bd;
+    }
+
+    .myContractDesign-body-title-into > .MuiSvgIcon-root {
+        margin-right: 10px;
+        color: #E3E3E3;
+    }
+
+    .myContractDesign-body-title-line {
+        height: 6px;
+        margin-right: 50px;
+        margin-top: -26.6px;
+        width: 34%;
+    }
+
+    .myContractDesign-body-title-line-two {
+        height: 6px;
+        margin-top: 38px;
+        margin-right: 50px;
+        width: 30%;
+    }
+
+    .myContractDesign-body-title {
+        display: flex;
+        justify-content: space-between;
+        width: 95%;
+    }
+
+    .myContractDesign-body-title-into-active > .MuiSvgIcon-root {
+    margin-right: 20px;
+    font-size: 14px;
+    margin-top: 5px;
+    }
+
+    @keyframes active_icon {
+        0% {
+            opacity: 0;
+            margin-right: 10px;
+        }
+
+        10% {
+            opacity: 0.1;
+            margin-right: 20px;
+        }
+
+        90% {
+            margin-right: 40%;
+            opacity: 1;
+        }
+
+        100% {
+            margin-right: 41%;
+            opacity: 0;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 850px) {
+
+   
+    .myContractDesign {
+        margin-top: 100px !important;
+        margin: 0px 10px;
+        height: fit-content;
+        background-color: white;
+        border-radius: 20px;
+        padding: 0px 20px;
+        padding-top: 20px;
+        border: 1px solid rgb(204, 204, 204);
+    }
+
+    .myContractDesign-body-title {
+        display: flex;
+        justify-content: space-between;
+        width: 145%;
+    }
+
+    .myContractDesign-body-title-line {
+        height: 6px;
+        margin-right: 53px;
+        margin-top: -26.6px;
+        width: 55%;
+    }
+
+    .myContractDesign-body-title-line-two {
+        height: 6px;
+        margin-top: 38px;
+        margin-right: 55px;
+        width: 50%;
+    }
+
+        
+    .myContractDesign-footer {
+        margin-top: -30px !important;
+        display: none;
+        width: 50%;
+        justify-content: end;
+        align-items: center;
+        padding: 7px 0px;
+        border-radius: 60px;
+        margin: 10px 0px;
+        transition: all 0.5s;
+        flex-direction: row;
+    }
+    .plansList {
+        width: 22vw;
+        transition: all 0.4s;
+    } 
+}
+
+
+@media only screen and (max-width: 780px) {
+    .plansList {
+        width: 23vw;
+        transition: all 0.4s;
+    }    
+}
+
+@media only screen and (max-width: 700px) {
+    .myContractDesign-body-title-line {
+        height: 6px;
+        margin-right: 48px;
+        margin-top: -26.6px;
+        width: 54%;
+    }
+
+    .myContractDesign-body-title-line-two {
+        height: 6px;
+        margin-top: 38px;
+        margin-right: 53px;
+        width: 47%;
+    }
+    .plansList {
+        width: 24vw;
+        transition: all 0.4s;
+    } 
+}
+
+@media only screen and (max-width: 600px) {
+    .plansList {
+        width: 30vw;
+        transition: all 0.4s;
+    }    
+
+    .myContractDesign-body-title-line {
+        height: 6px;
+        margin-right: 48px;
+        margin-top: -26.6px;
+        width: 50%;
+    }
+
+    .myContractDesign-body-title-line-two {
+        height: 6px;
+        margin-top: 38px;
+        margin-right: 53px;
+        width: 43%;
+    }
+
+    .myContractDesign-body-main .react-3d-carousel .slider-container .slider-right div {
+        margin-left: -40px;
+    }
+
+    .myContractDesign-body-main .react-3d-carousel .slider-container .slider-left div {
+        display: block;
+        margin-left: 35px;
+    }
+
+    
+}
+
+@media only screen and (max-width: 500px) {
+    .plansList {
+        width: 33vw;
+        transition: all 0.4s;
+    }    
+    
+}
+
+@media only screen and (max-width: 450px) {
+    .plansList {
+        width: 35vw;
+        transition: all 0.4s;
+        margin-top: 30px !important;
+    }    
+    
+    .myContractDesign-header {
+        display: none;
+    }
+
+    .myContractDesign-body-main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .myContractDesign-header-title-res {
+        display: block;
+        font-size: 12px;
+        margin-top: 20px;
+        color: #966C5A;
+    }
+}
+
+@media only screen and (max-width: 428px) {
+
+    .myContractDesign {
+        margin-top: 280px !important;
+        margin: 0px 10px;
+        height: fit-content;
+        background-color: white;
+        border-radius: 20px;
+        padding: 0px 10px;
+        padding-top: 20px;
+        border: 1px solid rgb(204, 204, 204);
+    }
+    
+    .myContractDesign_header-res {
+        display: block;
+        display: flex;
+        position: absolute;
+        background-image: linear-gradient(to left, #D8E5E8, #B5D7D9);
+        width: 80%;
+        padding: 20px 30px;
+        margin-top: -145px;
+        align-items: center;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border: 1px solid #B5D7D9;
+        margin-right: 20px;
+        color: #355085;
+    }
+
+    .myContractDesign_header-res h3{
+        font-size: 27px;
+        margin-right: 10px;
+    }
+    
+    .myContractDesign_header-res > .MuiSvgIcon-root{
+        font-size: 37px;
+    }
+
+    .myContractDesign-body-title {
+        display: flex;
+        justify-content: space-between;
+        width: 140%;
+    }
+    .myContractDesign-body-title-line {
+        height: 6px;
+        margin-right: 58px;
+        margin-top: -26.6px;
+        width: 30%;
+    }
+
+    .myContractDesign-body-title-line-two {
+        height: 6px;
+        margin-top: 38px;
+        margin-right: 63px;
+        width: 29%;
+    }
+
+    .myContractDesign-body-title-into-active {
+        color: #FFD011;
+        margin-right: -20px;
+    }
+    .myContractDesign_carousel_plan {
+        display: block;
+    }
+
+
+    .myContractDesign-body-main .react-3d-carousel .slider-container .slider-right div {
+        margin-left: -75px;
+    }
+
+    .myContractDesign-body-main .react-3d-carousel .slider-container .slider-left div {
+        display: block;
+        margin-left: 75px;
+    }
+
+    .plansList {
+        width: 40vw;
+        transition: all 0.4s;
+    }  
+
+    .fa, .fas {
+        font-weight: 900;
+    }
+    .fa, .far, .fas {
+        font-family: "Font Awesome 5 Free";
+    }
+    .fa, .fab, .fal, .far, .fas {
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+        display: inline-block;
+        font-style: normal;
+        font-variant: normal;
+        text-rendering: auto;
+        line-height: 1;
+    }
+}
+
+
+
+@media only screen and (max-width: 370px) {
+    .myContractDesign {
+        margin-top: 280px !important;
+        margin: 0px 5px;
+        height: fit-content;
+        background-color: white;
+        border-radius: 20px;
+        padding: 0px 0px;
+        padding-top: 20px;
+        border: 1px solid rgb(204, 204, 204);
+    }
+    .plansList {
+        width: 45vw;
+        transition: all 0.4s;
+    } 
+
+    .myContractDesign-body-title {
+        display: flex;
+        justify-content: space-between;
+        width: 150%;
+    }
+}

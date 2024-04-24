@@ -1,0 +1,126 @@
+.pass {
+    margin: 0px 40px;
+    height: 450px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0px 50px;
+    padding-top: 20px;
+    border: 1px solid rgb(204, 204, 204);
+    display: flex;
+    flex-direction: column;
+    direction: ltr;
+    width: 100%;
+}
+
+.pass_total {
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to bottom, #eee, white);
+    border-radius: 10px;
+    flex-direction: column;
+    padding: 0px 20px;
+    height: 80%;
+    direction: rtl;
+}
+
+.pass_header-res {
+    display: none;
+}
+
+.pass_header {
+    width: 95%;
+    text-align: right;
+    margin-bottom: 12px;
+    direction: rtl;
+}
+
+.pass_item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.pass_item input{
+    width: 30%;
+    margin-right: 20px;
+    padding: 10px 10px;
+    border: 2px solid #86c1ca;
+    outline: none;
+    font-size: 16px;
+    font-family: Vazir;
+}
+
+
+.pass_item h3{
+   color: rgb(95, 95, 95);
+}
+
+/* .pass_footer {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 10px 50px;
+    align-items: center;
+    text-align: left;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.4s;
+    margin-top: -40px;
+}
+
+.pass_footer:hover {
+    transform: scale(1.1);
+    background-image: linear-gradient(to left, #fdcd5c, #e96e11);
+} */
+
+
+
+.pass_footer-link {
+    display: flex;
+    width: 10%;
+    justify-content: center;
+    padding: 10px 50px;
+    align-items: center;
+    text-align: left;
+    direction: ltr;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.4s;
+    margin-top: -40px;
+    background-image: linear-gradient(to left, #fdcd5c, #f38a39);
+    display: flex;
+    white-space: nowrap;
+}
+
+.pass_footer-link:hover {
+    transform: scale(1.1);
+    background-image: linear-gradient(to left, #fdcd5c, #e96e11);
+}
+
+
+.pass_main-loading {
+    position: absolute;
+    margin-top: 310px;
+    background-color: #1484a3;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+
+.pass_main-loading-into {
+    display: flex;
+    direction: rtl;
+    align-items: center;
+    justify-content: center;
+}
+
+.pass_main-loading-into h2{
+    margin-left: 15px;
+    color: white;
+    font-size: 20px;
+}
+

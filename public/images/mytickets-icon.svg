@@ -1,0 +1,9 @@
+<svg id="mytickets-icon" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
+  <g id="Ellipse_40" data-name="Ellipse 40" fill="#fff" stroke="#04165d" stroke-width="3">
+    <circle cx="11.5" cy="11.5" r="11.5" stroke="none"/>
+    <circle cx="11.5" cy="11.5" r="10" fill="none"/>
+  </g>
+  <g id="_Icons_Plane" data-name="_Icons / Plane" transform="translate(6.337 11.58) rotate(-45)">
+    <path id="Path_2" data-name="Path 2" d="M0,9.276V6.715a1.334,1.334,0,0,1,.122-.509,1.438,1.438,0,0,1,.449-.3l5.4-.9h4.268l-.26.393L1.278,10.017ZM5.976,5.008l-5.4-.9A1.853,1.853,0,0,1,.122,3.78,1.31,1.31,0,0,1,0,3.3V.74L1.278,0,9.984,4.615l.26.393Z" transform="translate(0 0)" fill="#04165d"/>
+  </g>
+</svg>

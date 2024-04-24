@@ -1,0 +1,9 @@
+<svg id="download-brown" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35.63" height="39.459" viewBox="0 0 35.63 39.459">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1.195" y1="0.179" x2="-0.331" y2="1.445" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#bf9685"/>
+      <stop offset="1" stop-color="#966c5a"/>
+    </linearGradient>
+  </defs>
+  <path id="_15_Down" data-name="15 Down" d="M32.661,24.951H25.73V9.9a2.97,2.97,0,0,0-2.97-2.97h-9.9A2.97,2.97,0,0,0,9.889,9.9V24.951H2.959A2.97,2.97,0,0,0,.82,29.97l14.851,15.5a2.97,2.97,0,0,0,4.287,0l14.851-15.5a2.97,2.97,0,0,0-2.148-5.02Z" transform="translate(0 -6.93)" fill="url(#linear-gradient)"/>
+</svg>

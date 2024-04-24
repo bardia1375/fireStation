@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="31.936" height="42.967" viewBox="0 0 31.936 42.967">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.951" y1="-0.065" x2="-0.542" y2="2.038" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#37abb8"/>
+      <stop offset="1" stop-color="#71fbff"/>
+    </linearGradient>
+  </defs>
+  <path id="sendVoice-icon" d="M13.75,40.729V33.845A16.066,16.066,0,0,1,0,17.9a2.218,2.218,0,1,1,4.435,0,11.533,11.533,0,1,0,23.065,0,2.218,2.218,0,1,1,4.435,0,16.066,16.066,0,0,1-13.75,15.943v6.883a2.218,2.218,0,1,1-4.435,0ZM7.984,17.975V7.984a7.984,7.984,0,0,1,15.968,0v9.991a7.984,7.984,0,0,1-15.968,0Z" fill="url(#linear-gradient)"/>
+</svg>

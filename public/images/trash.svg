@@ -1,0 +1,12 @@
+<svg id="trash" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="44" viewBox="0 0 45 44">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff8080"/>
+      <stop offset="1" stop-color="#ff5757"/>
+    </radialGradient>
+  </defs>
+  <ellipse id="Ellipse_25" data-name="Ellipse 25" cx="22.5" cy="22" rx="22.5" ry="22" fill="url(#radial-gradient)"/>
+  <g id="_Icons_25_Basket" data-name="_Icons / 25 Basket" transform="translate(11.166 7.854)">
+    <path id="_25_Basket" data-name="25 Basket" d="M16.849,28.608H5.805a2.981,2.981,0,0,1-2.98-2.819L1.787,6.556a1.788,1.788,0,0,1,0-3.576H8.344a2.98,2.98,0,1,1,5.96,0h6.558a1.788,1.788,0,0,1,0,3.576L19.823,25.789A2.979,2.979,0,0,1,16.849,28.608ZM14.3,9.536a1.192,1.192,0,0,0-1.191,1.191V22.648a1.192,1.192,0,1,0,2.384,0V10.727A1.193,1.193,0,0,0,14.3,9.536Zm-5.96,0a1.192,1.192,0,0,0-1.191,1.191V22.648a1.192,1.192,0,1,0,2.384,0V10.727A1.193,1.193,0,0,0,8.344,9.536Z" transform="translate(0 0)" fill="#fff"/>
+  </g>
+</svg>

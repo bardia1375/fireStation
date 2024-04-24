@@ -1,0 +1,19 @@
+<svg id="back-arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="67" height="67" viewBox="0 0 67 67">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.951" y1="-0.065" x2="-0.334" y2="1.876" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#37abb8"/>
+      <stop offset="1" stop-color="#71fbff"/>
+    </linearGradient>
+  </defs>
+  <g id="back-arrow-2" data-name="back-arrow">
+    <rect id="Rectangle_522" data-name="Rectangle 522" width="67" height="67" rx="33.5" fill="url(#linear-gradient)"/>
+  </g>
+  <g id="Group_493" data-name="Group 493" transform="translate(22 17.903)">
+    <g id="Group_1265" data-name="Group 1265" transform="translate(4.5 -2.723)">
+      <g id="Group_1271" data-name="Group 1271" transform="translate(3 -3)">
+        <line id="Line_94" data-name="Line 94" x1="15" y2="15.319" transform="translate(0 21.319)" fill="none" stroke="#f5f5f5" stroke-linecap="round" stroke-width="5"/>
+        <line id="Line_185" data-name="Line 185" x1="15" y1="15.319" transform="translate(0 6)" fill="none" stroke="#f5f5f5" stroke-linecap="round" stroke-width="5"/>
+      </g>
+    </g>
+  </g>
+</svg>

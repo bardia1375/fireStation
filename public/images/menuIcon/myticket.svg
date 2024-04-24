@@ -1,0 +1,10 @@
+<svg id="myticket" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="31.589" height="34.589" viewBox="0 0 31.589 34.589">
+  <defs>
+    <clipPath id="clip-path">
+      <rect x="2" y="8" width="31.589" height="34.589" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(-2 -8)" clip-path="url(#clip-path)" style="isolation: isolate">
+    <path id="Path_2" data-name="Path 2" d="M0,26.4V19.111a3.791,3.791,0,0,1,.347-1.45,4.113,4.113,0,0,1,1.278-.84L17,14.253H29.151l-.739,1.119L3.637,28.506ZM17,14.253,1.625,11.684a5.292,5.292,0,0,1-1.278-.926A3.714,3.714,0,0,1,0,9.394V2.106L3.637,0,28.412,13.134l.739,1.119Z" transform="translate(0.758 21.675) rotate(-45)" fill="#54c4e0" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+  </g>
+</svg>

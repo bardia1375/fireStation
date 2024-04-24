@@ -1,0 +1,1105 @@
+.myContractSoft {
+  margin: 0px 40px;
+  height: 100%;
+  background-image: linear-gradient(to bottom, white, rgb(248, 248, 248));
+  border-radius: 20px;
+  padding: 0px 50px;
+  padding-top: 20px;
+  border: 1px solid rgb(204, 204, 204);
+  font-family: Yekan Light;
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.myContractSoft a {
+  color: white;
+}
+
+.myContractSoft-header {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-family: Yekan Light;
+}
+
+.myContractSoft-header h2 {
+  color: #966c5a;
+}
+
+.myContractSoft_header-res {
+  display: none;
+}
+
+.myContractSoft-body {
+  position: relative;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(to bottom, #f6f6f6, white);
+  border-radius: 10px;
+  padding: 0px 30px;
+  margin-top: 45px;
+}
+
+.myContractSoft-body-main {
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to bottom, #f6f6f6, white);
+  border-radius: 10px;
+  padding: 0px 10px;
+  padding-bottom: 0px;
+  height: fit-content;
+}
+
+.myContractSoft-body-side {
+  position: absolute;
+  margin-top: -40px;
+  left: 0;
+  right: 0;
+}
+
+.myContractSoft-body-title {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.myContractSoft-header-title-res {
+  display: none;
+}
+
+.myContractSoft-body-title-into {
+  color: #bababa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.myContractSoft-body-title-into-active h4 {
+  color: #ffd011;
+}
+
+.myContractSoft-body-title-into-active > .MuiSvgIcon-root {
+  margin-right: 29px;
+  border: 3px solid #ffbc2c;
+  border-radius: 100px;
+  outline: 4px solid #ffc521;
+  font-size: 14px;
+  margin-top: 5px;
+  color: #f0ac58;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* animation-name: active_icon;
+    animation-duration: 3s; */
+}
+
+.myContractSoft-body-title-into > .MuiSvgIcon-root {
+  color: #e3e3e3 !important;
+  margin-top: 5px;
+}
+
+.myContractSoft-body-item-into-res {
+  display: none;
+}
+
+.myContractSoft-body-title-line {
+  width: 41%;
+  height: 6px;
+  background-color: #e3e3e3;
+  position: absolute;
+  right: 60px;
+  margin-top: -8px;
+  fill: #e3e3e3;
+  border: none;
+  border-radius: 50px;
+  bottom: 0;
+}
+
+.myContractSoft-body-title-line-two {
+  width: 40%;
+  height: 6px;
+  background-color: #e3e3e3;
+  position: absolute;
+  left: 60px;
+  bottom: 0;
+  margin-right: 60px;
+  fill: #e3e3e3;
+  border: none;
+  border-radius: 50px;
+}
+
+.myContractSoft-body-title-into > .MuiSvgIcon-root {
+  margin-right: 24px;
+  color: rgb(160, 160, 160);
+}
+
+.myContractSoft-body-title-into-active {
+  color: #ffd011;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.myContractSoft-body-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 5px;
+  border-radius: 10px;
+  text-align: center;
+  padding-bottom: 10px;
+  transition: all 0.3s;
+  cursor: pointer;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.myContractSoft-body-item-into:hover {
+  transform: scale(1.17);
+}
+
+/* .myContractSoft-body-item-into:active {
+    transform: scale(1.1);
+} */
+
+.myContractSoft-body-item-into {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  margin-top: 35px !important;
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  text-align: center;
+  padding-bottom: 10px;
+  transition: all 0.3s;
+  cursor: pointer;
+  width: 100%;
+  color: black;
+}
+
+.myContractSoft-body-item-into img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.myContractSoft-body-item-into p {
+  font-size: 1vw;
+  white-space: nowrap;
+}
+
+.myContractSoft-body-item-into h4 {
+  color: #ff8080;
+}
+.myContractSofts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.myContractSoft_no_carousel_plan {
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to bottom, #f6f6f6, white);
+  border-radius: 0px;
+  padding: 0px 0px;
+  margin-top: 0px;
+  padding-bottom: 0px;
+  height: fit-content;
+}
+
+.myContractSoft_carousel_plan {
+  display: none;
+}
+
+.myContractSoft-body-main .react-3d-carousel .slider-container .slider-right div {
+  display: none;
+}
+
+.myContractSoft-body-main .react-3d-carousel .slider-container .slider-left div {
+  display: none;
+}
+
+.myContractSoft-footer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 0px;
+  border-radius: 60px;
+  margin: 0 0px;
+  transition: all 0.5s;
+  flex-direction: row;
+  position: sticky;
+  top: 0;
+  left: 50px;
+  z-index: 100;
+}
+
+.mycontractsoft_link-route {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to left, #fdcd5c, #f38a39);
+  padding: 2px 21px;
+  border-radius: 60px;
+  color: #fff;
+  /* margin-top: -16px; */
+  margin-bottom: 8px;
+}
+
+.mycontractsoft_link-route-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to left, #5cc2fd, #39a9f3);
+  padding: 2px 21px;
+  border-radius: 60px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.mycontractsoft_link-route:hover {
+  transform: scale(1.1);
+  transition: 1s all;
+}
+.mycontractsoft_link-route-button:hover {
+  transform: scale(1.1);
+  transition: 1s all;
+}
+
+.activeObject {
+  transform: scale(1.2);
+  transition: 1s ease-in-out;
+  overflow: hidden;
+}
+
+.deActiveObject {
+  transform: scale(1);
+}
+
+.mycontractsoft_link-route-dis {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to left, rgb(199, 199, 199), rgb(161, 161, 161));
+  padding: 2px 21px;
+  border-radius: 60px;
+  /* margin-top: -16px; */
+  margin-bottom: 8px;
+}
+.orderpayDetail_footer-link-route-dis {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to left, rgb(199, 199, 199), rgb(161, 161, 161));
+  padding: 4px 25px;
+  border-radius: 60px;
+  width: 170px;
+}
+.mycontractsoft_link-route-dis h3,
+.mycontractsoft_link-route h3 {
+  font-family: Yekan Bakh !important;
+  font-weight: 400 !important;
+  margin-left: 8px;
+}
+
+.contract-input {
+  display: none;
+}
+
+.myContractSoft-footer-status {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #eee;
+  border: 1px solid #f0ac58;
+  border-radius: 50px;
+  color: #f38a39;
+}
+
+.myContractSoft-body-item .activeObject {
+  transform: scale(1.17);
+}
+
+@media only screen and (max-width: 1500px) {
+  .myContractSoft-body-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 10px;
+    border-radius: 10px;
+    text-align: center;
+    padding-bottom: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .myContractSoft-body-item-into {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    margin-top: 35px !important;
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    text-align: center;
+    padding-bottom: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+    width: 100%;
+    color: black;
+  }
+
+  .myContractSoft-body-item-into img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .myContractSoft-body-item-into h3 {
+    font-size: 17px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .myContractSoft-body-title-line {
+    width: 40%;
+  }
+
+  .myContractSoft-body-title-line-two {
+    width: 39%;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .myContractSoft-footer {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 0px;
+    border-radius: 60px;
+    margin: 10px 0px;
+    transition: all 0.5s;
+    flex-direction: row;
+  }
+
+  .myContractSoft-body-title-line-two {
+    width: 38%;
+  }
+}
+
+@media only screen and (max-width: 1350px) {
+  .myContractSoft-body-title-line {
+    width: 39%;
+  }
+
+  .myContractSoft-body-title-line-two {
+    width: 37%;
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .myContractSoft-body {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(to bottom, #f6f6f6, white);
+    border-radius: 10px;
+    padding: 0px 0px;
+    margin-top: 45px;
+  }
+
+  .myContractSoft-body-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .myContractSoft-body-item h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .myContractSoft-body-title-line-two {
+    width: 36.6%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .myContractSoft-body-title-line {
+    width: 38%;
+  }
+
+  .myContractSoft-body-main
+    .myContractSoft_carousel_plan
+    .react-3d-carousel
+    .slider-container
+    .slider-right
+    div {
+    display: none;
+  }
+
+  .myContractSoft-body-main
+    .myContractSoft_carousel_plan
+    .react-3d-carousel
+    .slider-container
+    .slider-left
+    div {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1150px) {
+  .myContractSoft {
+    /* margin-top: 130px !important; */
+    margin: 0px 10px;
+    height: 100%;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0px 50px;
+    padding-top: 10px;
+    border: 1px solid rgb(204, 204, 204);
+  }
+
+  .myContractSoft-footer {
+    margin-top: 10px !important;
+    margin: 10px 0px;
+  }
+
+  .myContractSoft-body-main {
+    margin-top: 0px;
+  }
+
+  .myContractSoft_no_carousel_plan {
+    margin-top: 0px;
+  }
+
+  .myContractSoft-body-item img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .myContractSoft-body-item h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .myContractSoft-body-title-line {
+    width: 36%;
+  }
+
+  .myContractSoft-body-title-line-two {
+    width: 35%;
+  }
+
+  .myContractSoft-body-title {
+    margin-right: 30px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .myContractSoft-body {
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(to bottom, #eee, white);
+    border-radius: 10px;
+    padding: 0px 0px;
+    margin-top: 55px;
+    border-radius: 20px;
+  }
+
+  .myContractSoft {
+    margin-top: 100px !important;
+    margin: 0px 0px;
+    height: 500px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 0px 10px;
+    padding-top: 10px;
+    border: 1px solid rgb(204, 204, 204);
+  }
+
+  .myContractSoft-body-side {
+    position: absolute;
+    margin-top: -40px;
+    width: 74%;
+  }
+
+  .myContractSoft-body-title {
+    margin-right: 30px;
+  }
+
+  .myContractSoft-body-title-line {
+    width: 34%;
+    height: 6.5px;
+    background-color: #e3e3e3;
+    position: absolute;
+    margin-right: 65px;
+    margin-top: -23px;
+    fill: #e3e3e3;
+    border: none;
+    border-radius: 50px;
+  }
+
+  .myContractSoft-body-title-line-two {
+    width: 32%;
+    margin-top: 38.5px;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .myContractSoft {
+    margin-top: 100px !important;
+    margin: 0px 0px;
+    height: 500px;
+    background-color: white;
+    border-radius: 10px !important;
+    padding: 0px 30px;
+    padding-top: 10px;
+    border: 1px solid rgb(204, 204, 204);
+  }
+
+  .myContractSoft-body-main {
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to bottom, #eee, white);
+    border-radius: 10px;
+    padding: 0px 0px;
+  }
+
+  .myContractSoft-body-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 10px;
+    border-radius: 10px;
+    text-align: center;
+    padding-bottom: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+    width: 17vw;
+  }
+
+  .myContractSoft_no_carousel_plan {
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to bottom, #eee, white);
+    border-radius: 0px;
+    padding: 0px 0px;
+  }
+
+  .myContractSoft-body-side {
+    position: absolute;
+    margin-top: -36px;
+    width: 83%;
+  }
+
+  .myContractSoft-body-title {
+    margin-right: 40px;
+  }
+
+  .myContractSoft-body-item img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .myContractSoft-body-item h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .myContractSoft-footer {
+    margin: 10px 0px;
+  }
+
+  .myContractSoft-body-title-line {
+    height: 5.8px;
+    background-color: #e3e3e3;
+    position: absolute;
+    margin-right: 65px;
+    width: 35%;
+    margin-top: -26px;
+  }
+
+  .myContractSoft-body-title-line-two {
+    width: 31%;
+    margin-top: 35px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .myContractSoft-body-item h3 {
+    font-size: 12px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .myContractSoft-body-title-line {
+    width: 31%;
+  }
+
+  .myContractSoft-body-title-line-two {
+    width: 27%;
+  }
+
+  /* .myContractSoft-body-main {
+        width: 100%;
+    } */
+
+  .myContractSoft-body-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 10px;
+    border-radius: 10px;
+    text-align: center;
+    padding-bottom: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .myContractSoft_no_carousel_plan {
+    display: flex;
+  }
+
+  .myContractSoft_carousel_plan {
+    display: none;
+  }
+
+  /* .react-3d-carousel .slider-container .slider-right {
+        margin-left: 200px !important;
+    }
+
+    .react-3d-carousel .slider-container .slider-left {
+        margin-right: 200px !important;
+    }
+    .react-3d-carousel .slider-container .slider-content .slider-single.proactive { 
+        width: 0px;
+        background-color: none;
+        margin: 0px 100px;
+    }
+    .react-3d-carousel .slider-container .slider-content .slider-single.preactive{
+        margin-left: -100px !important;
+    }
+
+    .react-3d-carousel .slider-container .slider-right div {
+        color: #37B3B8 !important;
+        border: none !important;
+    }
+
+    .react-3d-carousel .slider-container .slider-left div {
+        color: #37B3B8 !important;
+        border: none !important;
+    } */
+
+  /* .myContractSoft-body-item {
+        transition: all 0s;
+    }
+    
+    .myContractSoft-body-item-into:hover {
+        transform: scale(1.12);
+    }
+    
+    .myContractSoft-body-item-into:active {
+        transform: scale(1);
+    }
+
+    .myContractSoft-body-item .activeObject {
+        transform: scale(1);
+    }
+    
+    .myContractSoft-body-item-into {   
+        transition: all 0s;
+        pointer-events: visible;
+    }
+     */
+}
+
+@media only screen and (max-width: 650px) {
+  .myContractSoft {
+    margin-top: 100px !important;
+    margin: 0px 0px;
+    height: 500px;
+    border-radius: 10px !important;
+    padding: 0px 0px;
+    padding-top: 10px;
+  }
+
+  .myContractSoft-body-item h3 {
+    font-size: 11px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .myContractSoft-body-item-into h4 {
+    font-size: 12px;
+  }
+
+  .myContractSoft-body-item {
+    margin: 0px 5px;
+    width: 100%;
+  }
+
+  .myContractSoft-body-title-line {
+    width: 29%;
+  }
+
+  .myContractSoft-body-title-line-two {
+    width: 27%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .myContractSoft-body-title-line {
+    width: 27%;
+  }
+  .myContractSoft-body-title-line-two {
+    width: 25%;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .myContractSoft-body-title-line {
+    width: 25%;
+  }
+
+  .myContractSoft-body-title-line-two {
+    width: 23%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .myContractSoft {
+    margin-top: 130px !important;
+    margin: 0px 10px;
+    height: fit-content;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0px 10px;
+    padding-top: 10px;
+    border: 1px solid rgb(204, 204, 204);
+  }
+
+  .myContractSoft-header {
+    font-size: 10px;
+  }
+
+  .myContractSoft_header-res {
+    display: none;
+    position: absolute;
+    background-image: linear-gradient(to left, #d8e5e8, #b5d7d9);
+    width: 70%;
+    padding: 20px 50px;
+    margin-top: -145px;
+    align-items: center;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border: 1px solid #b5d7d9;
+    margin-right: 60px;
+    color: #355085;
+  }
+
+  .myContractSoft_header-res h3 {
+    font-size: 27px;
+    margin-right: 10px;
+  }
+
+  .myContractSoft_header-res > .MuiSvgIcon-root {
+    font-size: 37px;
+  }
+
+  .myContractSoft-body .myContractSoft-body-side .myContractSoft-body-title .last-item-res {
+    display: none;
+  }
+
+  .myContractSoft-body-title-into {
+    display: none;
+  }
+
+  .myContractSoft-body-side {
+    position: absolute;
+    margin-top: -36px;
+    width: 100%;
+  }
+
+  .myContractSoft-body-title {
+    margin-right: 37.5%;
+  }
+
+  .myContractSoft-footer {
+    margin: 10px 0px;
+  }
+
+  .myContractSoft {
+    margin-top: 100px !important;
+    margin: 0px 0px;
+    height: 500px;
+    border-radius: 10px !important;
+    padding: 0px 0px;
+    padding-top: 10px;
+  }
+
+  .myContractSoft-body-item h3 {
+    font-size: 10px;
+    margin-bottom: 5px;
+    margin-left: 1px;
+    margin-right: 1px;
+  }
+
+  .myContractSoft-body-item-into h4 {
+    font-size: 10px;
+  }
+
+  .myContractSoft-body-item {
+    margin: 0px 3px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 428px) {
+  .myContractSoft {
+    margin-top: 280px !important;
+    margin: 0px 40px;
+    height: fit-content;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0px 10px;
+    padding-top: 210px;
+    border: 1px solid rgb(204, 204, 204);
+  }
+
+  .myContractSoft_carousel_plan {
+    display: none;
+  }
+  .myContractSoft-header {
+    display: none;
+  }
+  .mydevice_header-res {
+    display: block;
+  }
+
+  .myContractSoft-header-title-res {
+    display: block;
+    color: #966c5a;
+    margin-top: 30px;
+    margin-right: 10px;
+    font-size: 14px;
+  }
+
+  .myContractSoft-header {
+    font-size: 10px;
+  }
+
+  .myContractSoft_header-res {
+    display: block;
+    display: flex;
+    position: absolute;
+    background-image: linear-gradient(to left, #d8e5e8, #b5d7d9);
+    width: 80%;
+    padding: 20px 30px;
+    margin-top: -145px;
+    align-items: center;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border: 1px solid #b5d7d9;
+    margin-right: 20px;
+    color: #355085;
+  }
+
+  .myContractSoft_header-res h3 {
+    font-size: 27px;
+    margin-right: 10px;
+  }
+
+  .myContractSoft_header-res > .MuiSvgIcon-root {
+    font-size: 37px;
+  }
+
+  .myContractSoft-body-side {
+    position: absolute;
+    margin-top: -36px;
+    width: 70%;
+  }
+
+  .myContractSoft-body-title {
+    margin-right: 5%;
+  }
+
+  .another-item {
+    display: block;
+    align-items: center;
+    margin-left: 25%;
+    margin-top: -0.5px;
+    opacity: 0.7;
+  }
+
+  .myContractSoft-body-main {
+    height: 70em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image: linear-gradient(to bottom, #eee, white);
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+  }
+
+  .myContractSoft_no_carousel_plan {
+    background-color: none;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image: none;
+    border-radius: 0px;
+    padding: 20px 0px;
+    height: fit-content;
+  }
+  .myContractSoft_no_carousel_plan:last-child {
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+
+  .myContractSoft-body-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: none !important;
+    margin-top: 25px !important;
+    margin: 0px 12px;
+    border-radius: 10px;
+    text-align: center;
+    padding-bottom: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+    width: 70%;
+    margin-bottom: 20px;
+    height: 168px;
+  }
+
+  .myContractSoft-body-item img {
+    width: 100%;
+    height: fit-content;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .myContractSoft-body-item h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .mycontractsoft_link-route {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to left, #fdcd5c, #f38a39);
+    padding: 3px 5px;
+    border-radius: 60px;
+  }
+
+  .mycontractsoft_link-route-dis {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to left, rgb(199, 199, 199), rgb(161, 161, 161));
+    padding: 3px 5px;
+    border-radius: 60px;
+    font-weight: 300 !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .myContractSoft_header-res {
+    display: block;
+    display: flex;
+    position: absolute;
+    background-image: linear-gradient(to left, #d8e5e8, #b5d7d9);
+    width: 70%;
+    padding: 20px 20px;
+    margin-top: -145px;
+    align-items: center;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border: 1px solid #b5d7d9;
+    margin-right: 60px;
+    color: #355085;
+  }
+
+  .myContractSoft_header-res h3 {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+
+  .myContractSoft_header-res > .MuiSvgIcon-root {
+    font-size: 34px;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .myContractSoft {
+    margin-top: 270px !important;
+    margin: 0px 20px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0px 10px;
+    padding-top: 10px;
+    border: 1px solid rgb(204, 204, 204);
+  }
+}

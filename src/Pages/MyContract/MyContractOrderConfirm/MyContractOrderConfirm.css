@@ -1,0 +1,1129 @@
+
+.myContractOrder {
+ 
+    margin: 0px 40px;
+    height: 590px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0px 50px;
+    padding-top: 20px;
+    border: 1px solid rgb(204, 204, 204);
+    color: rgb(121, 121, 121);
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.3);
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.myContractOrder a {
+    color: white;
+}
+
+.myContractOrder-header {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.myContractOrder-header h2{
+    color: #B5988B;
+}
+
+.myContractOrder_header-res {
+    display: none;
+}
+
+.myContractOrder_table-res {
+    display: none;
+}
+
+
+.myContractOrder-body {
+    position: relative;
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(to bottom, #eee, white);
+    border-radius: 10px;
+    padding: 0px 30px;
+    margin-top: 55px;
+ 
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.myContractOrder-body::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+.myContractOrder-body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+.myContractOrder-body-main {
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to bottom, #eee, white);
+    border-radius: 10px;
+    padding: 0px 0px;
+    margin-top: 10px;
+}
+
+.myContractOrder-body-side {
+    position: absolute;
+    margin-top: -40px;
+    right: 0;
+    left: 0;
+}
+
+.myContractOrder-body-title {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+
+.myContractOrder-body-title-into {
+    color: rgb(134, 134, 134);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-content: center;
+}
+
+.myContractOrder-body-title-into-active {
+    color: #FFD011;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-content: center;
+}
+
+.myContractOrder-body-title-into-active > .MuiSvgIcon-root {
+    margin-right: 24px;
+}
+
+.myContractOrder-body-title-line {
+    width: 41%;
+    height: 6px;
+    background-color: #C8E9F1;
+    position: absolute;
+    right: 40px;
+    margin-top: 13.3px;
+    fill: #E3E3E3;
+    border: none;
+    border-radius: 50px;
+    bottom: 0;
+}
+
+.myContractOrder-body-title-line-two {
+    width: 39%;
+    height: 6px;
+    background-color: #C8E9F1;
+    position: absolute;
+    left: 70px;
+    bottom: 0;
+    margin-right: 60px;
+    fill: #E3E3E3;
+    border: none;
+    border-radius: 50px;   
+
+}
+
+.myContractOrder-body-title-into-active > .MuiSvgIcon-root {
+    margin-right: 24px;
+    border: 3px solid #f8a75a;
+    border-radius: 100px;
+    outline: 4px solid #fad161;
+    font-size: 14px;
+    margin-top: 5px;
+    color: #F0AC58;
+}
+
+.myContractOrder-body-title-into > .MuiSvgIcon-root {
+    color: rgb(160, 160, 160);
+    margin-top: 5px;
+    margin-right: 24px;
+}
+
+.first-title-active .anime_icon_check-confirm-first {
+    position: absolute;
+    animation-name: check_icon-confirm;
+    animation-duration: 2.7s;
+}
+
+.in-run-active > .anime_icon_active-confirm {
+    position: absolute;
+    margin-right: 5px;
+    animation-name: active_icon-confirm;
+    animation-duration: 2.7s;
+    border: 3px solid #f8a75a;
+    border-radius: 100px;
+    outline: 4px solid #fad161;
+    font-size: 14px;
+    width: 15px;
+    height: 15px;
+    color: #F0AC58 !important;
+    margin-top: 5px;
+    opacity: 0;
+}
+
+.in-run-active > .anime_icon_check-confirm {
+    animation-name: check_icon_show;
+    animation-duration: 2.9s;
+}
+
+.myContractOrder-body-title-into-active > .MuiSvgIcon-root {
+    animation-name: check_icon_show;
+    animation-duration: 2.9s;
+}
+
+@keyframes check_icon_show {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+
+}
+
+@keyframes check_icon-confirm {
+    0% {
+        opacity: 0;
+        margin-right: -100px;
+    }
+
+    10% {
+        opacity: 0;
+        margin-right: -50px;
+    }
+
+    90% {
+        opacity: 0.9;
+        margin-right: 49%;
+    }
+
+    100% {
+        opacity: 1;
+        margin-right: 49.2%;
+    }
+}
+
+
+@keyframes active_icon-confirm {
+    0% {
+        opacity: 0;
+        margin-right: -150px;
+    }
+
+    10% {
+        opacity: 0;
+        margin-right: -100px;
+    }
+
+    90% {
+        opacity: 0.9;
+        margin-right: 42.3%;
+    }
+
+    100% {
+        opacity: 1;
+        margin-right: 42.5%;
+    }
+}
+
+
+.myContractOrder-footer {
+    margin-top: 15px !important;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 0px;
+    border-radius: 10px;
+    margin: 10px 0px;
+    transition: all 0.5s;
+    direction: ltr;
+    background-image: linear-gradient(to bottom, rgb(247, 247, 247), white);
+    
+}
+
+.myContractOrder-footer-contract {
+    display: flex;  
+    align-items: center;
+    margin-left: 60px;
+    color: rgb(230, 93, 93);
+
+}
+
+.myContractOrder-footer-price {
+    display: block;
+}
+.myContractOrder-footer-price-res {
+    display: none;
+}
+
+.myContractOrder-footer-contract input{
+    width: 16px;
+    height: 16px;
+    font-size: 29px;
+    border: 1px solid rgb(230, 93, 93);
+}
+.myContractOrder-footer-CodeContract {
+display: flex;
+gap: 16px;
+}
+.myContractOrder-footer-CodeContract h3{
+ 
+}
+.myContractOrder-footer-CodeContract input{
+
+    border: 1px solid rgb(6, 17, 32);
+    width:8vw;
+    height: 24px;
+    font-size: 2rem;
+}
+.myContractOrder-footer-contract h3{
+   margin-left: 10px;
+   cursor: pointer;
+   font-family: Yekan Medium;
+}
+
+.mycontractOrder_link-route-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to left, #fdcd5c, #f38a39);
+    padding: 3px 21px;
+    border-radius: 60px;
+    width: 13%;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s;
+    font-family: Yekan Medium;
+    color: #fff;
+}
+
+.mycontractOrder_link-route-div:hover {
+    transform: scale(1.1);
+    background-image: linear-gradient(to left, #fdcd5c, #e96e11);
+
+}
+
+.activeObject {
+    transform: scale(1.17);
+}
+
+.deActiveObject {
+    transform: scale(1);
+}
+
+.mycontractOrder_link-route-dis {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to left, rgb(199, 199, 199), rgb(161, 161, 161));
+    padding: 3px 21px;
+    width: 13%;
+    border-radius: 60px;
+    border: none;
+    font-family: Yekan Medium;
+    white-space: nowrap;
+}
+
+.contract-input {
+    display: none;
+}
+
+.myContractOrder-footer-status {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #eee;
+    border: 1px solid #F0AC58;
+    border-radius: 50px;
+    color: #f38a39;
+}
+
+
+.in-run-active {
+    color: #3db4bd;
+}
+.in-run-active > .MuiSvgIcon-root {
+    color: #3db4bd;
+}
+
+
+
+
+.myContractOrder_table {
+    width: 100%;
+}
+
+/* .myapp_table-head {
+    display: flex;
+    width: 50vw;
+} */
+
+.myContractOrder_table-header {
+    margin-top: 15px;
+    background-color: white;
+    display: flex;
+    padding: 15px 100px;
+    border-radius: 10px;
+    justify-content: space-between;
+    color: rgb(114, 114, 114);
+    padding-right: 70px !important;
+    font-family: Yekan Light;
+}
+
+.myContractOrder_total_body-table {
+    width: 100%;
+    margin-top: 15px;
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.3);
+}
+
+.myContractOrder_body-table {
+    width: 99.6%;
+    border-radius: 10px;
+    margin-left: 30px;
+    margin-bottom: 15px;
+    position: relative;
+    align-items: center;
+    display: flex;
+}
+
+.myContractOrder_table-body-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 0px;
+    border-radius: 10px;
+}
+
+.myContractOrder_table-body-into {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 40px;
+    margin-right: 50px;
+    color: white;
+}
+
+.myContractOrder_total {
+    width: 100%;
+}
+
+thead {
+    justify-content: space-between;
+    width: 100% !important;
+}
+
+.myContractOrder_table-tbody {
+    justify-content: space-between;
+    width: 100%;
+    background-image: linear-gradient(to left, #37ABB8, #a2faff);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+th {
+    font-size: 18px;
+}
+
+td {
+    font-size: 18px;
+}
+
+
+.myContractOrder_body-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 0px;
+    background-color: white;
+    height: 50px;
+    border-bottom: 2px solid #eee;
+}
+
+.myContractOrder_body-item-into-first {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    padding: 10px 0px;
+    align-items: center;
+    text-align: center;
+}
+
+.myContractOrder_body-item-into-two {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    padding: 10px 0px;
+    align-items: center;
+    text-align: center;
+}
+
+.myContractOrder_body-item-into-two td, .myContractOrder_body-item-into-first td{
+    font-size: 17.5px;
+    width: 30%;
+    font-family: Yekan Medium;
+}
+
+.vltwo {
+    margin: 0px 0px;
+    border-left: 1px solid #eee;
+    height: 27px;
+}
+
+.myContractOrder_body-item-into-two {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px 0px;
+}
+
+.myContractOrder_body-item-into-price {
+    display: flex;
+    justify-content: flex-end;
+    align-items: left;
+    padding: 10px 160px;
+}
+
+.myContractOrder_body-item-into-price td{
+    font-size: 25px;
+    font-weight: 500;
+    font-family: Yekan Medium;
+}
+
+.contract_text {
+    background-color: white;
+    margin-top: 14px;
+    padding: 5px 20px;
+    border-radius: 10px;
+   text-align: justify;
+}
+
+
+.contract_text h4{
+    margin-top: 5px;
+    color: rgb(0, 0, 0);
+    font-size: 17px;
+    font-family: Vazir;
+}
+
+.contract_text p{
+    margin-top: 5px;
+    color: rgb(121, 121, 121);
+    font-size:1vw;
+    font-family: Vazir;
+}
+
+
+.myContractOrder-footer-end {
+    display: flex;
+    font-family: Yekan Medium;
+}
+
+.myContractOrder-footer-end h2{
+    margin-left: 80px;
+    color:#3db4bd;
+    font-family: Yekan Medium;
+}
+
+.myContractOrder-footer-end span{
+    color: #F0AC58;
+    margin-right: 10px;
+    font-family: Yekan Medium;
+}
+
+#contract-check {
+    cursor: pointer;
+}
+.font-digit{
+font-family: Vazir;
+
+}
+.font-digit-date{
+    font-family: Vazir;
+    white-space: noWrap;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+@media only screen and (max-width: 1500px) {
+
+    .myContractOrder-body-title-line {
+        width: 40%;
+    }
+
+    .myContractOrder-body-title-line-two {
+        width: 38%;
+    }
+    
+}
+
+@media only screen and (max-width: 1400px) {
+
+    .myContractOrder-body-title-line-two {
+        width: 37%;
+    }
+
+    .myContractOrder-body-title {
+        display: flex;
+        justify-content: space-between;
+        margin-right: -20px;
+    }
+    
+}
+
+@media only screen and (max-width: 1350px) {
+
+    .myContractOrder-body-title-line {
+        width: 39%;
+    }
+
+    .myContractOrder-body-title-line-two {
+        width: 36%;
+    }
+    
+}
+
+@media only screen and (max-width: 1300px) {
+
+ 
+
+    .myContractOrder-body-title-line-two {
+        width: 35.6%;
+    }
+    
+    .myContractOrder-body-title {
+        display: flex;
+        justify-content: space-between;
+        margin-right: -20px;
+    }
+
+    .myContractOrder-body-title-into-active {
+        margin-left: 30px;
+    }
+
+    @keyframes check_icon-confirm {
+        0% {
+            opacity: 0;
+            margin-right: -100px;
+        }
+    
+        10% {
+            opacity: 0;
+            margin-right: -50px;
+        }
+    
+        90% {
+            opacity: 0.9;
+            margin-right: 48.7%;
+        }
+    
+        100% {
+            opacity: 1;
+            margin-right: 48.9%;
+        }
+    }
+    
+    
+    @keyframes active_icon-confirm {
+        0% {
+            opacity: 0;
+            margin-right: -150px;
+        }
+    
+        10% {
+            opacity: 0;
+            margin-right: -100px;
+        }
+    
+        90% {
+            opacity: 0.9;
+            margin-right: 40.3%;
+        }
+    
+        100% {
+            opacity: 1;
+            margin-right: 40.5%;
+        }
+    }
+    
+}
+
+
+@media only screen and (max-width: 1200px) {
+
+    .myContractOrder-body-title-line {
+        width: 37%;
+    }
+
+    .myContractOrder_table-body-into {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 40px;
+        margin-right: 30px;
+        color: white;
+    }
+
+    .mycontractOrder_link-route-div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(to left, #fdcd5c, #f38a39);
+        padding: 3px 21px;
+        border-radius: 60px;
+        width: 20%;
+        border: none;
+        cursor: pointer;
+        transition: all 0.4s;
+        font-family: Yekan Medium;
+    }
+
+    .mycontractOrder_link-route-dis {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(to left, rgb(199, 199, 199), rgb(161, 161, 161));
+        padding: 3px 21px;
+        width: 20%;
+        border-radius: 60px;
+        border: none;
+        font-family: Yekan Medium;
+    }
+    
+}
+
+@media only screen and (max-width: 1120px) {
+
+    .myContractOrder-body-title-line {
+        width: 37%;
+    }
+
+    .myContractOrder_table-body-into {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 40px;
+        margin-right: 30px;
+        color: white;
+    }
+
+    .myContractOrder-body-title-line {
+        width: 37%;
+    }
+
+    .myContractOrder-body-title-line-two {
+        width: 34%;
+    }
+
+    
+}
+
+@media only screen and (max-width: 1050px) {
+
+    .myContractOrder {
+        margin-top: 120px !important;
+        margin: 0px 10px;
+        height: 590px;
+        background-color: white;
+        border-radius: 20px;
+        padding: 0px 10px;
+        padding-top: 20px;
+        border: 1px solid rgb(204, 204, 204);
+        color: rgb(121, 121, 121);
+    }
+
+    .myContractOrder_body-item-into-price {
+        display: flex;
+        justify-content: flex-end;
+        align-items: left;
+        padding: 10px 70px;
+    }
+
+    .myContractOrder_table-header th{
+        font-size: 15px !important;
+    }
+
+    .myContractOrder-body-title {
+        display: flex;
+        justify-content: space-between;
+        margin-right: -20px;
+        width: 120%;
+    }
+
+    .myContractOrder-body-title-line {
+        width: 43%;
+    }
+
+    .myContractOrder-body-title-line-two {
+        width: 40%;
+    }
+
+}
+
+@media only screen and (max-width: 850px) {
+
+    .myContractOrder {
+        margin-top: 100px !important;
+        margin: 0px 10px;
+        height: fit-content;
+        background-color: white;
+        border-radius: 20px;
+        padding: 0px 10px;
+        padding-top: 20px;
+        border: 1px solid rgb(204, 204, 204);
+        color: rgb(121, 121, 121);
+    }
+    .myContractOrder-body {
+        background-color: #eee;
+        display: flex;
+        flex-direction: column;
+        background-image: linear-gradient(to bottom, #eee, white);
+        border-radius: 10px;
+        padding: 0px 30px;
+        margin-top: 55px;
+        height: 310px;
+    }
+
+    .myContractOrder-body-title {
+        display: flex;
+        justify-content: space-between;
+        margin-right: -20px;
+        width: 150%;
+    }
+    .myContractOrder-body-title-line {
+        width: 53%;
+    }
+
+    .myContractOrder-body-title-line-two {
+        width: 50%;
+    }
+
+    .myContractOrder-header {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .myContractOrder-body-title-line {
+        width: 51%;
+    }
+
+    .myContractOrder-body-title-line-two {
+        width: 48%;
+    }
+
+}
+
+@media only screen and (max-width: 680px) {
+
+    .myContractOrder_table-header {
+        margin-top: 15px;
+        background-color: white;
+        display: flex;
+        padding: 15px 60px;
+        border-radius: 10px;
+        justify-content: space-between;
+        color: rgb(114, 114, 114);
+        padding-right: 20px !important;
+    }
+
+    .myContractOrder_table-body-into {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 10px;
+        margin-right: 5px;
+        color: white;
+    }
+
+    .myContractOrder_table-body-list .myContractOrder_table-tbody .myContractOrder_table-body-into td{
+        font-size: 14px !important;
+    }
+
+    .myContractOrder-footer-end h2 {
+        margin-left: 20px;
+        font-size: 20px;
+    }
+
+    .myContractOrder_body-item .myContractOrder_body-item-into-first td{
+        font-size: 13px !important;
+    }
+
+    .myContractOrder_body-item .myContractOrder_body-item-into-two td{
+        font-size: 14px !important;
+    }
+
+    .myContractOrder-body-title-line {
+        width: 48%;
+    }
+
+    .myContractOrder-body-title-line-two {
+        width: 45%;
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    .myContractOrder-body-title-line {
+        width: 46%;
+    }
+
+    .myContractOrder-body-title-line-two {
+        width: 42%;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .myContractOrder-body {
+        padding: 0px 5px;
+    }
+
+    .myContractOrder-footer-end h2 {
+        margin-left: 10px;
+        font-size: 20px;
+    }
+
+    .mycontractOrder_link-route-div .mycontractOrder_link-route h3 {
+        font-size: 14px;
+    }
+    .myContractOrder-footer-end .mycontractOrder_link-route-dis h3 {
+        font-size: 14px;
+    }
+
+    .myContractOrder-footer-end .mycontractOrder_link-route-dis {
+        padding: 3px 5px;
+        width: 20%;
+    }
+    .mycontractOrder_link-route-div {
+        padding: 3px 5px;
+        width: 20%;
+    }
+    .myContractOrder-body-title {
+        display: flex;
+        justify-content: space-between;
+        margin-right: -20px;
+        width: 160%;
+    }
+
+    .myContractOrder-body-title-line {
+        width: 48%;
+    }
+
+    .myContractOrder-body-title-line-two {
+        width: 46%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .myContractOrder-body {
+        padding: 0px 5px;
+    }
+
+    .myContractOrder-footer-end h2 {
+        margin-left: 10px;
+        font-size: 20px;
+    }
+
+    .mycontractOrder_link-route-div .mycontractOrder_link-route h3 {
+        font-size: 14px;
+    }
+    .myContractOrder-footer-end .mycontractOrder_link-route-dis h3 {
+        font-size: 14px;
+    }
+
+    .myContractOrder-footer-end .mycontractOrder_link-route-dis {
+        padding: 3px 5px;
+        width: 20%;
+    }
+    .mycontractOrder_link-route-div {
+        padding: 3px 5px;
+        width: 20%;
+    }
+
+    .myContractOrder_table-header {
+        margin-top: 15px;
+        background-color: white;
+        display: flex;
+        padding: 15px 40px;
+        border-radius: 10px;
+        justify-content: space-between;
+        color: rgb(114, 114, 114);
+        padding-right: 20px !important;
+    }
+
+    .myContractOrder_table-header th{
+        font-size: 13px !important;
+    }
+    
+    .first-title-active {
+        display: none;
+    }
+
+    .last-item-res {
+        display: block;
+    }
+
+    .myContractOrder-body-title {
+        display: flex;
+        justify-content: space-between;
+        margin-right: 110px;
+        width: 110%;
+    }
+
+    .myContractOrder-body-title-line-two {
+        width: 50%;
+    }
+
+    .myContractOrder_table-body-list .myContractOrder_table-tbody .myContractOrder_table-body-into td{
+        font-size: 11.5px !important;
+    }
+
+}
+
+
+@media only screen and (max-width: 428px) {
+
+
+    .myContractOrder {
+        margin-top: 280px !important;
+        margin: 0px 10px;
+        height: fit-content;
+        background-color: white;
+        border-radius: 20px;
+        padding: 0px 10px;
+        padding-top: 20px;
+        border: 1px solid rgb(204, 204, 204);
+    }
+    
+    .myContractOrder_header-res {
+        display: block;
+        display: flex;
+        position: absolute;
+        background-image: linear-gradient(to left, #D8E5E8, #B5D7D9);
+        width: 80%;
+        padding: 20px 30px;
+        margin-top: -145px;
+        align-items: center;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border: 1px solid #B5D7D9;
+        margin-right: 20px;
+        color: #355085;
+    }
+
+    .myContractOrder_header-res h3{
+        font-size: 27px;
+        margin-right: 10px;
+    }
+    
+    .myContractOrder_header-res > .MuiSvgIcon-root{
+        font-size: 37px;
+    }
+
+    .myContractOrder_table {
+        display: none;
+    }
+    .myContractOrder_table-res {
+        display: block;
+        margin-top: 20px !important;
+        margin: 0px 30px;
+    }
+    .myContractOrder_table-res-total {
+        background-color: #37abb8bb;
+        border-radius: 15px;
+    }
+    .myContractOrder_table-res-rows {
+        display: flex;
+        width: 87%;
+        justify-content: space-between;
+        color: white;
+        padding: 10px 20px;
+        border-bottom: 1px solid #eee;
+        padding-left: 30px !important;
+    }
+    .last-line-row {
+        border-bottom:none;
+    }
+
+    .myContractOrder-footer-end {
+        display: flex;
+        flex-direction: column;
+        justify-content: center !important;
+        width: 100%;
+        align-items: center;
+    }
+
+    .myContractOrder-footer-end h2{
+        color:#3db4bd;
+        font-family: Yekan Medium;
+        margin-bottom: 20px;
+    }
+    
+    .myContractOrder-footer-end span{
+        color: #F0AC58;
+        margin-right: 10px;
+        font-family: Yekan Medium;
+    }
+
+    .myContractOrder-footer-price {
+        display: none;
+    }
+    .myContractOrder-footer-price-res {
+        display: block;
+    }
+    .mycontractOrder_link-route-div .mycontractOrder_link-route h3 {
+        font-size: 20px;
+    }
+    .myContractOrder-footer-end .mycontractOrder_link-route-dis h3 {
+        font-size: 20px;
+    }
+
+    .myContractOrder-footer-end .mycontractOrder_link-route-dis {
+        padding: 3px 5px;
+        width: 90%;
+    }
+    .mycontractOrder_link-route-div {
+        padding: 3px 5px;
+        width: 90%;
+    }
+
+    .myContractOrder-body-title {
+        display: flex;
+        justify-content: space-between;
+        margin-right: 110px;
+        width: 100%;
+    }
+
+    .myContractOrder-body-title-line-two {
+        width: 38%;
+    }
+}
+@media only screen and (max-width: 400px) {
+
+}
+@media only screen and (max-width: 380px) {
+    .myContractOrder-body-title-line-two {
+        width: 31%;
+    }
+}
+@media only screen and (max-width: 340px) {
+    .myContractOrder-body-title-line-two {
+        width: 27%;
+    }
+}

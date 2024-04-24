@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40.767" height="40.767" viewBox="0 0 40.767 40.767">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1.544" y1="-0.153" x2="0.297" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#75c9db"/>
+      <stop offset="1" stop-color="#04165d"/>
+    </linearGradient>
+  </defs>
+  <g id="_Icons_Plane" data-name="_Icons / Plane" transform="translate(0.758 20.754) rotate(-45)">
+    <path id="Path_2" data-name="Path 2" d="M0,25.219V18.257a3.629,3.629,0,0,1,.332-1.385,3.906,3.906,0,0,1,1.22-.8l14.693-2.454h11.6l-.707,1.069L3.474,27.231Zm16.245-11.6L1.553,11.162a5.041,5.041,0,0,1-1.22-.886A3.538,3.538,0,0,1,0,8.974V2.012L3.474,0,27.142,12.547l.707,1.068Z" transform="translate(0)" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

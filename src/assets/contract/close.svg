@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26.523" height="28.522" viewBox="0 0 28.523 28.522">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#bababa"/>
+      <stop offset="1" stop-color="#9e9e9e"/>
+    </radialGradient>
+  </defs>
+  <g id="Group_273" data-name="Group 273" transform="translate(-542 -431)">
+    <circle id="Ellipse_25" data-name="Ellipse 25" cx="14.261" cy="14.261" r="14.261" transform="translate(542 431)" fill="#fff"/>
+    <g id="_Icons_23_Close" data-name="_Icons / 23 Close" transform="translate(542 431)">
+      <path id="_23_Close" data-name="23 Close" d="M14.262,28.522A14.261,14.261,0,1,1,28.523,14.261,14.278,14.278,0,0,1,14.262,28.522Zm0-12.174h0l3.746,3.784a1.488,1.488,0,1,0,2.1-2.105l-3.747-3.784L20.152,10.5a1.515,1.515,0,1,0-2.143-2.141l-3.747,3.784L10.516,8.355A1.515,1.515,0,1,0,8.373,10.5l3.784,3.748L8.373,17.991a1.526,1.526,0,0,0-.444,1.071,1.51,1.51,0,0,0,.444,1.071,1.525,1.525,0,0,0,1.071.443,1.509,1.509,0,0,0,1.071-.443l3.746-3.784Z" transform="translate(0 0)" fill="url(#radial-gradient)"/>
+    </g>
+  </g>
+</svg>

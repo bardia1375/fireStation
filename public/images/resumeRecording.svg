@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="33.344" height="35.019" viewBox="0 0 33.344 35.019">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1.195" y1="0.179" x2="-0.331" y2="1.445" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#bf9685"/>
+      <stop offset="1" stop-color="#966c5a"/>
+    </linearGradient>
+  </defs>
+  <path id="playVoice" d="M10.493,4.157a8,8,0,0,1,14.034,0l9.5,17.344a8,8,0,0,1-7.017,11.843h-19A8,8,0,0,1,.995,21.5Z" transform="translate(33.344) rotate(90)" fill="white"/>
+</svg>

@@ -1,0 +1,879 @@
+.orderpay {
+    margin: 0px 40px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0px 50px;
+    padding-top: 10px;
+    border: 1px solid rgb(204, 204, 204);
+    height: fit-content;
+    background-image: linear-gradient(to top, rgb(253, 252, 252), white);
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.3);
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.orderpay_header-res {
+    display: none;
+}
+
+.orderpay_total-res {
+    display: none;
+}
+
+.orderpay_total {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    flex-direction: column;
+    padding: 0px 0px;
+}
+
+.orderpay_header {
+    margin-top: 20px;
+    background-color: white;
+    width: 97%;
+    justify-content: space-around;
+    display: flex;
+    padding: 15px 0px;
+    border-radius: 10px;
+    margin-left: 20px;
+    color: rgb(114, 114, 114);
+}
+
+.orderpay_total_body {
+    margin-top: 30px;
+    width: 97%;
+    height: 40vh;
+}
+
+.orderpay_body {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    position: relative;
+    align-items: center;
+    background-image: linear-gradient(to top, rgb(128, 128, 128), white);
+}
+
+.orderpay_table-body-into-res {
+    display: none;
+}
+.orderpay_footer-price-res {
+    display: none;
+}
+/* .not_active {
+    border: 2px solid rgb(206, 206, 206);
+    color: rgb(75, 75, 75);
+}
+
+.not_active  > .orderpay_icon > .MuiSvgIcon-root {
+    color: rgb(206, 206, 206);
+}
+
+.activing {
+    border: 2px solid #64E7EB;
+}
+
+.activing > .orderpay_icon > .MuiSvgIcon-root {
+    color: #31a3a7;
+}
+
+.in_active {
+    border: 2px solid rgb(238, 190, 101);
+    color: rgb(238, 190, 101);
+}
+
+.activing {
+    border: 2px solid #31a3a7;
+    color:#31a3a7;
+}
+
+.in_active > .orderpay_icon > .MuiSvgIcon-root {
+    color:  rgb(252, 177, 38);
+} */
+
+
+.orderpay_header-control {
+    margin-right: 40px;
+}
+
+.orderpay_header-control-two {
+    margin-left: 20px;
+}
+
+.orderpay_table {
+    width: 100%;
+}
+
+
+.orderpay_table-header {
+    margin-top: 20px;
+    background-color: #eee;
+    display: flex;
+    padding: 10px 0px;
+    border-radius: 10px;
+    justify-content: space-around;
+    color: rgb(141, 141, 141);
+}
+
+/* .order_table-header th{
+        width: 50%;
+} */
+
+.orderpay_total_body-table {
+    display: flex;
+    margin-top: 4px;
+    flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 150px;
+}
+
+.orderpay_table-body-into {
+    padding: 13px 0px;
+    display: flex;
+    text-align: center;
+    color: #fff;
+    background-image: linear-gradient(to left , #38ACB9, #61E4EB);  
+    border-radius: 10px;
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.5);
+    width: 99%;
+ 
+}
+
+.orderpay_table-body-into td{
+  font-size: 19px;
+}
+
+.orderpay_tbody {
+    margin-bottom: 10px;
+    text-align: right;
+    position: relative;
+}
+
+.act-orderpay {
+    margin-top: 7px;
+}
+
+.yes-act-order {
+    padding: 8px 0px;
+    width: 99%;
+    display: flex;
+    text-align: center;
+    color: #38ACB9;
+    background-image: linear-gradient(to left ,  white,  white);  
+    border-radius: 10px;
+    border: 2px solid #38ACB9;
+    box-shadow: none !important;
+}
+
+
+.no-act-order {
+    padding: 8px 0px;
+    width: 99%;
+    display: flex;
+    text-align: center;
+    color: #969696;
+    background-image: linear-gradient(to left ,  white,  white);  
+    border-radius: 10px;
+    border: 2px solid #969696;
+    box-shadow: none !important;
+}
+
+
+.yes-act-order td{
+    font-size: 16.5px;
+}
+
+
+.no-act-order td{
+    font-size: 16.5px;
+}
+
+tbody {
+    display: flex;
+    width: 100% !important;
+}
+
+
+thead {
+    width: 100%;
+}
+
+th {
+    font-size: 18px;
+}
+
+.orderpay_body-item-into td, .orderpay_body-item-into-three td{
+    width: 70%;
+}
+
+
+/* /////////////////////////////////////////////////////////////////////////// */
+
+
+.orderpay_body-item-into , .orderpay_body-item-into-three  {
+    display: flex;
+    width: 100%;
+    padding: 6px 0px;
+    align-items: center;
+    text-align: center;
+}
+
+.orderpay_body-item-into td , .orderpay_body-item-into-three td{
+   font-size: 15px;
+}
+
+
+.orderpay_table-body-into td{
+    width: 70%;
+}
+
+.vlthree {
+    margin: 0px 10px !important;
+    border-left: 1px solid rgb(185, 185, 185);
+    height: 23px;
+}
+
+.orderpay_point {
+    border-top: 1px solid rgb(226, 226, 226);
+    width: 98%;
+    color: #966C5A;
+    text-align: right;
+    padding: 5px;
+}
+
+.orderpay_footer {
+    width: 100%;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    direction: ltr;
+    justify-content: flex-end !important;
+    margin-bottom: 10px;
+}
+
+.orderpay_footer-link-route {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to left, #fdcd5c, #f38a39);
+    padding: 4px 25px;
+    border-radius: 60px;
+    width: fit-content;
+    color: white;
+    margin-top: 15px;
+}
+
+.orderpay_footer-link-route_disable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to left, grey, darkGrey);
+    padding: 4px 25px;
+    border-radius: 60px;
+    width: fit-content;
+    color: white;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.orderpay_footer-disable-link-route {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to left, grey, darkGrey);
+    padding: 4px 25px;
+    border-radius: 60px;
+    width: fit-content;
+    color: white;
+    margin-top: 15px;
+}
+
+.orderpay_footer-price {
+    width: 100%;
+    text-align: left;
+}
+
+.orderpay_footer-price h2 {
+    color:#3db4bd;
+    font-size: 22px;
+}
+.orderpay_footer-price h2 span{
+    color:#f38a39;
+    font-size: 22px;
+    margin-right: 20px;
+}
+
+
+.orderpay_check_icon {
+    position: absolute;
+    top: 17px;
+    right: 10px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 100px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.orderpay_check_icon input{
+    width: 17px;
+    height: 17px;
+}
+
+.orderpay_check_icon-other {
+    position: absolute;
+    top: 14px;
+    right: 20px;
+    border-radius: 100px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.orderpay_check_icon-other input{
+    width: 17px;
+    height: 17px;
+}
+
+.orderpay_payment {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 15px;
+
+}
+
+.orderpay_payment-option h3 {
+    margin-right: 10px;
+}
+
+.orderpay_payment-option {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background-color: #F5F5F5;
+    border: 1px solid #dfdfdf;
+    border-radius: 10px;
+    transition: all 0.3s;
+    color: rgb(121, 121, 121);
+    cursor: pointer;
+}
+
+/* 
+.orderpay_payment-option:hover {
+    background-color: #F9F1DB;
+
+} */
+
+
+.orderpay_payment-option input{
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+}
+
+.active_payment {
+    background-color: #c3ecf5;
+    border: 1px solid #72bbce;
+}
+
+.active_payment h4{
+   color: #37B3B8 !important;
+}
+
+.active_payment h3{
+    color: #37B3B8 !important;
+ }
+ 
+.active_payment > .MuiSvgIcon-root{
+    color: #37B3B8 !important;
+ }
+
+.deActive_payment {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background-color: #F5F5F5;
+    border: 1px solid #dfdfdf;
+    border-radius: 10px;
+    transition: all 0.3s;
+    color: rgb(121, 121, 121);
+    cursor: pointer;
+}
+
+.deActive_payment:hover {
+    background-color: #F9F1DB;
+    color: #e2c36e;
+}
+
+.deActive_payment > .MuiSvgIcon-root {
+    transition: all 0.2s;
+}
+
+.deActive_payment:hover > .MuiSvgIcon-root {
+    color: #e2c36e;
+}
+
+
+
+@media only screen and (max-width: 1100px) {
+
+    .orderpay_body-item-into-price td {
+        font-size: 18px;
+        font-weight: 500;
+        font-family: Yekan Medium;
+        color: #6E6D6D;
+        margin-left: 40px;
+    }
+
+    .orderpay_point h4{
+        font-size: 14px;
+    }
+
+    .orderpay_tbody .orderpay_table-body-into td {
+        font-size: 16px;
+    }
+
+    .orderpay_tbody .yes-act-order td {
+        font-size: 16px;
+    }
+    .orderpay_tbody .no-act-order td {
+        font-size: 16px;
+    }
+    .orderpay_check_icon {
+        top: 14px;
+    }
+}
+
+
+@media only screen and (max-width: 950px) {
+
+    .order_body-item-into-price {
+        padding: 10px 20px;
+    }
+
+
+    .orderpay_tbody .order_table-body-into td {
+        font-size: 15px;
+    }
+
+    .orderpay_tbody .yes-act-order td {
+        font-size: 15px;
+    }
+    .orderpay_tbody .no-act-order td {
+        font-size: 15px;
+    }
+
+    .orderpay_payment-option h3 {
+        margin-right: 5px;
+        font-size: 14px;
+    }
+    
+    .orderpay_payment-option {
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        margin-bottom: 10px;
+        background-color: #F5F5F5;
+        border: 1px solid #dfdfdf;
+        border-radius: 10px;
+        transition: all 0.3s;
+        color: rgb(121, 121, 121);
+        cursor: pointer;
+    }
+    
+    .orderpay_payment-option input{
+        width: 18px;
+        height: 18px;
+        margin-left: 1px;
+    }
+
+    .orderpay_check_icon{
+        padding: 8px;
+        top: 16px;
+    }
+
+    .orderpay_check_icon input{
+        width: 14px;
+        height: 14px;
+    }
+}
+
+
+@media only screen and (max-width: 850px) {
+
+    .orderpay_total .orderpay_table .orderpay_table-header {
+        padding-right: 20px;
+    }
+
+    .orderpay {
+        margin-top: 100px !important;
+        margin: 0px 40px;
+        padding: 0px 10px;
+        padding-top: 10px;
+        min-height: 490px;
+        height: fit-content;
+    }
+
+    .orderpay_point h4{
+        font-size: 13px;
+    }
+
+    .orderpay_footer-price h2 {
+        color: #3db4bd;
+        font-size: 18px;
+    }
+
+    .orderpay_footer-price h2 span{
+        font-size: 18px;
+    }
+
+}
+
+
+@media only screen and (max-width: 650px) {
+
+    .orderpay {
+        margin-top: 100px !important;
+        margin: 0px 20px;
+        padding: 0px 10px;
+        padding-top: 10px;
+        min-height: 490px;
+        height: fit-content;
+    }
+}
+
+
+@media only screen and (max-width: 580px) {
+
+    .orderpay_total .orderpay_table .orderpay_table-header {
+        padding-right: 30px;
+    }
+
+    .orderpay_tbody .orderpay_table-body-into td {
+        font-size: 13.5px;
+    }
+
+    .orderpay_check_icon{
+        top: 17px;
+    }
+
+    .orderpay_payment-option h3{
+        font-size: 12px;
+    }
+
+    .orderpay_payment-option h4{
+        font-size: 12px;
+    }
+
+    .orderpay_check_icon{
+        padding: 5px;
+        top: 19px;
+    }
+
+    .orderpay_check_icon input{
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media only screen and (max-width: 530px) {
+
+    .orderpay_tbody .orderpay_table-body-into td {
+        font-size: 12px;
+    }
+}
+
+
+@media only screen and (max-width: 480px) {
+
+    .orderpay_total .orderpay_table .orderpay_table-header {
+        padding-right: 20px;
+    }
+
+    .orderpay_check_icon input{
+        width: 11px;
+        height: 11px;
+    }
+
+    .icon-checked input {
+        width: 11px;
+        height: 11px;
+    }
+
+    .vlthree {
+        margin: 0px 5px !important;
+        border-left: 1px solid rgb(185, 185, 185);
+        height: 23px;
+    }
+
+    .orderpay_payment-option h3{
+        font-size: 11px;
+    }
+
+    .orderpay_payment-option h4{
+        font-size: 11px;
+    }
+}
+
+@media only screen and (max-width: 440px) {
+
+    .orderpay_header {
+        margin-top: 20px;
+        background-color: white;
+        width: 97%;
+        justify-content: space-around;
+        display: flex;
+        padding: 15px 0px;
+        border-radius: 10px;
+        margin-left: 10px;
+    }
+
+    .orderpay_total .orderpay_table .orderpay_table-header {
+        justify-content: space-around;
+    }
+   
+}
+
+
+@media only screen and (max-width: 428px) {
+
+    .orderpay {
+        margin-top: 280px !important;
+        margin: 0px 50px;
+        height: fit-content;
+        background-color: white;
+        border-radius: 20px;
+        padding: 0px 10px;
+        padding-top: 20px;
+        border: 1px solid rgb(204, 204, 204);
+    }
+
+    .orderpay_header {
+        display: none;
+    }
+    .orderpay_table {
+        width: 90%;
+    }
+
+    .orderpay_total .orderpay_table .orderpay_table-header {
+        display: none;
+    }
+
+    .orderpay_header-res {
+        display: block;
+        display: flex;
+        position: absolute;
+        background-image: linear-gradient(to left, #D8E5E8, #B5D7D9);
+        width: 80%;
+        padding: 20px 30px;
+        margin-top: -125px;
+        align-items: center;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border: 1px solid #B5D7D9;
+        margin-right: 20px;
+        color: #355085;
+    }
+
+    .orderpay_header-res h3{
+        font-size: 27px;
+        margin-right: 10px;
+    }
+    
+    .orderpay_header-res > .MuiSvgIcon-root{
+        font-size: 37px;
+    }
+
+    .orderpay_table-body-into-res {
+        display: block;
+    }
+
+    .orderpay_table-body-into {
+        display: none;
+    }
+
+    .orderpay_total_body-table {
+        padding: 0px 10px;
+        display: flex;
+        margin-top: 4px;
+        flex-direction: column;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 250px;
+    }
+    
+    .orderpay_point {
+        display: none;
+    }
+    
+    .orderpay_table-header {
+        display: none;
+    }
+
+    .orderpay_tbody {
+        padding: 0px 0px;
+        position: relative;
+    }
+    
+    .orderpay_tbody .orderpay_table-body-into-res {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 10px;
+        margin-bottom: 0px;
+        margin-top: 10px;
+    }
+    
+    .orderpay_tbody .act-orderpay-res {
+        background-image: linear-gradient(to bottom, #37ABB8, #5ee4f3);
+        width: 100%;
+        color: white;
+        padding-top: 20px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .orderpay_check_icon {
+        position: absolute;
+        margin-right: 38%;
+        top: 0px;
+        background-color: #eee;
+        border-radius: 100px;
+        padding: 10px;
+        height: 20px;
+        width: 20px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .orderpay_check_icon input{
+        width: 20px;
+        height: 20px;
+    }
+
+    .orderpay_footer {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+    }
+
+    .orderpay_footer .order_footer-link-route {
+        width: 70%;
+    }
+    .orderpay_footer .order_footer-link-route-dis {
+        width: 70%;
+    }
+
+    .orderpay_payment-option h3{
+        font-size: 19px;
+    }
+
+    .orderpay_payment-option h4{
+        display: none;
+    }
+    .vlthree-edit {
+        display: none;
+    }
+
+    .orderpay_footer-price {
+        display: none;
+    }
+
+    .orderpay_footer-price-res {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .orderpay_footer-price-res h2 {
+        color:#3db4bd;
+        font-size: 18px;
+    }
+    .orderpay_footer-price-res h2 span{
+        color:#f38a39;
+        font-size: 18px;
+        margin-right: 20px;
+    }
+
+    .orderpay_footer-price-res {
+        display: block;
+    }
+    .orderpay_payment {
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        padding: 10px 0px;
+    }
+
+    .orderpay_footer {
+        border-top: none;
+    }
+}
+
+@media only screen and (max-width: 390px) {
+
+    .orderpay_check_icon {
+        position: absolute;
+        margin-right: 36.9%;
+        margin-bottom: -40px;
+        background-color: #eee;
+        border-radius: 100px;
+        padding: 10px;
+        height: 22px;
+        width: 22px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .orderpay_footer .orderpay_footer-price h2{
+        font-size: 17px;
+    }
+
+    .orderpay_footer .orderpay_footer-price span{
+        font-size: 17px;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+  
+    .orderpay_check_icon {
+        position: absolute;
+        margin-right: 35%;
+        top: 0px;
+        background-color: #eee;
+        border-radius: 100px;
+        padding: 10px;
+        height: 20px;
+        width: 20px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .orderpay {
+        margin-top: 280px !important;
+        margin: 0px 25px;
+        height: fit-content;
+        background-color: white;
+        border-radius: 20px;
+        padding: 0px 10px;
+        padding-top: 20px;
+        border: 1px solid rgb(204, 204, 204);
+    }
+    
+}
