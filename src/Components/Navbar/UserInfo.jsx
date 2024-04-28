@@ -14,7 +14,6 @@ export default function UserInfo(params) {
   const nameWrapperRef2 = useRef();
   const nameRef2 = useRef();
 
-
   const [animation, setAnimation] = useState({
     positionSize: 0,
     positionHasAnimation: false,
@@ -46,30 +45,23 @@ export default function UserInfo(params) {
   //   }
   // }, [nameRef.current?.offsetWidth]);
 
-
-    // Motion Effect for name and position
-    useEffect(() => {
-      if (nameRef.current?.offsetWidth > nameWrapperRef.current?.offsetWidth) {
-        setAnimation((prev) => ({
-          ...prev,
-          positionSize:
-            nameRef.current?.offsetWidth -
-            nameWrapperRef.current?.offsetWidth +
-            20,
-          positionHasAnimation: true,
-        }));
-      }
-      if (nameRef2.current?.offsetWidth > nameWrapperRef2.current?.offsetWidth) {
-        setAnimation((prev) => ({
-          ...prev,
-          nameSize:
-            nameRef2.current?.offsetWidth -
-            nameWrapperRef2.current?.offsetWidth +
-            20,
-          nameHasAnimation: true,
-        }));
-      }
-    }, [nameRef2.current?.offsetWidth, nameRef.current?.offsetWidth]);
+  // Motion Effect for name and position
+  useEffect(() => {
+    if (nameRef.current?.offsetWidth > nameWrapperRef.current?.offsetWidth) {
+      setAnimation(prev => ({
+        ...prev,
+        positionSize: nameRef.current?.offsetWidth - nameWrapperRef.current?.offsetWidth + 20,
+        positionHasAnimation: true,
+      }));
+    }
+    if (nameRef2.current?.offsetWidth > nameWrapperRef2.current?.offsetWidth) {
+      setAnimation(prev => ({
+        ...prev,
+        nameSize: nameRef2.current?.offsetWidth - nameWrapperRef2.current?.offsetWidth + 20,
+        nameHasAnimation: true,
+      }));
+    }
+  }, [nameRef2.current?.offsetWidth, nameRef.current?.offsetWidth]);
   return (
     <>
       <Link to="/profile" className="tickment__navbar__user">
@@ -81,27 +73,27 @@ export default function UserInfo(params) {
             ref={nameRef}
             isHead={false}
           >
-            {profileConfig}
+            آتش نشانی
           </PositionName>
         </PositionNameWrapper>
 
         <PositionNameWrapper ref={nameWrapperRef2} className="tickment__navbar__userCompany">
-        <PositionName
-            style={{fontSize:"1vw",marginTop:"-0.7px"}}
+          <PositionName
+            style={{ fontSize: "1vw", marginTop: "-0.7px" }}
             hasAnimation={animation.nameHasAnimation}
             moveSize={animation.nameSize}
             ref={nameRef2}
             isHead={false}
           >
-             {`${Company}`}
+            اصفهان{" "}
           </PositionName>
-</PositionNameWrapper>
+        </PositionNameWrapper>
       </Link>
     </>
   );
 }
 
-const breatheAnimation = (x) => keyframes`
+const breatheAnimation = x => keyframes`
 0%   { transform: translate(0, 0) }
 100% { transform: translate(${x}px, 0)}  `;
 
@@ -116,15 +108,11 @@ const PositionName = styled.p`
   animation-duration: 5s;
   animation-iteration-count: infinite;
   animation-fill-mode: linear;
-  font-size:1.5vw;
+  font-size: 1.5vw;
   width: max-content;
   margin-top: 8px;
-.tickment__navbar__userCompany{
-  font-size:0.5vw;
-}
+  .tickment__navbar__userCompany {
+    font-size: 0.5vw;
+  }
 `;
-const PositionName2 = styled.p`
-
-
-
-`;
+const PositionName2 = styled.p``;

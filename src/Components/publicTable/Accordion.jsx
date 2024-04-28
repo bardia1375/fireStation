@@ -9,7 +9,7 @@ function Accordion({ page,TableData, index, contentCtrl, item, AccordionTitle })
 const  openModal=()=>{
   setIsModal(true)
 }
-console.log("TableData[index]",TableData[index]);
+console.log("TableData[index]",TableData);
   return (
     <div className={`${contentCtrl}`}>
      {isModal&& <div>
@@ -18,8 +18,8 @@ console.log("TableData[index]",TableData[index]);
           </Modal>
       </div>}
       <div className="inner_content">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)",justifyContent:'flex-end',alignItems:"flex-end"}}>
-          {AccordionTitle?.length!==0 && AccordionTitle[index].map((el, i) => (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(1, 1fr)",justifyContent:'flex-end',alignItems:"flex-end"}}>
+          {AccordionTitle?.length!==0 && AccordionTitle[index]?.map((el, i) => (
             <div key={i} className="order_body-item">
               <tr className="order_body-item-into-first">
                 <td style={{ fontFamily: "Vazir",whiteSpace:"noWrap" }}>{el.title}</td>

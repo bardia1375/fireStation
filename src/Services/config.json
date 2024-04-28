@@ -1,4 +1,4 @@
 {
-  "api": "http://5.200.70.115:5039/api/customerportal/",
-  "authapi": "http://5.200.70.115:5039/api/customerportal/"
+  "api": "https://192.168.20.169:45457/api/",
+  "authapi": "https://192.168.20.169:45457/api/"
 }

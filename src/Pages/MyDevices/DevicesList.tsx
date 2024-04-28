@@ -1,101 +1,181 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "redux-thunk";
-import { RootState } from "../../Reducers"; // Update this path according to your project structure
-import { getAllData } from "../../Actions/Table/table";
+import styled, { css } from "styled-components";
+import light from "assets/General/Light.svg";
+import serverApi, { setAuthToken } from "Services/httpService";
+import LoadingSpinner from "../../Components/publicTable/loading/LoadingSpinner";
+import { successMessage, errorMessage } from "../../Utils/commonFunctions";
+import { startConnection } from "../../signalrService";
+import Operation from "./Operation";
 
-// Images
-import { TableComponent } from "../../Components/publicTable/Main";
-import { setAuthToken } from "Services/httpService";
+function DevicesList() {
+  const [start, setStart] = useState(true);
+  const [access, setAccess] = useState(true);
+  const [end, setEnd] = useState(false);
+  const [id, setId] = useState("");
+  const [active, setActive] = useState(false);
 
-interface Device {
-  DeviceSerial: string;
-  DeviceName: string;
-  DeviceCode: string;
-  Status: number;
-}
+  const [messages, setMessages] = useState(false);
+  const [startMission, setStartMission] = useState([]);
+  const [missionId, setMissionId] = useState(""); // State to hold missionId
 
-const DevicesList: React.FC = () => {
-  const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
-  const [devices, setDevices] = useState<Device[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [userData, setUserData] = useState<any>(null);
-
-  const { devicesData, isActive } = useSelector((state: RootState) => state.tableData);
   useEffect(() => {
-    setLoading(false);
-    setAuthToken();
+    const connection = startConnection(handleReceiveMessage, canStartMission);
+
+    return () => {
+      // Cleanup on component unmount
+      connection.stop();
+    };
   }, []);
-  const handleGetDevicesList = async () => {
-    try {
-      const { allData } = await dispatch(getAllData("DeviceGetAll", "SET-DEVICES"));
 
-      if (allData) {
-        setDevices(allData);
-      }
+  const handleReceiveMessage = message => {
+    console.log("1232342", message);
 
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching devices:", error);
-      setLoading(false);
+    if (message) {
+      setActive(message);
     }
+  };
+  const canStartMission = missionId => {
+    setMissionId(missionId); // Update missionId state
+    localStorage.setItem("missionId", missionId); // Save missionId to localStorage
+    setAccess(missionId);
+    setStart(missionId);
+  };
+  // useEffect to save missionId to localStorage whenever it changes
+  useEffect(() => {
+    if (missionId) {
+      localStorage.setItem("missionId", missionId);
+    }
+  }, [missionId]);
+  console.log("activeactive", active);
+  console.log("startMission", startMission);
+
+  const fetchGetMissionById = missionId => {
+    serverApi
+      .get("Mission/GetMissionById", {
+        params: {
+          id: missionId,
+        },
+      })
+      .then(res => {
+        console.log("Mission details:", res.data);
+
+        // Check if endTime is empty or false to stop the interval
+        if (res.data.endTime !== "") {
+          if (res.data.endTime !== "") {
+            successMessage("عملیات متوقف شد");
+          }
+          setStart(false);
+          console.log("Mission has ended. Stopping polling.");
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching mission details:", error);
+        // Optionally handle error
+      });
+
+    // Return interval ID for potential cleanup (though not necessary in this case)
+  };
+
+  const startOperation = () => {
+    setStart(!start);
+    serverApi
+      .get("Mission/StartMission")
+      .then(res => {
+        const missionId = res.data;
+
+        // Start polling for mission details
+        // fetchGetMissionById(missionId);
+      })
+      .catch(error => {
+        console.error("Error starting mission:", error);
+        // Optionally handle error, e.g., set active to false or show an error message
+      });
   };
 
   useEffect(() => {
-    handleGetDevicesList();
+    setAuthToken();
   }, []);
 
-  // Set Titles
-  const titles = [
-    { title: "سریال دستگاه" },
-    { title: "نام دستگاه" },
-    { title: " کد دستگاه " },
-    { title: " وضعیت " },
-  ];
+  // useEffect(() => {
+  //   if (!access) {
+  //       serverApi
+  //         .get("Mission/CheckDeviceConnection")
+  //         .then(res => setActive(res.data))
+  //         .catch(error => {
+  //           console.error("Error:", error);
+  //           // Optionally handle error, e.g., set active to false or show an error message
+  //         });
 
-  const dataShow = devices?.map(item => [
-    item.DeviceSerial !== null || undefined ? item.DeviceSerial : " ",
-    item.DeviceName !== null || undefined ? item.DeviceName : " ",
-    item.DeviceCode !== null || undefined ? item.DeviceCode : " ",
-    item.Status !== null || undefined ? item.Status : "",
-    item.Status !== null || undefined ? item.Status : "",
-  ]);
-  useEffect(() => {
-    if (dataShow && dataShow.length !== 0) {
-      localStorage.setItem("DeviceTable", JSON.stringify(dataShow)); // Store order data in local storage
-      setUserData(dataShow);
-    }
-    if (dataShow && dataShow.length === 0) {
-      setUserData(userData);
-    }
-  }, [dataShow?.length]);
+  //   } // Cleanup function to clear the interval on component unmount
+  // }, [access]); // Empty dependency array ensures the effect runs only once on component mount
+  // console.log("id2342", id);
 
-  // Effect hook to check for changes in order data and fetch new data if needed
-  useEffect(() => {
-    // Get stored order data from local storage
-    const storedUserDataString = localStorage.getItem("DeviceTable");
-
-    // Parse stored order data if it exists, or set to an empty array if null
-    const storedUserData = storedUserDataString ? JSON.parse(storedUserDataString) : [];
-
-    // Update user data state with stored data
-    setUserData(storedUserData);
-
-    // Check if there is user data, dataShow has a length, and they are different
-    if (
-      userData &&
-      dataShow &&
-      dataShow.length !== 0 &&
-      dataShow?.sort().join(",") !== userData?.sort().join(",")
-    ) {
-      handleGetDevicesList(); // Fetch new order data if there are changes
-    }
-  }, [dataShow?.length]);
   return (
-    <>
-      <TableComponent page={"دستگاه"} data={userData || []} title={titles} />
-    </>
+    <Card>
+      <Header active={active}></Header>
+      <div></div>
+    </Card>
   );
-};
+}
 
 export default DevicesList;
+
+export const Card = styled.div`
+  position: relative;
+  width: 100%;
+  background: #fff;
+  box-shadow: inset 0px -30px 99px #0000000a, 0px 8px 36px #a0bdc180;
+  border-radius: 24px;
+  padding: 24px;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+export const Header = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background-color: ${props => (props.active ? "#097969" : "red")};
+`;
+export const Button = styled.div`
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 12px;
+  font-size: 50px;
+  border-width: 2px;
+  border-style: none;
+  border-radius: 24px;
+  box-shadow: 0px 7px 15px #00000033;
+  white-space: nowrap;
+  margin: auto 0;
+  align-items: center;
+  cursor: pointer;
+  transition: 500ms;
+  color: #fff;
+  text-align: center;
+
+  ${props => {
+    switch (props.bg) {
+      case "red":
+        return css`
+          background: red;
+        `;
+      case "blue":
+        return css`
+          background: blue;
+        `;
+      default:
+        return css`
+          background: green;
+        `;
+    }
+  }}
+  &:hover {
+    transform: scale(0.7);
+  }
+`;

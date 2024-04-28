@@ -14,13 +14,13 @@ const serverApi: AxiosInstance = axios.create({
 serverApi.defaults.headers.post["Content-Type"] = "application/json";
 
 export const setAuthToken = () => {
-  // const token = localStorage.getItem("tickment_token");
+  const token = localStorage.getItem("tickment_token");
 
-  // if (token) {
-  //   (serverApi.defaults.headers as any).common["api-token"] = `${token}`;
-  // } else {
-  //   // handle the case when token is falsy
-  // }
+  if (token) {
+    (serverApi.defaults.headers as any).common["authorization"] = `bearer ${token}`;
+  } else {
+    // handle the case when token is falsy
+  }
 };
 
 serverApi.interceptors.response.use(

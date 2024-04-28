@@ -19,6 +19,8 @@ import Faq from "../Pages/Faq/Faq";
 import MyOrder from "../Pages/MyOrder/MyOrder";
 import MyContract from "../Pages/MyContract/MyContract";
 import DevicesList from "../Pages/MyDevices/DevicesList";
+import OperationList from "../Pages/MyOperation/OperationList";
+import SettingList from "../Pages/MySetting/SettingList";
 import MySoftwares from "../Pages/MySoftwares/MySoftwares";
 import MyContractSoft from "../Pages/MyContract/MyContractSoft/MyContractSoft";
 import index from "../Pages/MyContract";
@@ -72,6 +74,8 @@ export default function Body() {
             {/* <Route path="/myapp/bardia" component={Index} /> */}
 
             <Route path="/mydevice" component={DevicesList} />
+            <Route path="/opertion" component={OperationList} />
+            <Route path="/setting" component={SettingList} />
             {/* <Route path="/myorder/payment" component={Index} /> */}
             <Route path="/myorder" component={Index} />
             <Route path="/mycontract/software" component={index} />

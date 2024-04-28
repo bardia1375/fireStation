@@ -5,23 +5,24 @@ import serverApi from "./httpService";
 import { useDispatch } from "react-redux";
 
 interface LoginInfoType {
-  Username: string;
+  UserName: string;
   Password: string;
 }
 
 // userLogin
 export const loginService = async (loginInfo: LoginInfoType) => {
+  console.log("loginInfo", loginInfo);
+
   try {
-    const response = await serverApi.post(`GetToken`, loginInfo, {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+    const response = await serverApi.post("/Account/Login", null, {
+      params: {
+        username: loginInfo.UserName,
+        password: loginInfo.Password,
       },
     });
-    // console.log("response.data", response.data);
 
-    localStorage.setItem("tickment_token", response.data.Data.Token);
-    // const response = axios.post(`${authapi.authapi}login`, loginInfo)
+    localStorage.setItem("tickment_token", response.data);
+
     return response;
   } catch (error) {
     return handleError(error);

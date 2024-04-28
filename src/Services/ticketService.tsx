@@ -28,17 +28,6 @@ export const getAllMyTicketsService = async (
   searchTerm
 ): Promise<AxiosResponse> => {
   console.log("activeactive", active);
-  
-  try {
-    return await serverApi.post(`ticketgetall`, {
-      Status: active == 1 ? "Open" : "",
-      PageNumber: PageNumber,
-      PageSize: PageSize,
-      searchTerm: searchTerm,
-    });
-  } catch (error) {
-    return handleError(error);
-  }
 };
 
 // getTicketByIdService
