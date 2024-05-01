@@ -4,11 +4,11 @@ const PublicRoute = ({ component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) =>
+      render={props =>
         rest.isAuthenticated ? (
           <Redirect
             to={{
-              pathname: "/",
+              pathname: "/mydevice",
             }}
           />
         ) : (

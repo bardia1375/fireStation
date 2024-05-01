@@ -26,12 +26,11 @@ export const setAuthToken = () => {
 serverApi.interceptors.response.use(
   config => {
     console.log("config", config);
-    const expireDate = config.data.Message === "توکن منقضی شده است";
+    const expireDate = config.data.Message === "ExpireToken";
+    console.log("expireDate", config.data.Message);
+
     if (expireDate) {
-      localStorage.removeItem("tickment_token");
-      toast.error("توکن شما منقضی شده است. لطفا دوباره لاگین شوید !", {
-        position: "top-right",
-      });
+ 
     }
     const token = localStorage.getItem("tickment_token"); // Assuming you store the token in localStorage
     if (token) {

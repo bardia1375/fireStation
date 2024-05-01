@@ -17,12 +17,12 @@ export const menues = [
   // },
   {
     url: "/mydevice",
-    title: "گزارش عملیات",
+    title: "عملیات",
     imgUrl: "/images/menuIcon/device.svg",
   },
   {
     url: "/opertion",
-    title: "عملیات",
+    title: "گزارش عملیات",
     imgUrl: "/images/menuIcon/device.svg",
   },
   {

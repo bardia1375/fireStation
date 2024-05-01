@@ -5,18 +5,14 @@ import serverApi, { setAuthToken } from "Services/httpService";
 import LoadingSpinner from "../../Components/publicTable/loading/LoadingSpinner";
 import { successMessage, errorMessage } from "../../Utils/commonFunctions";
 import { startConnection } from "../../signalrService";
-import Operation from "./Operation";
 
 function DevicesList() {
-  const [start, setStart] = useState(true);
-  const [access, setAccess] = useState(true);
-  const [end, setEnd] = useState(false);
-  const [id, setId] = useState("");
+  const [start, setStart] = useState(false);
   const [active, setActive] = useState(false);
 
   const [messages, setMessages] = useState(false);
   const [startMission, setStartMission] = useState([]);
-  const [missionId, setMissionId] = useState(""); // State to hold missionId
+  const [missionId, setMissionId] = useState(true); // State to hold missionId
 
   useEffect(() => {
     const connection = startConnection(handleReceiveMessage, canStartMission);
@@ -35,46 +31,14 @@ function DevicesList() {
     }
   };
   const canStartMission = missionId => {
-    setMissionId(missionId); // Update missionId state
+    console.log("missionIdmissionIdmissionId", missionId);
+    setMissionId(missionId);
     localStorage.setItem("missionId", missionId); // Save missionId to localStorage
-    setAccess(missionId);
-    setStart(missionId);
   };
   // useEffect to save missionId to localStorage whenever it changes
-  useEffect(() => {
-    if (missionId) {
-      localStorage.setItem("missionId", missionId);
-    }
-  }, [missionId]);
+
   console.log("activeactive", active);
   console.log("startMission", startMission);
-
-  const fetchGetMissionById = missionId => {
-    serverApi
-      .get("Mission/GetMissionById", {
-        params: {
-          id: missionId,
-        },
-      })
-      .then(res => {
-        console.log("Mission details:", res.data);
-
-        // Check if endTime is empty or false to stop the interval
-        if (res.data.endTime !== "") {
-          if (res.data.endTime !== "") {
-            successMessage("عملیات متوقف شد");
-          }
-          setStart(false);
-          console.log("Mission has ended. Stopping polling.");
-        }
-      })
-      .catch(error => {
-        console.error("Error fetching mission details:", error);
-        // Optionally handle error
-      });
-
-    // Return interval ID for potential cleanup (though not necessary in this case)
-  };
 
   const startOperation = () => {
     setStart(!start);
@@ -96,24 +60,20 @@ function DevicesList() {
     setAuthToken();
   }, []);
 
-  // useEffect(() => {
-  //   if (!access) {
-  //       serverApi
-  //         .get("Mission/CheckDeviceConnection")
-  //         .then(res => setActive(res.data))
-  //         .catch(error => {
-  //           console.error("Error:", error);
-  //           // Optionally handle error, e.g., set active to false or show an error message
-  //         });
-
-  //   } // Cleanup function to clear the interval on component unmount
-  // }, [access]); // Empty dependency array ensures the effect runs only once on component mount
-  // console.log("id2342", id);
-
   return (
     <Card>
       <Header active={active}></Header>
-      <div></div>
+      <div>
+        {active ? (
+          <>
+            <Button onClick={startOperation} bg={"blue"}>
+              <div> شروع عملیات</div>
+            </Button>
+          </>
+        ) : (
+          <div style={{ fontSize: "32px" }}>در حال برقراری ارتباط با دستگاه</div>
+        )}
+      </div>
     </Card>
   );
 }

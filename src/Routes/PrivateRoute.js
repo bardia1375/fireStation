@@ -4,7 +4,7 @@ const PrivateRoute = ({ component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) =>
+      render={props =>
         rest.isAuthenticated ? (
           React.createElement(component, props)
         ) : (

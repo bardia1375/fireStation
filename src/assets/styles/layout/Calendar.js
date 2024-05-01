@@ -59,7 +59,7 @@ export const CalendarListBody = styled.div``;
 
 export const CalendarListItemContainer = styled.div`
   position: relative;
-  z-index: ${(props) => (props.isDeleteMode ? "2" : "1")};
+  z-index: ${props => (props.isDeleteMode ? "2" : "1")};
   display: grid;
   grid-template-columns: repeat(3, 1.75fr) 2fr;
   align-items: center;
@@ -67,10 +67,8 @@ export const CalendarListItemContainer = styled.div`
   margin-bottom: 18px;
   border-radius: 12px;
   text-align: center;
-  background: ${(props) =>
-    props.isDeleteMode
-      ? "#ff4d4d"
-      : "linear-gradient(267deg, #808080 0%, #bababa 100%)"};
+  background: ${props =>
+    props.isDeleteMode ? "#ff4d4d" : "linear-gradient(267deg, #808080 0%, #bababa 100%)"};
   color: #f9f8f7;
   box-shadow: 0px 7px 15px #00000033;
 `;
@@ -108,7 +106,7 @@ export const CalendarDeleteContainer = styled.div`
   border: 1px solid #cbcbcb;
   background-color: #fff;
   box-shadow: inset 0px -30px 99px #0000000d, 0px 24px 65px #a0bdc180;
-  color: ${(props) => props.theme.color.red};
+  color: ${props => props.theme.color.red};
 `;
 
 export const CloseImage = styled.img`
@@ -166,7 +164,7 @@ export const CalendarAddContainer = styled(CalendarDeleteContainer)`
   color: #8e8e8e;
 
   & > span {
-    color: ${(props) => props.theme.color.secondary};
+    color: ${props => props.theme.color.secondary};
   }
 `;
 
@@ -183,12 +181,12 @@ export const CalendarNameField = styled.div`
   gap: 16px;
 
   & > label {
-    color: ${(props) => props.theme.color.red};
+    color: ${props => props.theme.color.red};
   }
 
   & > input {
     flex: 1;
-    border: 1px solid ${(props) => props.theme.color.red};
+    border: 1px solid ${props => props.theme.color.red};
     border-radius: 6px;
     padding: 4px 8px;
     font-size: 1.2rem;
@@ -515,12 +513,7 @@ export const SingleDayNumberContainer = styled.div`
         case "company holiday":
           textColor = "#daa210";
           hoverStyles = css`
-            background: linear-gradient(
-              172deg,
-              #ffc326 0%,
-              #ff7c00 87%,
-              #e67205 100%
-            );
+            background: linear-gradient(172deg, #ffc326 0%, #ff7c00 87%, #e67205 100%);
           `;
           break;
         case "ramadan day":
@@ -602,12 +595,7 @@ export const SingleDayNumberContainerDatePicker = styled.div`
         case "company holiday":
           textColor = "#daa210";
           hoverStyles = css`
-            background: linear-gradient(
-              172deg,
-              #ffc326 0%,
-              #ff7c00 87%,
-              #e67205 100%
-            );
+            background: linear-gradient(172deg, #ffc326 0%, #ff7c00 87%, #e67205 100%);
           `;
           break;
         case "ramadan day":
@@ -683,8 +671,7 @@ export const DayNumberPopup = styled.div`
         break;
       case "company holiday":
         descriptionColor = "#E67205";
-        bgColor =
-          "linear-gradient(122deg, #FFC326 0%, #FF7C00 87%, #E67205 100%)";
+        bgColor = "linear-gradient(122deg, #FFC326 0%, #FF7C00 87%, #E67205 100%)";
         break;
       case "ramadan day":
         descriptionColor = "#37b3b8";
@@ -766,13 +753,7 @@ export const SetCalendarModalContainer = styled.div`
   border-radius: 24px;
   border: 2px solid #e9e9e9;
   color: #e67205;
-  background: linear-gradient(
-    135deg,
-    #c7c7c7 0%,
-    #e5e5e5 41%,
-    #f8f8f8 76%,
-    #ffffff 100%
-  );
+  background: linear-gradient(135deg, #c7c7c7 0%, #e5e5e5 41%, #f8f8f8 76%, #ffffff 100%);
   box-shadow: 2px 2px 2px #00000033;
 `;
 

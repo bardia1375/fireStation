@@ -28,10 +28,14 @@ const OperationList: React.FC = () => {
   }, []);
   const handleGetOperationList = async () => {
     try {
-      serverApi.get("Mission/GetMissions").then(res => {
+      await serverApi.get("Setting/GetSetting").then(res => {
+        setTime(res.data.time);
+      });
+      await serverApi.get("Mission/GetMissions").then(res => {
         console.log("resres", res.data);
         setDevices(res.data);
       });
+
       if (allData) {
         setDevices(allData);
       }
@@ -46,55 +50,64 @@ const OperationList: React.FC = () => {
   useEffect(() => {
     handleGetOperationList();
   }, []);
-
+  const [time, setTime] = useState();
+  // useEffect(() => {
+  //   serverApi.get("Setting/GetSetting").then(res => {
+  //     setTime(res.data.time);
+  //   });
+  // }, []);
   // Set Titles
   const titles = [
     { title: "ایستگاه" },
+    { title: "تاریخ" },
+
     { title: "زمان آغاز" },
     { title: "زمان پایان" },
     { title: "مدت زمان" },
     { title: "پیام" },
   ];
+  console.log("timetime", time);
 
   const dataShow = devices?.map(item => [
     item.DeviceSerial !== null || undefined ? "ایستگاه اول" : " ایستگاه اول",
+    item.shamsiStartDate !== null || undefined ? item.shamsiStartDate : " ایستگاه اول",
     item.startTime !== null || undefined ? item.startTime : " ",
     item.endTime !== null || undefined ? item.endTime : " ",
     item.duration !== null || undefined ? `${item.duration} ثانیه` : "",
     item.sms !== null || undefined ? "مشاهده" : "مشاهده",
-    item.sms !== null || undefined ? item.sms : "",
+    item.time !== null || undefined ? time : "",
   ]);
-  useEffect(() => {
-    if (dataShow && dataShow.length !== 0) {
-      localStorage.setItem("DeviceTable", JSON.stringify(dataShow)); // Store order data in local storage
-      setUserData(dataShow);
-    }
-    if (dataShow && dataShow.length === 0) {
-      setUserData(userData);
-    }
-  }, [dataShow?.length]);
+  // useEffect(() => {
+  //   if (dataShow && dataShow.length !== 0) {
+  //     localStorage.setItem("DeviceTable", JSON.stringify(dataShow)); // Store order data in local storage
+  //     setUserData(dataShow);
+  //   }
+  //   if (dataShow && dataShow.length === 0) {
+  //     setUserData(userData);
+  //   }
+  // }, [dataShow?.length]);
 
-  // Effect hook to check for changes in order data and fetch new data if needed
-  useEffect(() => {
-    // Get stored order data from local storage
-    const storedUserDataString = localStorage.getItem("DeviceTable");
+  // // Effect hook to check for changes in order data and fetch new data if needed
+  // useEffect(() => {
+  //   // Get stored order data from local storage
+  //   const storedUserDataString = localStorage.getItem("DeviceTable");
 
-    // Parse stored order data if it exists, or set to an empty array if null
-    const storedUserData = storedUserDataString ? JSON.parse(storedUserDataString) : [];
+  //   // Parse stored order data if it exists, or set to an empty array if null
+  //   const storedUserData = storedUserDataString ? JSON.parse(storedUserDataString) : [];
 
-    // Update user data state with stored data
-    setUserData(storedUserData);
+  //   // Update user data state with stored data
+  //   setUserData(storedUserData);
 
-    // Check if there is user data, dataShow has a length, and they are different
-    if (
-      userData &&
-      dataShow &&
-      dataShow.length !== 0 &&
-      dataShow?.sort().join(",") !== userData?.sort().join(",")
-    ) {
-      handleGetOperationList(); // Fetch new order data if there are changes
-    }
-  }, [dataShow?.length]);
+  //   // Check if there is user data, dataShow has a length, and they are different
+  //   if (
+  //     userData &&
+  //     dataShow &&
+  //     dataShow.length !== 0 &&
+  //     dataShow?.sort().join(",") !== userData?.sort().join(",")
+  //   ) {
+  //     handleGetOperationList(); // Fetch new order data if there are changes
+  //   }
+  // }, [dataShow?.length]);
   console.log("devicesdevices", devices);
 
   const AccordionTitle = devices?.map(item => [{ title: "پیام", value: item.sms }]);
@@ -104,7 +117,7 @@ const OperationList: React.FC = () => {
         AccordionTitle={AccordionTitle}
         accordion
         page={"دستگاه"}
-        data={userData || []}
+        data={dataShow || []}
         TableData={userData || []}
         title={titles}
       />

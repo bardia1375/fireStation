@@ -3,7 +3,7 @@ import LoadingSpinner from "../../Components/publicTable/loading/LoadingSpinner"
 import serverApi from "Services/httpService";
 import styled, { css } from "styled-components";
 
-function Operation({ setStart, start }) {
+function Operation({ missionId, setStart, start }) {
   const [test, setTest] = useState();
   useEffect(() => {
     const missionFromStorage = localStorage.getItem("missionId");
@@ -27,10 +27,14 @@ function Operation({ setStart, start }) {
       });
   };
   console.log("ttestest", test);
+  useEffect(() => {
+    const lll = localStorage.getItem("missionId");
+    console.log("miss234234ionId", lll);
+  }, [missionId]);
 
   return (
     <>
-      {test ? (
+      {missionId ? (
         <Button onClick={startOperation} bg={"blue"}>
           <div> شروع عملیات</div>
         </Button>

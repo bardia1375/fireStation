@@ -40,7 +40,7 @@ const ChangePassword = () => {
 
       <div className="signUp">
         <img src="/images/logo-dark.svg" />
-        <p className="signUp__title">باشگاه هواداری جهان گستر</p>
+        <p className="signUp__title">باشگاه هواداری  تیکمنت</p>
         <form action="" className="signUp__from">
           <input
             type="text"

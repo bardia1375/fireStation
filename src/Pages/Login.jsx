@@ -14,7 +14,7 @@ const Login = () => {
     userName: "",
     password: "",
   });
-  
+
   // const token = useParams();
 
   // const token = useParams();
@@ -63,7 +63,7 @@ const Login = () => {
   return (
     <div className="login">
       <div className="login__logo">
-        <p className="login__title  "> جهان‌گستر </p>
+        <p className="login__title  "> تیکمنت </p>
       </div>
       <div className="login__wrapper">
         <p className="login__title  ">پنل مدیریت </p>
@@ -106,10 +106,7 @@ const Login = () => {
             {userLoginLoading && <div className="loader-btn"> </div>}
             ورود
           </span>
-          <Link to="/auth/getCode" className="login__forgotPassword">
-            {" "}
-            رمز عبور خود را به یاد نمی آورید؟{" "}
-          </Link>
+
         </div>
       </div>
     </div>

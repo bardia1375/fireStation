@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import tikment from "assets/General/Asset.png";
 
 export default function Footer({ style }) {
   const { isAuthenticated } = useSelector(state => state.auth);
@@ -42,9 +43,14 @@ export default function Footer({ style }) {
             className="verticalDevider"
             style={{
               background: "var(--secondary)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           />
-          <img style={{ marginRight: "2rem" }} src="/images/company-logo.svg" alt="jahangostar" />
+          <div>
+            <img src={tikment} style={{ width: "50px" }} />
+          </div>
         </div>
       </div>
     </div>

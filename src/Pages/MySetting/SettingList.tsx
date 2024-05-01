@@ -10,19 +10,23 @@ function DevicesList() {
   const [ip, setIp] = useState("");
   const [port, setPort] = useState("");
   const [phone, setPhone] = useState("");
+  const [Time, setTime] = useState(0);
   useEffect(() => {
     serverApi.get("Setting/GetSetting").then(res => {
       console.log("ressdfsdf", res);
       setIp(res.data.deviceIp);
       setPort(res.data.devicePort);
       setPhone(res.data.phoneNumber);
+      setTime(res.data.time)
     });
+    
   }, []);
   const submit = () => {
     const data = {
       phoneNumber: phone,
       ip: ip,
       port: port,
+      Time: Time,
     };
     if (phone && ip && port) {
       serverApi.post("Setting/UpsertSetting", data).then(res => {
@@ -36,6 +40,15 @@ function DevicesList() {
       errorMessage("لطفا تمام فیدها پر شود!");
     }
   };
+  const handleChange = e => {
+    setTime(e.target.value);
+    if (e.target.value > 100) {
+      setTime(99);
+    } else if (e.target.value < 0) {
+      setTime(0);
+    }
+  };
+  
   return (
     <Card>
       <div className="mahi_holder">
@@ -86,6 +99,24 @@ function DevicesList() {
                 width={"500px"}
               />
               <label>First Name</label>
+              <span className="focus-border">
+                <i></i>
+              </span>
+            </div>
+
+            <div className="col-3 input-effect">
+              {" "}
+              <input
+                value={Time}
+                onChange={e => handleChange(e)}
+                className="effect-21"
+                type="text"
+                placeholder="زمان استاندارد عملیات "
+                width={"500px"}
+                min={0}
+                max={59}
+              />
+              <label>زمان استاندارد عملیات</label>
               <span className="focus-border">
                 <i></i>
               </span>

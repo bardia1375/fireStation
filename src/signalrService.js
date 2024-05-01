@@ -3,7 +3,7 @@ import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 const startConnection = (GetDeviceState, CanStartMission) => {
   console.log("salam");
   const connection = new HubConnectionBuilder()
-    .withUrl("https://192.168.20.169:45457/DeviceHub")
+    .withUrl("http://192.168.20.33:5555/DeviceHub")
     .configureLogging(LogLevel.Information)
     .build();
 

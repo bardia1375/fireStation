@@ -64,7 +64,7 @@ export default function UserInfo(params) {
   }, [nameRef2.current?.offsetWidth, nameRef.current?.offsetWidth]);
   return (
     <>
-      <Link to="/profile" className="tickment__navbar__user">
+      <div to="/" className="tickment__navbar__user">
         {/* <div className="tickment__navbar__userName">{`${profileConfig}`}</div> */}
         <PositionNameWrapper ref={nameWrapperRef}>
           <PositionName
@@ -88,7 +88,7 @@ export default function UserInfo(params) {
             اصفهان{" "}
           </PositionName>
         </PositionNameWrapper>
-      </Link>
+      </div>
     </>
   );
 }

@@ -115,10 +115,7 @@ function Navbar() {
                 </>
               ) : (
                 <>
-                  <Link to={"/ticket"} className="tickment__navbar__mytickets">
-                    <img src="/images/mytickets-icon.svg" alt="" />
-                    تیکت‌های من
-                  </Link>
+               
                 </>
               )}
             </div>
@@ -134,9 +131,9 @@ function Navbar() {
                   <img src="/images/logout-logo.svg" alt="" onClick={() => handleLogout()} />
                 </Link>
               </div>
-              <div className="tickment__navbar__logo" style={{ transform: "translateY(4px)" }}>
+              {/* <div className="tickment__navbar__logo" style={{ transform: "translateY(4px)" }}>
                 <img src="/images/Jahangostar Logo2-01-10-15 .png" alt="" />
-              </div>
+              </div> */}
             </div>
           </NavBarContainer>
         </div>
