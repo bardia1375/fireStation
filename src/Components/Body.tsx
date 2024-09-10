@@ -1,37 +1,27 @@
 import Navbar from "./Navbar";
 import Switcher from "./Switcher";
 import Menue from "./Menue";
-import NewTicket from "./../Pages/NewTicket";
+import NewTicket from "../Pages/NewTicket";
 import Blur from "./Commons/Blur";
 import { Switch } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import TicketsList from "./../Pages/TicketsList";
 import Ticket from "../Pages/Ticket";
-import Main from "./../Layouts/Main";
+import Main from "../Layouts/Main";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Home from "../Pages/Home/Home";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Videos from "../Pages/Videos/Videos";
-import Faq from "../Pages/Faq/Faq";
-import MyOrder from "../Pages/MyOrder/MyOrder";
-import MyContract from "../Pages/MyContract/MyContract";
-import DevicesList from "../Pages/MyDevices/DevicesList";
-import OperationList from "../Pages/MyOperation/OperationList";
-import SettingList from "../Pages/MySetting/SettingList";
-import MySoftwares from "../Pages/MySoftwares/MySoftwares";
-import MyContractSoft from "../Pages/MyContract/MyContractSoft/MyContractSoft";
-import index from "../Pages/MyContract";
-import Index from "../Pages/MyOrder";
-import Profile from "../Pages/Profile/Profile";
+
 import ProfileIndex from "../Pages/Profile/Index";
 import { userLogOut } from "../Actions/User/user";
-import MySoftwaresIndex from "../Pages/MySoftwares";
 import { startConnection } from "../signalrService";
 import { useLocation } from "react-router-dom";
 import ProgressBar from "./publicTable/loading/ProgressBar";
+import Devices from "../Pages/Devices/Devices";
+import PersonnelContainer from "Pages/Personnel/PersonnelContainer";
 
 export default function Body() {
   const { isNewTicketModalOpen, isMobileMenueOpen } = useSelector(state => state.modal);
@@ -91,23 +81,14 @@ export default function Body() {
               <Route path="/" exact>
                 <Home handleExit={handleLogout} />
               </Route>
-              <Route path="/ticket/:id" component={Ticket} />
-              <Route path="./ticket" component={Ticket} />
-              <Route path="/mySoftware" component={MySoftwaresIndex} />
-              {/* <Route path="/myapp/bardia" component={Index} /> */}
 
-              <Route path="/mydevice" component={DevicesList} />
-              <Route path="/opertion" component={OperationList} />
-              <Route path="/setting" component={SettingList} />
-              {/* <Route path="/myorder/payment" component={Index} /> */}
-              <Route path="/myorder" component={Index} />
-              <Route path="/mycontract/software" component={index} />
-              <Route path="/mycontract" component={MyContract} />
-              <Route path="/questions" component={Faq} />
-              <Route path="/videos" component={Videos} />
-              <Route path="/myDownloads" component={Ticket} />
-              <Route path="/myConsent" component={Ticket} />
-              <Route path="/profile" component={ProfileIndex} />
+              <Route path="/questions" component={Devices} />
+              <Route path="/devices" component={Devices} />
+              <Route path="/setting" component={Devices} />
+              <Route path="/reports" component={Devices} />
+              <Route path="/stations" component={Devices} />
+              <Route path="/personnel" component={PersonnelContainer} />
+
               {/* <Route path="*" render={() => <Redirect to="/" />} /> */}
             </Switch>
           </Main>
@@ -117,7 +98,7 @@ export default function Body() {
           style={{
             marginTop: "16%",
             display: "flex",
-            flexDirection:"column",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
           }}

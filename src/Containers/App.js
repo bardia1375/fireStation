@@ -15,12 +15,12 @@ const App = () => {
           <PublicRoute
             path="/auth"
             component={Regestration}
-            isAuthenticated={isAuthenticated}
+            isAuthenticated={true}
           />
           <PrivateRoute
             path="/"
             component={Tickment}
-            isAuthenticated={isAuthenticated}
+            isAuthenticated={true}
           />
         </Switch>
       </BrowserRouter>

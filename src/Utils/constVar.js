@@ -16,13 +16,23 @@ export const menues = [
   //   imgUrl: "/images/menuIcon/software.svg",
   // },
   {
-    url: "/mydevice",
-    title: "عملیات",
+    url: "/personnel",
+    title: "کاربران",
     imgUrl: "/images/menuIcon/device.svg",
   },
   {
-    url: "/opertion",
-    title: "گزارش عملیات",
+    url: "/stations",
+    title: "ایستگاه‌ها",
+    imgUrl: "/images/menuIcon/device.svg",
+  },
+  {
+    url: "/reports",
+    title: "گزارشات",
+    imgUrl: "/images/menuIcon/device.svg",
+  },
+  {
+    url: "/devices",
+    title: "دستگاه‌ها",
     imgUrl: "/images/menuIcon/device.svg",
   },
   {

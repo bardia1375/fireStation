@@ -1,0 +1,40 @@
+.personnel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  border: 2px solid red;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 2px solid red;
+  width: 100%;
+}
+
+.card-img {
+  width: 100px;
+  height: 100px;
+  background-color: #45a049;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid red;
+}
+
+.edit-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #45a049;
+}
