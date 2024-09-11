@@ -3,7 +3,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   width: 100%;
-  border: 2px solid red;
 }
 
 .card {
@@ -12,7 +11,6 @@
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-  border: 2px solid red;
   width: 100%;
 }
 
@@ -22,7 +20,6 @@
   background-color: #45a049;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid red;
 }
 
 .edit-btn {

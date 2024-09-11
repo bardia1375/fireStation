@@ -1,6 +1,7 @@
 import Modal from "Components/Modal/Modal";
 import { useState } from "react";
 import Personnel from "./Personnel";
+import FormContainer from "./Form/FormContainer";
 
 const PersonnelContainer = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -22,7 +23,7 @@ const PersonnelContainer = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <div className="personnel-grid">
         {mockData.map(person => (
           <Personnel
@@ -37,14 +38,7 @@ const PersonnelContainer = () => {
 
       <Modal showModal={showModal} closeModal={closeModal} title="Edit User">
         {/* محتوا و فرم ویرایش کاربر */}
-        {selectedUser && (
-          <div>
-            <p>
-              
-            </p>
-            {/* Form for editing the user details */}
-          </div>
-        )}
+        {selectedUser && <FormContainer />}
       </Modal>
     </div>
   );
