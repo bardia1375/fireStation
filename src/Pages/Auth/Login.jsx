@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { userLogin } from "./../Actions/User/user";
+import { userLogin } from "../../Actions/User/user";
 import { useSelector } from "react-redux";
-import { errorMessage } from "../Utils/commonFunctions";
+import { errorMessage } from "../../Utils/commonFunctions";
 import { useParams } from "react-router-dom";
-
+import "./login.css";
 const Login = () => {
   const dispatch = useDispatch();
   const { userLoginLoading } = useSelector(state => state.auth);
@@ -106,7 +106,6 @@ const Login = () => {
             {userLoginLoading && <div className="loader-btn"> </div>}
             ورود
           </span>
-
         </div>
       </div>
     </div>

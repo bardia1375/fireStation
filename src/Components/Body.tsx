@@ -1,19 +1,14 @@
 import Navbar from "./Navbar";
 import Switcher from "./Switcher";
 import Menue from "./Menue";
-import NewTicket from "../Pages/NewTicket";
 import Blur from "./Commons/Blur";
 import { Switch } from "react-router-dom";
 import { Route } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import Ticket from "../Pages/Ticket";
 import Main from "../Layouts/Main";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import Home from "../Pages/Home/Home";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Videos from "../Pages/Videos/Videos";
 
 import ProfileIndex from "../Pages/Profile/Index";
 import { userLogOut } from "../Actions/User/user";
@@ -22,6 +17,8 @@ import { useLocation } from "react-router-dom";
 import ProgressBar from "./publicTable/loading/ProgressBar";
 import Devices from "../Pages/Devices/Devices";
 import PersonnelContainer from "Pages/Personnel/PersonnelContainer";
+import Stations from "Pages/Stations/Stations";
+import StationsContainer from "Pages/Stations/StationsContainer";
 
 export default function Body() {
   const { isNewTicketModalOpen, isMobileMenueOpen } = useSelector(state => state.modal);
@@ -68,7 +65,6 @@ export default function Body() {
           {/* mobile menue */}
           {isMobileMenueOpen && <Menue />}
           {/* new ticket */}
-          {isNewTicketModalOpen && <NewTicket />}
           {/* switch bettwen newTicketBtn and allMyTicket on mobile */}
           {/* effect blur when modal opens */}
           {isNewTicketModalOpen && window.outerWidth > 768 && <Blur />}
@@ -78,15 +74,13 @@ export default function Body() {
               path="/home"
               render={() => (window.outerWidth > 768 ? <></> : <TicketsList />)}
             /> */}
-              <Route path="/" exact>
-                <Home handleExit={handleLogout} />
-              </Route>
+
 
               <Route path="/questions" component={Devices} />
               <Route path="/devices" component={Devices} />
               <Route path="/setting" component={Devices} />
               <Route path="/reports" component={Devices} />
-              <Route path="/stations" component={Devices} />
+              <Route path="/stations" component={StationsContainer} />
               <Route path="/personnel" component={PersonnelContainer} />
 
               {/* <Route path="*" render={() => <Redirect to="/" />} /> */}

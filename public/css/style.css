@@ -562,80 +562,7 @@ aside .ticketsList {
   padding: 0 1rem;
   width: 100px;
 }
-/* login */
-.login {
-  height: calc(100vh - 233px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
-  max-width: 290px;
-  margin: auto;
-}
-.login__wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-.login__title {
-  letter-spacing: 1px;
-  font-size: 32px;
-  color: #04165d;
-  border-bottom: 1px solid var(--secondary);
-  padding: 0 1.3rem;
-  padding-bottom: 0.5rem;
-}
 
-.login__form {
-  display: flex;
-  flex-direction: column;
-  margin: 2rem 0;
-  margin-bottom: 0;
-  width: 100%;
-}
-.login__inputWrapper {
-  position: relative;
-  margin-bottom: 2rem;
-}
-.login__input {
-  border-radius: 1rem;
-  outline: none;
-  border: none;
-  padding: 1.2rem 3.5rem 0.8rem 1rem;
-  border-radius: 2rem;
-  width: 100%;
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: inset 0px 1px 3px #00000029;
-  font-size: 18px;
-}
-.login__inputIcon {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  width: 13px;
-  transform: translate(0, -50%);
-}
-.login__action {
-  margin-bottom: 1rem;
-  width: 100%;
-  text-align: center;
-}
-.login__btn {
-  background: transparent linear-gradient(271deg, #75c9db -3%, #04165d 100%) 0% 0% no-repeat
-    padding-box;
-  padding: 0.5rem;
-  border-radius: 3rem;
-  display: flex;
-  color: white;
-  text-align: center;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  margin-bottom: 1rem;
-}
 .loader-btn {
   border: 2px solid #f3f3f3;
   border-radius: 50%;
@@ -653,33 +580,10 @@ aside .ticketsList {
     transform: rotate(360deg);
   }
 }
-.login__forgotPassword {
-  color: #daa210;
-  font-size: 20px;
-}
-.login__socialMedia-mobile {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-.Tickment + .tickment__footer .login__socialMedia-mobile {
-  display: none;
-  text-align: center;
-  margin-bottom: 1rem;
-}
 
-.login__socialMedia {
-  text-align: center;
-  display: none;
-}
 
-.login__socialMedia-mobile img {
-  margin: 0 0.9rem;
-  width: 30px;
-}
-.login__socialMedia img {
-  width: 37px;
-  padding: 0 0.5rem;
-}
+
+
 
 .verticalDevider {
   width: 1px;
@@ -688,18 +592,7 @@ aside .ticketsList {
   margin: auto 0;
 }
 
-.login__logo {
-  display: none;
-  width: 100%;
-  text-align: center;
-  background: lightblue;
-  border-radius: 2rem 2rem 0 0;
-  padding: 1rem 0;
-}
-.login__logo img {
-  width: 135px;
-  height: 49px;
-}
+
 /* tickment */
 .Tickment {
   overflow-x: hidden;
@@ -1747,58 +1640,7 @@ aside .ticketsList {
     box-shadow: unset;
   }
   /* login */
-  .login {
-    max-width: unset;
-    width: 467px;
-    height: calc(100vh - 174px);
-  }
-  .login__logo {
-    display: block;
-    background: transparent linear-gradient(357deg, #ffffff 0%, #dff1f5 141%) 0% 0% no-repeat
-      padding-box;
-  }
-  .login__wrapper {
-    background: transparent linear-gradient(153deg, #ffffff 0%, #ececec57 100%) 0% 0% no-repeat
-      padding-box;
-    box-shadow: inset 0px 0px 80px #75c9db80, 0px 1px 3px #8125254d;
-    border-radius: 0 0 2rem 2rem;
-    padding: 2rem 0rem;
-  }
 
-  .login__form {
-    align-items: center;
-    padding: 0 3rem;
-  }
-  .login__inputWrapper {
-    width: 327px;
-  }
-  .login__action {
-    text-align: center;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: flex-start;
-    justify-content: space-between;
-    width: 336px;
-  }
-  .login__btn {
-    padding: unset;
-    font-size: 24px;
-    flex: 0 0 109px;
-    transition: 0.5s ease-out;
-    height: 39px;
-  }
-  .login__btn:hover {
-    transform: scale(1.07, 1.07);
-  }
-  .login__forgotPassword {
-    font-size: 18px;
-    margin-left: 2rem;
-    transition: 0.5s ease-out;
-    margin-top: 5px;
-  }
-  .login__forgotPassword:hover {
-    transform: scale(1.07, 1.07);
-  }
 
   /* dashbord */
   .desktop-dashbord {
@@ -2037,14 +1879,7 @@ aside .ticketsList {
     transform: scale(1.1, 1.1);
   }
 
-  .login__socialMedia-mobile {
-    display: none !important;
-  }
 
-  .login__socialMedia {
-    display: flex;
-    margin: 0 2rem;
-  }
   .tickment__copyRight {
     border-radius: 3rem 3rem 0 0;
     width: max-content;
