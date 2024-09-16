@@ -75,13 +75,14 @@ export default function Body() {
               render={() => (window.outerWidth > 768 ? <></> : <TicketsList />)}
             /> */}
 
-
               <Route path="/questions" component={Devices} />
               <Route path="/devices" component={Devices} />
               <Route path="/setting" component={Devices} />
               <Route path="/reports" component={Devices} />
               <Route path="/stations" component={StationsContainer} />
-              <Route path="/personnel" component={PersonnelContainer} />
+              <Route path="/personnel" exact component={PersonnelContainer} />
+              {/* Route with :id for editing personnel */}
+              <Route path="/personnel/:id" component={PersonnelContainer} />
 
               {/* <Route path="*" render={() => <Redirect to="/" />} /> */}
             </Switch>

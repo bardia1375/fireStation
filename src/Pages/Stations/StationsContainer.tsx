@@ -38,6 +38,247 @@ const StationsContainer = () => {
       connect: "",
     },
     {
+      id: 1,
+      firstName: "John",
+      lastName: "Doe",
+      imgUrl: "/path-to-image-1.jpg",
+      missionNumber: "11",
+      clockMission: "1",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 2,
+      firstName: "Jane",
+      lastName: "Smith",
+      imgUrl: "/path-to-image-2.jpg",
+      missionNumber: "12",
+      clockMission: "2",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 3,
+      firstName: "Michael",
+      lastName: "Johnson",
+      imgUrl: "/path-to-image-3.jpg",
+      missionNumber: "13",
+      clockMission: "3",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 1,
+      firstName: "John",
+      lastName: "Doe",
+      imgUrl: "/path-to-image-1.jpg",
+      missionNumber: "11",
+      clockMission: "1",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 2,
+      firstName: "Jane",
+      lastName: "Smith",
+      imgUrl: "/path-to-image-2.jpg",
+      missionNumber: "12",
+      clockMission: "2",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 3,
+      firstName: "Michael",
+      lastName: "Johnson",
+      imgUrl: "/path-to-image-3.jpg",
+      missionNumber: "13",
+      clockMission: "3",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 1,
+      firstName: "John",
+      lastName: "Doe",
+      imgUrl: "/path-to-image-1.jpg",
+      missionNumber: "11",
+      clockMission: "1",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 2,
+      firstName: "Jane",
+      lastName: "Smith",
+      imgUrl: "/path-to-image-2.jpg",
+      missionNumber: "12",
+      clockMission: "2",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 3,
+      firstName: "Michael",
+      lastName: "Johnson",
+      imgUrl: "/path-to-image-3.jpg",
+      missionNumber: "13",
+      clockMission: "3",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 1,
+      firstName: "John",
+      lastName: "Doe",
+      imgUrl: "/path-to-image-1.jpg",
+      missionNumber: "11",
+      clockMission: "1",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 2,
+      firstName: "Jane",
+      lastName: "Smith",
+      imgUrl: "/path-to-image-2.jpg",
+      missionNumber: "12",
+      clockMission: "2",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 3,
+      firstName: "Michael",
+      lastName: "Johnson",
+      imgUrl: "/path-to-image-3.jpg",
+      missionNumber: "13",
+      clockMission: "3",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 1,
+      firstName: "John",
+      lastName: "Doe",
+      imgUrl: "/path-to-image-1.jpg",
+      missionNumber: "11",
+      clockMission: "1",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 2,
+      firstName: "Jane",
+      lastName: "Smith",
+      imgUrl: "/path-to-image-2.jpg",
+      missionNumber: "12",
+      clockMission: "2",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 3,
+      firstName: "Michael",
+      lastName: "Johnson",
+      imgUrl: "/path-to-image-3.jpg",
+      missionNumber: "13",
+      clockMission: "3",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 1,
+      firstName: "John",
+      lastName: "Doe",
+      imgUrl: "/path-to-image-1.jpg",
+      missionNumber: "11",
+      clockMission: "1",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 2,
+      firstName: "Jane",
+      lastName: "Smith",
+      imgUrl: "/path-to-image-2.jpg",
+      missionNumber: "12",
+      clockMission: "2",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 3,
+      firstName: "Michael",
+      lastName: "Johnson",
+      imgUrl: "/path-to-image-3.jpg",
+      missionNumber: "13",
+      clockMission: "3",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 1,
+      firstName: "John",
+      lastName: "Doe",
+      imgUrl: "/path-to-image-1.jpg",
+      missionNumber: "11",
+      clockMission: "1",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 2,
+      firstName: "Jane",
+      lastName: "Smith",
+      imgUrl: "/path-to-image-2.jpg",
+      missionNumber: "12",
+      clockMission: "2",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 3,
+      firstName: "Michael",
+      lastName: "Johnson",
+      imgUrl: "/path-to-image-3.jpg",
+      missionNumber: "13",
+      clockMission: "3",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 3,
+      firstName: "Michael",
+      lastName: "Johnson",
+      imgUrl: "/path-to-image-3.jpg",
+      missionNumber: "13",
+      clockMission: "3",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 3,
+      firstName: "Michael",
+      lastName: "Johnson",
+      imgUrl: "/path-to-image-3.jpg",
+      missionNumber: "13",
+      clockMission: "3",
+      name: "",
+      connect: "",
+    },
+    {
+      id: 1,
+      firstName: "John",
+      lastName: "Doe",
+      imgUrl: "/path-to-image-1.jpg",
+      missionNumber: "11",
+      clockMission: "1",
+      name: "",
+      connect: "",
+    },
+
+    {
       id: 20,
       firstName: "David",
       lastName: "Williams",
@@ -58,21 +299,25 @@ const StationsContainer = () => {
   };
 
   return (
-    <div style={{ width: "100%",position:"relative" }}>
-      <div className="personnel-grid">
-        {mockData.map(person => (
-          <Stations
-            key={person.id}
-            firstName={person.firstName}
-            lastName={person.lastName}
-            imgUrl={person.imgUrl}
-            onEdit={() => handleEdit(person)}
-            missionNumber={person.missionNumber}
-            clockMission={person.clockMission}
-            name={person.name}
-            connect={person.connect}
-          />
-        ))}
+    <div style={{ width: "100%", position: "relative" }}>
+      <div
+        style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr ", gap: "8px" }}
+      >
+        {Array(28)
+          .fill("")
+          .map(person => (
+            <Stations
+              key={person.id}
+              firstName={person.firstName}
+              lastName={person.lastName}
+              imgUrl={person.imgUrl}
+              onEdit={() => handleEdit(person)}
+              missionNumber={person.missionNumber}
+              clockMission={person.clockMission}
+              name={person.name}
+              connect={person.connect}
+            />
+          ))}
       </div>
     </div>
   );

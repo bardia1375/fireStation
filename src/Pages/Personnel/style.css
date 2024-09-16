@@ -1,17 +1,17 @@
 .personnel-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   width: 100%;
 }
 
 .card {
-  background-color: #fff;
-  padding: 20px;
+  background-color: red;
+  padding: 12px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 100%;
+  width: 50%;
 }
 
 .card-img {

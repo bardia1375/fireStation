@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { errorMessage } from "../../Utils/commonFunctions";
 import { useParams } from "react-router-dom";
 import "./login.css";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 const Login = () => {
   const dispatch = useDispatch();
   const { userLoginLoading } = useSelector(state => state.auth);
@@ -60,6 +62,22 @@ const Login = () => {
     // // user.append("Password", "1");
     await dispatch(userLogin(userLoginInfo));
   };
+  const fetchTodoList = () => {
+    axios.get("qwewq");
+  };
+  const { isLoading, isError, data, error } = useQuery({
+    queryKey: ["todos"],
+    queryFn: fetchTodoList,
+  });
+
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+
+  // if (isError) {
+  //   return <span>Error: {error.message}</span>;
+  // }
+
   return (
     <div className="login">
       <div className="login__logo">

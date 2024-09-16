@@ -30,9 +30,9 @@ export const Dropdown = ({
   }, [firstData]);
 
   const handleToggleDrop = () => setShowDrop(prevState => !prevState);
-  const handleSetSelected =( text,id )=> {
+  const handleSetSelected = (text, id) => {
     setSelected(text);
-    setSelectedState(text,id);
+    setSelectedState(text, id);
   };
   // Returned Selected value
   useEffect(() => {

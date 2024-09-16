@@ -3,13 +3,18 @@ import styled, { css } from "styled-components";
 import "./style.css";
 import serverApi from "Services/httpService";
 import { successMessage, errorMessage } from "Utils/commonFunctions";
+import { useMutation } from "@tanstack/react-query";
+import { Link, useParams } from "react-router-dom";
 
-function Form() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [status, setStatus] = useState("");
-  const [password, setPassword] = useState("");
+function Form({ getData, setShowModal, mockData }) {
+  const [Firstname, setFirstName] = useState("");
+  const [Lastname, setLastName] = useState("");
+  const [IsActive, setIsActive] = useState("غیرفعال");
+  const [Password, setPassword] = useState("");
   const [accessType, setAccessType] = useState(""); // "admin", "systemUser", "regularUser"
+  const [Username, setUsername] = useState(""); // "admin", "systemUser", "regularUser"
+  const params = useParams();
+  console.log("params", params);
 
   const handleAccessSwitch = type => {
     setAccessType(prev => {
@@ -20,29 +25,55 @@ function Form() {
     });
     // setAccessType(type);
   };
-
-  const submit = () => {
+  const postUserData = () => {
     const data = {
-      firstName,
-      lastName,
-      status,
-      password,
+      Firstname,
+      Lastname,
+      IsActive,
+      Password,
       accessType,
+      Username,
     };
-
-    if (firstName && lastName && status && password && accessType) {
-      serverApi.post("Setting/UpsertSetting", data).then(res => {
+    return serverApi
+      .post("/usermanagment/createuser", data)
+      .then(res => {
         if (res.data) {
           successMessage("عملیات با موفقیت انجام شد.");
         } else {
           errorMessage("عملیات با شکست مواجه شد!");
         }
+      })
+      .catch(() => {
+        errorMessage("عملیات با شکست مواجه شد!");
       });
-    } else {
-      errorMessage("لطفا تمام فیدها پر شود!");
-    }
   };
 
+  const { mutate, isError, isLoading } = useMutation({
+    mutationKey: ["userData"],
+    mutationFn: postUserData,
+  });
+
+  const submit = () => {
+    if (!Firstname || !Lastname || !IsActive || !Password || !accessType || !Username) {
+      errorMessage("لطفا تمام فیدها پر شود!");
+      return;
+    }
+
+    const data = {
+      Firstname,
+      Lastname,
+      IsActive,
+      Password,
+      accessType,
+      Username,
+    };
+    mutate(data);
+    getData(data);
+  };
+
+  const onclose = () => {
+    setShowModal(false);
+  };
   return (
     <Card>
       <div className="mahi_holder">
@@ -54,7 +85,7 @@ function Form() {
 
             <div className="col-3 input-effect">
               <input
-                value={firstName}
+                value={Firstname}
                 onChange={e => setFirstName(e.target.value)}
                 className="effect-21"
                 type="text"
@@ -68,7 +99,7 @@ function Form() {
 
             <div className="col-3 input-effect">
               <input
-                value={lastName}
+                value={Lastname}
                 onChange={e => setLastName(e.target.value)}
                 className="effect-21"
                 type="text"
@@ -81,10 +112,24 @@ function Form() {
             </div>
 
             <div className="col-3 input-effect">
+              <input
+                value={Username}
+                onChange={e => setUsername(e.target.value)}
+                className="effect-21"
+                type="text"
+                placeholder="نام کاربری"
+              />
+              <label>نام کاربری</label>
+              <span className="focus-border">
+                <i></i>
+              </span>
+            </div>
+
+            <div className="col-3 input-effect">
               {" "}
               <input
-                value={firstName}
-                onChange={e => setFirstName(e.target.value)}
+                value={Password}
+                onChange={e => setPassword(e.target.value)}
                 className="effect-21"
                 type="password"
                 placeholder="رمز عبور"
@@ -103,8 +148,8 @@ function Form() {
                 <SwitchContainer>
                   <SwitchInput
                     type="checkbox"
-                    checked={status === "فعال"}
-                    onChange={() => setStatus(prev => (prev === "فعال" ? "غیرفعال" : "فعال"))}
+                    checked={IsActive === "فعال"}
+                    onChange={() => setIsActive(prev => (prev === "فعال" ? "غیرفعال" : "فعال"))}
                   />
                   <Slider />
                 </SwitchContainer>
@@ -158,9 +203,14 @@ function Form() {
         <Button className="col-3 input-effect" style={{ width: "10vw" }} onClick={submit}>
           ثبت
         </Button>
-        <Button className="col-3 input-effect" style={{ width: "10vw" }} onClick={submit}>
+        <Link
+          to="/personnel"
+          className="col-3 input-effect"
+          style={{ width: "10vw" }}
+          onClick={onclose}
+        >
           پشیمان شدم
-        </Button>
+        </Link>
       </div>
     </Card>
   );

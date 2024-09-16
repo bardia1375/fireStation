@@ -7,7 +7,7 @@
 
 .card {
   background-color: #fff;
-  padding: 20px;
+  padding:8px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -16,8 +16,8 @@
 }
 
 .card-img {
-  width:80px;
-  height: 80px;
+  width:10vh;
+  height: 10vh;
   background-color: #45a049;
   object-fit: cover;
   border-radius: 50%;
