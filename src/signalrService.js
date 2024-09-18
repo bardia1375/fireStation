@@ -1,13 +1,10 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
-import * as signalR from "@microsoft/signalr";
 
-let connection;
-
-const startConnection = (GetDeviceState, CanStartMission) => {
-  console.log("salam");
+const startConnection = (updateDeviceState) => {
   const connection = new HubConnectionBuilder()
     .withUrl("http://192.168.20.33:2224/Stations")
     .configureLogging(LogLevel.Information)
+    .withAutomaticReconnect() // اضافه کردن قابلیت اتصال مجدد خودکار
     .build();
 
   connection
@@ -15,26 +12,20 @@ const startConnection = (GetDeviceState, CanStartMission) => {
     .then(() => {
       console.log("SignalR Connected!");
 
-      // Register client method
-      connection.on("stations", message => {
+      // ثبت تابع برای دریافت پیام‌ها از سرور
+      connection.on("getStations", (message) => {
         console.log("Received message from server:", message);
-        // Handle received messages
-        GetDeviceState(message);
+        updateDeviceState(message); // به روز رسانی داده‌ها
       });
-
-      connection.on("stations", missionId => {
-        console.log("Server can start mission with ID:", missionId);
-        // Handle the canStartMission event here
-        // For example, you can trigger some action in your React component
-        CanStartMission(missionId);
-      });
-
-      // Example: Invoke server method
-      connection.invoke("SendMessage", "Hello from client!");
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("SignalR Connection Error: ", error);
     });
+
+  // مدیریت قطع شدن اتصال و اتصال مجدد
+  connection.onclose((error) => {
+    console.log("Connection closed due to error. Trying to reconnect...", error);
+  });
 
   return connection;
 };

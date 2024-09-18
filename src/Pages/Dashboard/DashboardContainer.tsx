@@ -343,14 +343,16 @@ const DashboardContainer = () => {
   // if (isError) return <p>Error fetching data</p>;
   const [data, setData] = useState([]);
 
+  const [deviceState, setDeviceState] = useState(null);
+
   useEffect(() => {
-    const connection = startConnection(handleReceiveMessage, canStartMission);
+    const connection = startConnection(setDeviceState);
 
     return () => {
-      // Cleanup on component unmount
-      connection.stop();
+      connection.stop(); // قطع اتصال هنگامUnmount
     };
   }, []);
+  console.log("deviceState", deviceState);
 
   const handleReceiveMessage = message => {
     console.log("1232342", message);

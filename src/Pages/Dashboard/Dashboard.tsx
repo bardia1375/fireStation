@@ -18,7 +18,7 @@ const Dashboard = ({
   dataLength,
   id,
 }) => {
-  const [clockMission, setClockMission] = useState(initialClockMission || "00 : 00");
+  const [clockMission, setClockMission] = useState("00 : 01" || "00 : 01");
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
