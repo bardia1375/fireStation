@@ -23,10 +23,10 @@ const Tickment = ({ location }) => {
        
       <Body location={location} />
 
-      <Footer style={{          position: "absolute",
+      {/* <Footer style={{          position: "absolute",
           bottom: "0px",
           right: "50%",
-          transform: "translate(50%, 0)"}}/>
+          transform: "translate(50%, 0)"}}/> */}
     </div>
   );
 };

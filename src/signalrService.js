@@ -1,9 +1,13 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import * as signalR from "@microsoft/signalr";
+
+let connection;
+
 
 const startConnection = (GetDeviceState, CanStartMission) => {
   console.log("salam");
   const connection = new HubConnectionBuilder()
-    .withUrl("http://192.168.20.33:5555/DeviceHub")
+    .withUrl("http://192.168.20.33:2224")
     .configureLogging(LogLevel.Information)
     .build();
 
@@ -37,3 +41,20 @@ const startConnection = (GetDeviceState, CanStartMission) => {
 };
 
 export { startConnection };
+
+export const createSignalRConnection = () => {
+  connection = new signalR.HubConnectionBuilder()
+    .withUrl("https://your-signalr-endpoint") // اینجا URL مربوط به سرور SignalR خود را وارد کنید
+    .withAutomaticReconnect() // اتصال دوباره در صورت قطع
+    .build();
+
+  return connection;
+};
+
+export const subscribeToUpdates = callback => {
+  if (connection) {
+    connection.on("ReceiveUpdate", data => {
+      callback(data);
+    });
+  }
+};

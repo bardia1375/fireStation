@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import "./style.css";
 import serverApi from "Services/httpService";
 import { successMessage, errorMessage } from "Utils/commonFunctions";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { , useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { editStationData, editUserData, postStationData } from "../Services/services";
 
@@ -90,7 +90,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     mutationFn: editStationData,
     onSuccess: () => {
       // پس از موفقیت در mutate، کوئری با کلید "users" مجدداً بازآوری می‌شود
-      queryClient.invalidateQueries(["stations"]);
+      queryClient.invalidateQueries(["dashboard"]);
       setShowModal(false);
     },
   });
@@ -263,7 +263,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
           ثبت
         </Button>
         <Link
-          to="/stations"
+          to="/dashboard"
           className="col-3 input-effect"
           style={{ width: "10vw" }}
           onClick={onclose}

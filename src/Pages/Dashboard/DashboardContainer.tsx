@@ -1,13 +1,18 @@
 import Modal from "Components/Modal/Modal";
 import { useEffect, useState } from "react";
-import Stations from "./Stations";
 import styled, { css } from "styled-components";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import FormContainer from "./Form/FormContainer";
-import { getStations } from "./Services/services";
+import { GetMissionSettings, getStations } from "./Services/services";
+import Dashboard from "./Dashboard";
+import {
+  createSignalRConnection,
+  startConnection,
+  subscribeToUpdates,
+} from "../../signalrService.js";
 
-const StationsContainer = () => {
+const DashboardContainer = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [userData, setUserData] = useState([]);
@@ -20,10 +25,9 @@ const StationsContainer = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["stations"],
+    queryKey: ["dashboard"],
     queryFn: getStations,
   });
-  console.log(apiData);
 
   // Mock data state
   const [mockData, setMockData] = useState([
@@ -332,12 +336,31 @@ const StationsContainer = () => {
     setUserData(data);
   };
 
-  const Submit = data => {
-    console.log("userData", userData);
-  };
-
   // if (isLoading) return <p>Loading...</p>;
   // if (isError) return <p>Error fetching data</p>;
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    // ایجاد اتصال SignalR
+    const connection = createSignalRConnection();
+
+    // شروع اتصال به SignalR
+    startConnection(connection);
+
+    // مشترک شدن در به‌روزرسانی‌های SignalR
+    subscribeToUpdates(connection, newData => {
+      setData(prevData => [...prevData, newData]); // داده‌های جدید را به داده‌های فعلی اضافه می‌کند
+    });
+
+    // برگرداندن تابع تمیزکاری برای قطع ارتباط در صورت خروج از کامپوننت
+    return () => {
+      if (connection) {
+        connection.stop();
+      }
+    };
+  }, []);
+
+  console.log("signalRdata", data);
 
   return (
     <SContainer style={{ width: "100%", position: "relative" }}>
@@ -347,7 +370,7 @@ const StationsContainer = () => {
         {Array(28)
           .fill({ id: 0 })
           .map((station, index) => (
-            <Stations 
+            <Dashboard
               id={station.id + index}
               key={station.id}
               firstName={station.firstName}
@@ -363,14 +386,14 @@ const StationsContainer = () => {
             />
           ))}
       </div>
-      <Modal showModal={showModal} closeModal={closeModal} Submit={Submit}>
+      {/* <Modal showModal={showModal} closeModal={closeModal} Submit={Submit}>
         <FormContainer getData={getData} setShowModal={setShowModal} mockData={mockData} />
-      </Modal>
+      </Modal> */}
     </SContainer>
   );
 };
 
-export default StationsContainer;
+export default DashboardContainer;
 export const SContainer = styled.div`
   position: relative;
   width: 100%;

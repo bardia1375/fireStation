@@ -17,10 +17,10 @@ import { useLocation } from "react-router-dom";
 import ProgressBar from "./publicTable/loading/ProgressBar";
 import Devices from "../Pages/Devices/Devices";
 import PersonnelContainer from "Pages/Personnel/PersonnelContainer";
-import Stations from "Pages/Stations/Stations";
-import StationsContainer from "Pages/Stations/StationsContainer";
 import Report from "Pages/Report/Report";
 import Setting from "Pages/Setting/Setting";
+import DashboardContainer from "Pages/Dashboard/DashboardContainer";
+import Stations from "Pages/Stations/Stations";
 
 export default function Body() {
   const { isNewTicketModalOpen, isMobileMenueOpen } = useSelector(state => state.modal);
@@ -81,8 +81,9 @@ export default function Body() {
               <Route path="/devices" component={Devices} />
               <Route path="/setting" component={Setting} />
               <Route path="/reports" component={Report} />
-              <Route path="/stations" exact component={StationsContainer} />
-              <Route path="/stations/:id" component={StationsContainer} />
+              <Route path="/stations" exact component={Stations} />
+              <Route path="/dashboard" exact component={DashboardContainer} />
+              <Route path="/Dashboard/:id" component={DashboardContainer} />
               <Route path="/personnel" exact component={PersonnelContainer} />
               {/* Route with :id for editing personnel */}
               <Route path="/personnel/:id" component={PersonnelContainer} />

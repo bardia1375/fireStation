@@ -7,7 +7,10 @@ const Modal = ({ showModal, closeModal, title, children, Submit, footer }) => {
 
   return (
     <div className={`modal-backdrop ${showModal ? "fade-in" : "fade-out"}`}>
-      <div className={`modal-content ${showModal ? "slide-in" : "slide-out"}`}>
+      <div
+        style={{ width: "20%" }}
+        className={`modal-content ${showModal ? "slide-in" : "slide-out"}`}
+      >
         <h2>{title}</h2>
         <div className="modal-body">{children}</div>
         {footer}

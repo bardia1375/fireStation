@@ -1,24 +1,30 @@
 import { Link, useParams } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
+import { BsFillPersonPlusFill } from "react-icons/bs";
+import { IoPersonSharp } from "react-icons/io5";
+import { FaEdit } from "react-icons/fa";
 
 const Personnel = ({ id, firstName, lastName, imgUrl, onEdit, dataLength, setShowModal }) => {
   return (
     <>
       {!dataLength ? (
         <div className="card">
-          <img src={imgUrl} alt={`${firstName} ${lastName}`} className="card-img" />
+          {/* <img src={imgUrl} className="card-img" /> */}
+          <IoPersonSharp className="personnel-img" color="gray" />
+
           <h3>
             {firstName} {lastName}
           </h3>
-          <Link to={`/personnel/${id}`} className="edit-btn" onClick={onEdit}>
-            Editd
+          <Link to={`/personnel/${id}`} className="PersonnelEdit-btn" onClick={onEdit}>
+            <FaEdit size={16} />
           </Link>
         </div>
       ) : (
         <div className="card">
           <div className="card add-card">
             <div className="add-card-content" onClick={() => setShowModal(true)}>
-              <FaPlus className="plus-icon" /> {/* آیکون به‌علاوه */}
+              <FaPlus className="plus-icon" color="#ffa700" /> {/* آیکون به‌علاوه */}
+              {/* <BsFillPersonPlusFill /> */}
               <span className="add-text">افزودن</span>
             </div>
           </div>

@@ -1,16 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Damion|Muli:400,600");
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap"); /* فونت شبیه به اعداد دیجیتال */
 
-body {
-  font-family: "Muli", sans-serif;
-  background-image: url("../../../../public/images/firestation.jpeg");
-  background-repeat: no-repeat;
-  background-size: cover; /* Make the background cover the entire page */
-  background-position: center center; /* Center the background image */
-  background-attachment: fixed; /* Keep the background fixed while scrolling */
-  height: 100vh; /* Ensure body takes full viewport height */
-  margin: 0; /* Remove any default margin */
-}
 
 h2 {
   font-family: "Damion", cursive;
@@ -151,29 +140,4 @@ select {
   font-size: 12px;
   color: #4caf50;
   transition: 0.3s;
-}
-.station-header {
-  background-color: #979797;
-  color: white;
-  padding: 4px;
-  text-align: center;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-}
-/* استایل ساعت دیجیتال */
-.digital-clock {
-  font-family: "Orbitron", sans-serif; /* فونت دیجیتالی */
-  /* font-size: 32px; */
-  background-color: #2e2e2e; /* پس‌زمینه مشکی */
-  color: #00ff00; /* رنگ اعداد سبز */
-  text-align: center;
-  padding: 4px 8px;
-  border-radius: 8px;
-  /* margin: 16px 0; */
-  display: inline-block;
-  width: 100%;
-  box-shadow: inset 0 0 10px #00ff00;
 }

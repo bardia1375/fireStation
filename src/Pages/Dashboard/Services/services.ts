@@ -1,3 +1,4 @@
+import axios from "axios";
 import serverApi from "Services/httpService";
 
 export const getStations = async () => {
@@ -14,5 +15,13 @@ export const editStationData = async item => {
 };
 export const postStationData = async item => {
   const { data } = await serverApi.put(`/UserManagement/CreateStations`, item);
+  return data.data;
+};
+export const StartMission = async item => {
+  const { data } = await serverApi.put(`/Missions/StartMission`, item);
+  return data.data;
+};
+export const GetMissionSettings = async stationId => {
+  const { data } = await axios.get(`http://192.168.20.33:2224/Stations`);
   return data.data;
 };

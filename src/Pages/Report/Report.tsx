@@ -62,6 +62,17 @@ const Report: React.FC = () => {
 
       setLoading(false);
     } catch (error) {
+      setDevices([
+        {
+          DeviceSerial: " ایستگاه اول",
+          shamsiStartDate: "1403-12-04",
+          startTime: " ",
+          endTime: " ",
+          duration: "",
+          sms: "مشاهده",
+          time: "",
+        },
+      ]);
       console.error("Error fetching devices:", error);
       setLoading(false);
     }
@@ -80,21 +91,22 @@ const Report: React.FC = () => {
   const titles = [
     { title: "ایستگاه" },
     { title: "تاریخ" },
-
+    { title: "کاربر" },
     { title: "زمان آغاز" },
     { title: "زمان پایان" },
     { title: "مدت زمان" },
-    { title: "پیام" },
+    { title: "وضعیت" },
   ];
   console.log("devicesdevicesdevices", devices);
 
   const dataShow = devices?.map(item => [
     item.DeviceSerial !== null || undefined ? "ایستگاه اول" : " ایستگاه اول",
-    item.shamsiStartDate !== null || undefined ? "345" : " ایستگاه اول",
-    item.startTime !== null || undefined ? "345" : " ",
-    item.endTime !== null || undefined ? "345" : " ",
-    item.duration !== null || undefined ? `"345" ثانیه` : "",
-    item.sms !== null || undefined ? "مشاهده" : "مشاهده",
+    item.shamsiStartDate !== null || undefined ? "1403-12-04" : "",
+    item.startTime !== null || undefined ? "12:22" : " ",
+    item.endTime !== null || undefined ? "13:45" : " ",
+    item.duration !== null || undefined ? `345 ثانیه` : "",
+    item.sms !== null || undefined ? "عادی" : "مشاهده",
+    item.time !== null || undefined ? "345" : "",
     item.time !== null || undefined ? "345" : "",
   ]);
   // useEffect(() => {

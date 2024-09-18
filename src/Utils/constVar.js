@@ -21,8 +21,13 @@ export const menues = [
     imgUrl: "/images/menuIcon/people.svg",
   },
   {
-    url: "/stations",
+    url: "/dashboard",
     title: "داشبورد",
+    imgUrl: "/images/menuIcon/device.svg",
+  },
+  {
+    url: "/stations",
+    title: "ایستگاه‌ها",
     imgUrl: "/images/menuIcon/device.svg",
   },
   {
