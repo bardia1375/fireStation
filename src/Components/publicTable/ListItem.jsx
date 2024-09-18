@@ -37,7 +37,6 @@ import serverApi from "../../Services/httpService";
 import Swal from "sweetalert2";
 import { getAllData, getId } from "../../Actions/Table/table";
 import "./ListItem.css";
-import MyOrder from "../../Pages/MyOrder/MyOrder";
 import { Modal } from "../Commons";
 import VideoList from "./VideoList";
 import Accordion from "./Accordion";

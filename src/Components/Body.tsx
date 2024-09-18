@@ -19,6 +19,8 @@ import Devices from "../Pages/Devices/Devices";
 import PersonnelContainer from "Pages/Personnel/PersonnelContainer";
 import Stations from "Pages/Stations/Stations";
 import StationsContainer from "Pages/Stations/StationsContainer";
+import Report from "Pages/Report/Report";
+import Setting from "Pages/Setting/Setting";
 
 export default function Body() {
   const { isNewTicketModalOpen, isMobileMenueOpen } = useSelector(state => state.modal);
@@ -77,9 +79,10 @@ export default function Body() {
 
               <Route path="/questions" component={Devices} />
               <Route path="/devices" component={Devices} />
-              <Route path="/setting" component={Devices} />
-              <Route path="/reports" component={Devices} />
-              <Route path="/stations" component={StationsContainer} />
+              <Route path="/setting" component={Setting} />
+              <Route path="/reports" component={Report} />
+              <Route path="/stations" exact component={StationsContainer} />
+              <Route path="/stations/:id" component={StationsContainer} />
               <Route path="/personnel" exact component={PersonnelContainer} />
               {/* Route with :id for editing personnel */}
               <Route path="/personnel/:id" component={PersonnelContainer} />

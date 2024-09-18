@@ -2,7 +2,7 @@ import React from "react";
 import Form from "./Form";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getUsersById } from "../Services/services";
+import { getStatiosById } from "../Services/services";
 
 function FormContainer({ getData, setShowModal, mockData }) {
   const params = useParams();
@@ -13,7 +13,7 @@ function FormContainer({ getData, setShowModal, mockData }) {
     isError,
   } = useQuery({
     queryKey: ["users", params?.id],
-    queryFn: () => getUsersById(params?.id),
+    queryFn: () => getStatiosById(params?.id),
     enabled: !!params?.id, // شرط فعال بودن
   });
   console.log("oneUser", oneUser);

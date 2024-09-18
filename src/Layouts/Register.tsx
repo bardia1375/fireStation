@@ -26,9 +26,9 @@ const Register: React.FC<RegisterProps> = ({ children }) => {
   return (
     <>
       <div className="register" id="register">
-        <Header />
+        {/* <Header /> */}
         {children}
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </>
   );

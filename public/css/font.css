@@ -1,7 +1,7 @@
 @font-face {
   font-family: Vazir;
-  src: url('../fonts/Vazir-FD.ttf') format('woff'),
-    url('../fonts/Vazir-Bold-FD.ttf') format('truetype');
+  src: url("../fonts/Vazir-FD.ttf") format("woff"),
+    url("../fonts/Vazir-Bold-FD.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 @font-face {
   font-family: "main";
   src: url("../fonts/Yekan-Medium.ttf") format("ttf"),
-   url("../fonts/Yekan-Medium.woff") format("woff");  
+    url("../fonts/Yekan-Medium.woff") format("woff");
 }
 
 @font-face {
@@ -24,25 +24,23 @@
 }
 @font-face {
   font-family: Vazir Medium FD;
-  src: url('../fonts/Vazir-Medium-FD.woff') format('woff'),
-    url('../fonts/Vazir-Medium-FD.ttf') format('truetype');
+  src: url("../fonts/Vazir-Medium-FD.woff") format("woff"),
+    url("../fonts/Vazir-Medium-FD.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
-
-
 @font-face {
   font-family: Vazir Digit;
-  src: url('../fonts/vazir/Farsi-Digits/Vazir-Light-FD.eot') format('woff'),
-    url('../fonts/vazir/Farsi-Digits/Vazir-Light-FD.eot') format('truetype');
+  src: url("../fonts/Vazir-Medium-FD.woff") format("woff"),
+    url("../fonts/Vazir-Medium-FD.woff") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: Yekan Medium;
-  src: url('../fonts/Yekan-Hairline.ttf') format('ttf'),
-    url('./fonts/Yekan-Hairline.ttf') format('truetype');
+  src: url("../fonts/Yekan-Hairline.ttf") format("ttf"),
+    url("./fonts/Yekan-Hairline.ttf") format("truetype");
 }
 
 @font-face {
@@ -60,4 +58,4 @@
   font-weight: 500;
   src: url("../fonts/Yekan-Medium.ttf") format("truetype");
 }
-@import url('https://fonts.googleapis.com/css?family=Comfortaa|Karla|Cairo:300');
+@import url("https://fonts.googleapis.com/css?family=Comfortaa|Karla|Cairo:300");

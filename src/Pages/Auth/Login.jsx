@@ -81,7 +81,7 @@ const Login = () => {
   return (
     <div className="login">
       <div className="login__logo">
-        <p className="login__title  "> تیکمنت </p>
+        <p className="login__title  "> سامانه پایش زمان </p>
       </div>
       <div className="login__wrapper">
         <p className="login__title  ">پنل مدیریت </p>
@@ -93,7 +93,6 @@ const Login = () => {
               className="login__input"
               name="userName"
               type="text"
-              maxLength={11}
               placeholder="شماره همراه خود را وارد کنید"
               onChange={handleLoginInfo}
             />

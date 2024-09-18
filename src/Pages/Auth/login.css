@@ -113,20 +113,21 @@
 }
 .login {
   max-width: unset;
+
   width: 467px;
   height: calc(100vh - 174px);
 }
 .login__logo {
   display: block;
-  background: transparent linear-gradient(357deg, #ffffff 0%, #dff1f5 141%) 0% 0% no-repeat
-    padding-box;
+  background: #d63600;
+  opacity: 0.9;
 }
 .login__wrapper {
-  background: transparent linear-gradient(153deg, #ffffff 0%, #ececec57 100%) 0% 0% no-repeat
-    padding-box;
+  background: #ffa700;
   box-shadow: inset 0px 0px 80px #75c9db80, 0px 1px 3px #8125254d;
   border-radius: 0 0 2rem 2rem;
   padding: 2rem 0rem;
+  opacity: 0.9;
 }
 
 .login__form {

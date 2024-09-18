@@ -14,7 +14,7 @@ export default function Header() {
         }}
       >
         <img src={tikment} style={{ width: "40px" }} />
-        <div style={{ fontStretch: "200%" }}>تیکمنت</div>
+        <div style={{ fontStretch: "200%" }}>سامانه پایش زمان</div>
       </div>
     </div>
   );

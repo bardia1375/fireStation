@@ -6,7 +6,7 @@ import { errorMessage } from "../Utils/commonFunctions";
 const ChangePassword = () => {
   const navigate = useHistory();
   const dispatch = useDispatch();
-  const isloading = useSelector((state) => state.loading);
+  const isloading = useSelector(state => state.loading);
 
   const [passwordInfo, setpasswordInfo] = useState({
     userName: "",
@@ -28,7 +28,7 @@ const ChangePassword = () => {
     // await dispatch(userpassword(user));
     navigate.push("/");
   };
-  const handleChange = (e) => {
+  const handleChange = e => {
     setpasswordInfo({
       ...passwordInfo,
       [e.target.name]: e.target.value,
@@ -40,7 +40,7 @@ const ChangePassword = () => {
 
       <div className="signUp">
         <img src="/images/logo-dark.svg" />
-        <p className="signUp__title">باشگاه هواداری  تیکمنت</p>
+        <p className="signUp__title">باشگاه هواداری سامانه پایش زمان</p>
         <form action="" className="signUp__from">
           <input
             type="text"

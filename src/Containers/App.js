@@ -12,8 +12,8 @@ const App = () => {
     <>
       <BrowserRouter>
         <Switch>
-          <PublicRoute path="/auth" component={Regestration} isAuthenticated={true} />
-          <PrivateRoute path="/" component={Tickment} isAuthenticated={true} />
+          <PublicRoute path="/auth" component={Regestration} isAuthenticated={isAuthenticated} />
+          <PrivateRoute path="/" component={Tickment} isAuthenticated={isAuthenticated} />
         </Switch>
       </BrowserRouter>
     </>

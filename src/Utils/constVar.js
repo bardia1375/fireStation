@@ -18,27 +18,23 @@ export const menues = [
   {
     url: "/personnel",
     title: "کاربران",
-    imgUrl: "/images/menuIcon/device.svg",
+    imgUrl: "/images/menuIcon/people.svg",
   },
   {
     url: "/stations",
-    title: "ایستگاه‌ها",
+    title: "داشبورد",
     imgUrl: "/images/menuIcon/device.svg",
   },
   {
     url: "/reports",
     title: "گزارشات",
-    imgUrl: "/images/menuIcon/device.svg",
+    imgUrl: "/images/menuIcon/message.svg",
   },
-  {
-    url: "/devices",
-    title: "دستگاه‌ها",
-    imgUrl: "/images/menuIcon/device.svg",
-  },
+
   {
     url: "/setting",
     title: "تنظیمات",
-    imgUrl: "/images/menuIcon/device.svg",
+    imgUrl: "/images/menuIcon/setting.svg",
   },
   // {
   //   url: "/mycontract",

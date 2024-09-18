@@ -17,37 +17,63 @@ export const setAuthToken = () => {
   const token = localStorage.getItem("tickment_token");
 
   if (token) {
-    (serverApi.defaults.headers as any).common["authorization"] = `bearer ${token}`;
-  } else {
-    // handle the case when token is falsy
+    (serverApi.defaults.headers as any).common["authorization"] = `Bearer ${token}`;
   }
 };
 
+// فانکشن رفرش توکن
+const refreshToken = async () => {
+  try {
+    const refreshToken = localStorage.getItem("refresh_token");
+    const response = await axios.post(`${api.api}/auth/refresh-token`, {
+      refresh_token: refreshToken,
+    });
+    const { accessToken, refreshToken: newRefreshToken } = response.data;
+    localStorage.setItem("tickment_token", accessToken);
+    localStorage.setItem("refresh_token", newRefreshToken);
+    return accessToken;
+  } catch (error) {
+    console.error("Failed to refresh token:", error);
+    throw error;
+  }
+};
+
+// Interceptor برای مدیریت پاسخ‌ها
 serverApi.interceptors.response.use(
-  config => {
-    console.log("config", config);
-    const expireDate = config.data.Message === "ExpireToken";
-    console.log("expireDate", config.data.Message);
+  (response) => response, // در صورت موفقیت
+  async (error) => {
+    const originalRequest = error.config;
+    const status = error.response ? error.response.status : null;
 
-    if (expireDate) {
- 
-    }
-    const token = localStorage.getItem("tickment_token"); // Assuming you store the token in localStorage
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-      (serverApi.defaults.headers as any).common["api-token"] = `${token}`;
+    if (status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true; // جلوگیری از تکرار بی‌نهایت درخواست‌ها
 
-      console.log("configconfig", config);
+      try {
+        // دریافت توکن جدید
+        const newToken = await refreshToken();
+        setAuthToken(); // به‌روز کردن توکن در درخواست‌های بعدی
+
+        // اضافه کردن توکن جدید به درخواست قبلی
+        originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
+        
+        // ارسال مجدد درخواست با توکن جدید
+        return serverApi(originalRequest);
+      } catch (refreshError) {
+        console.error("Token refresh failed, logging out:", refreshError);
+        // حذف توکن‌ها و هدایت به صفحه لاگین
+        localStorage.removeItem("tickment_token");
+        localStorage.removeItem("refresh_token");
+        window.location.href = "/login"; // هدایت به صفحه لاگین
+      }
     }
-    return config;
-  },
-  error => {
-    const expectedErrors = error.response && error.response.ActionCode == -1;
-    if (!expectedErrors) {
+
+    // نمایش پیام خطا
+    if (!error.response || error.response.status !== 401) {
       toast.error("مشکلی از سمت سرور رخ داده است!", {
         position: "top-right",
       });
     }
+
     return Promise.reject(error);
   }
 );

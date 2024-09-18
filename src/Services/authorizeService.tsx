@@ -14,14 +14,13 @@ export const loginService = async (loginInfo: LoginInfoType) => {
   console.log("loginInfo", loginInfo);
 
   try {
-    const response = await serverApi.post("/Account/Login", null, {
-      params: {
-        username: loginInfo.UserName,
-        password: loginInfo.Password,
-      },
+    const response = await serverApi.post("/account/Login", {
+      username: loginInfo.UserName,
+      password: loginInfo.Password,
     });
 
-    localStorage.setItem("tickment_token", response.data);
+    localStorage.setItem("tickment_token", response.data.data.token);
+    localStorage.setItem("refresh_token", response.data.data.refreshToken);
 
     return response;
   } catch (error) {

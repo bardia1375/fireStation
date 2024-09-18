@@ -85,7 +85,7 @@ export default function UserInfo(params) {
             ref={nameRef2}
             isHead={false}
           >
-            اصفهان{" "}
+            سامانه پایش زمان{" "}
           </PositionName>
         </PositionNameWrapper>
       </div>

@@ -581,17 +581,12 @@ aside .ticketsList {
   }
 }
 
-
-
-
-
 .verticalDevider {
   width: 1px;
   background: white;
   height: 25px;
   margin: auto 0;
 }
-
 
 /* tickment */
 .Tickment {
@@ -1579,7 +1574,7 @@ aside .ticketsList {
   border-radius: 5px;
 }
 .SidebarList {
-  margin-right: 3vw;
+  margin-right: 1vw;
   overflow-x: hidden;
   mask-image: linear-gradient(to bottom, black calc(100% - 48px), transparent 100%);
 }
@@ -1640,7 +1635,6 @@ aside .ticketsList {
     box-shadow: unset;
   }
   /* login */
-
 
   /* dashbord */
   .desktop-dashbord {
@@ -1879,7 +1873,6 @@ aside .ticketsList {
     transform: scale(1.1, 1.1);
   }
 
-
   .tickment__copyRight {
     border-radius: 3rem 3rem 0 0;
     width: max-content;
@@ -2078,8 +2071,9 @@ aside .ticketsList {
     animation: navbarShow 1s 1 linear forwards;
   }
   .tickment__navbar-desktop {
-    background: transparent linear-gradient(268deg, var(--dark-primary) 0%, #0089a7 100%) 0% 0%
+    background: transparent linear-gradient(268deg, #ffa700 0%, #d63600 50%, #ff0303 100%) 0% 0%
       no-repeat padding-box;
+
     box-shadow: 0px 10px 14px #033f7733;
     width: calc(100vw - 100px);
     position: absolute;
