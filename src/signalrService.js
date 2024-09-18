@@ -3,11 +3,10 @@ import * as signalR from "@microsoft/signalr";
 
 let connection;
 
-
 const startConnection = (GetDeviceState, CanStartMission) => {
   console.log("salam");
   const connection = new HubConnectionBuilder()
-    .withUrl("http://192.168.20.33:2224")
+    .withUrl("http://192.168.20.33:2224/Stations")
     .configureLogging(LogLevel.Information)
     .build();
 
@@ -17,13 +16,13 @@ const startConnection = (GetDeviceState, CanStartMission) => {
       console.log("SignalR Connected!");
 
       // Register client method
-      connection.on("getDeviceState", message => {
+      connection.on("stations", message => {
         console.log("Received message from server:", message);
         // Handle received messages
         GetDeviceState(message);
       });
 
-      connection.on("canStartMission", missionId => {
+      connection.on("stations", missionId => {
         console.log("Server can start mission with ID:", missionId);
         // Handle the canStartMission event here
         // For example, you can trigger some action in your React component
@@ -41,20 +40,3 @@ const startConnection = (GetDeviceState, CanStartMission) => {
 };
 
 export { startConnection };
-
-export const createSignalRConnection = () => {
-  connection = new signalR.HubConnectionBuilder()
-    .withUrl("https://your-signalr-endpoint") // اینجا URL مربوط به سرور SignalR خود را وارد کنید
-    .withAutomaticReconnect() // اتصال دوباره در صورت قطع
-    .build();
-
-  return connection;
-};
-
-export const subscribeToUpdates = callback => {
-  if (connection) {
-    connection.on("ReceiveUpdate", data => {
-      callback(data);
-    });
-  }
-};

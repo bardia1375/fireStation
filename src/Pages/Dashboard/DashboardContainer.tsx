@@ -17,312 +17,315 @@ const DashboardContainer = () => {
   const [showModal, setShowModal] = useState(false);
   const [userData, setUserData] = useState([]);
   const params = useParams();
+  const [active, setActive] = useState(false);
+  const [missionId, setMissionId] = useState(true); // State to hold missionId
+
   console.log("params", params);
 
   // استفاده از React Query برای دریافت داده‌ها
-  const {
-    data: apiData,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["dashboard"],
-    queryFn: getStations,
-  });
+  // const {
+  //   data: apiData,
+  //   isLoading,
+  //   isError,
+  // } = useQuery({
+  //   queryKey: ["dashboard"],
+  //   queryFn: getStations,
+  // });
 
-  // Mock data state
-  const [mockData, setMockData] = useState([
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      imgUrl: "/path-to-image-1.jpg",
-      missionNumber: "11",
-      clockMission: "1",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 2,
-      firstName: "Jane",
-      lastName: "Smith",
-      imgUrl: "/path-to-image-2.jpg",
-      missionNumber: "12",
-      clockMission: "2",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 3,
-      firstName: "Michael",
-      lastName: "Johnson",
-      imgUrl: "/path-to-image-3.jpg",
-      missionNumber: "13",
-      clockMission: "3",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      imgUrl: "/path-to-image-1.jpg",
-      missionNumber: "11",
-      clockMission: "1",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 2,
-      firstName: "Jane",
-      lastName: "Smith",
-      imgUrl: "/path-to-image-2.jpg",
-      missionNumber: "12",
-      clockMission: "2",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 3,
-      firstName: "Michael",
-      lastName: "Johnson",
-      imgUrl: "/path-to-image-3.jpg",
-      missionNumber: "13",
-      clockMission: "3",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      imgUrl: "/path-to-image-1.jpg",
-      missionNumber: "11",
-      clockMission: "1",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 2,
-      firstName: "Jane",
-      lastName: "Smith",
-      imgUrl: "/path-to-image-2.jpg",
-      missionNumber: "12",
-      clockMission: "2",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 3,
-      firstName: "Michael",
-      lastName: "Johnson",
-      imgUrl: "/path-to-image-3.jpg",
-      missionNumber: "13",
-      clockMission: "3",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      imgUrl: "/path-to-image-1.jpg",
-      missionNumber: "11",
-      clockMission: "1",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 2,
-      firstName: "Jane",
-      lastName: "Smith",
-      imgUrl: "/path-to-image-2.jpg",
-      missionNumber: "12",
-      clockMission: "2",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 3,
-      firstName: "Michael",
-      lastName: "Johnson",
-      imgUrl: "/path-to-image-3.jpg",
-      missionNumber: "13",
-      clockMission: "3",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      imgUrl: "/path-to-image-1.jpg",
-      missionNumber: "11",
-      clockMission: "1",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 2,
-      firstName: "Jane",
-      lastName: "Smith",
-      imgUrl: "/path-to-image-2.jpg",
-      missionNumber: "12",
-      clockMission: "2",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 3,
-      firstName: "Michael",
-      lastName: "Johnson",
-      imgUrl: "/path-to-image-3.jpg",
-      missionNumber: "13",
-      clockMission: "3",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      imgUrl: "/path-to-image-1.jpg",
-      missionNumber: "11",
-      clockMission: "1",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 2,
-      firstName: "Jane",
-      lastName: "Smith",
-      imgUrl: "/path-to-image-2.jpg",
-      missionNumber: "12",
-      clockMission: "2",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 3,
-      firstName: "Michael",
-      lastName: "Johnson",
-      imgUrl: "/path-to-image-3.jpg",
-      missionNumber: "13",
-      clockMission: "3",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      imgUrl: "/path-to-image-1.jpg",
-      missionNumber: "11",
-      clockMission: "1",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 2,
-      firstName: "Jane",
-      lastName: "Smith",
-      imgUrl: "/path-to-image-2.jpg",
-      missionNumber: "12",
-      clockMission: "2",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 3,
-      firstName: "Michael",
-      lastName: "Johnson",
-      imgUrl: "/path-to-image-3.jpg",
-      missionNumber: "13",
-      clockMission: "3",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      imgUrl: "/path-to-image-1.jpg",
-      missionNumber: "11",
-      clockMission: "1",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 2,
-      firstName: "Jane",
-      lastName: "Smith",
-      imgUrl: "/path-to-image-2.jpg",
-      missionNumber: "12",
-      clockMission: "2",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 3,
-      firstName: "Michael",
-      lastName: "Johnson",
-      imgUrl: "/path-to-image-3.jpg",
-      missionNumber: "13",
-      clockMission: "3",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 3,
-      firstName: "Michael",
-      lastName: "Johnson",
-      imgUrl: "/path-to-image-3.jpg",
-      missionNumber: "13",
-      clockMission: "3",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 3,
-      firstName: "Michael",
-      lastName: "Johnson",
-      imgUrl: "/path-to-image-3.jpg",
-      missionNumber: "13",
-      clockMission: "3",
-      name: "",
-      connect: "",
-    },
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      imgUrl: "/path-to-image-1.jpg",
-      missionNumber: "11",
-      clockMission: "1",
-      name: "",
-      connect: "",
-    },
+  // // Mock data state
+  // const [mockData, setMockData] = useState([
+  //   {
+  //     id: 1,
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     imgUrl: "/path-to-image-1.jpg",
+  //     missionNumber: "11",
+  //     clockMission: "1",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 2,
+  //     firstName: "Jane",
+  //     lastName: "Smith",
+  //     imgUrl: "/path-to-image-2.jpg",
+  //     missionNumber: "12",
+  //     clockMission: "2",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 3,
+  //     firstName: "Michael",
+  //     lastName: "Johnson",
+  //     imgUrl: "/path-to-image-3.jpg",
+  //     missionNumber: "13",
+  //     clockMission: "3",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 1,
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     imgUrl: "/path-to-image-1.jpg",
+  //     missionNumber: "11",
+  //     clockMission: "1",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 2,
+  //     firstName: "Jane",
+  //     lastName: "Smith",
+  //     imgUrl: "/path-to-image-2.jpg",
+  //     missionNumber: "12",
+  //     clockMission: "2",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 3,
+  //     firstName: "Michael",
+  //     lastName: "Johnson",
+  //     imgUrl: "/path-to-image-3.jpg",
+  //     missionNumber: "13",
+  //     clockMission: "3",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 1,
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     imgUrl: "/path-to-image-1.jpg",
+  //     missionNumber: "11",
+  //     clockMission: "1",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 2,
+  //     firstName: "Jane",
+  //     lastName: "Smith",
+  //     imgUrl: "/path-to-image-2.jpg",
+  //     missionNumber: "12",
+  //     clockMission: "2",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 3,
+  //     firstName: "Michael",
+  //     lastName: "Johnson",
+  //     imgUrl: "/path-to-image-3.jpg",
+  //     missionNumber: "13",
+  //     clockMission: "3",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 1,
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     imgUrl: "/path-to-image-1.jpg",
+  //     missionNumber: "11",
+  //     clockMission: "1",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 2,
+  //     firstName: "Jane",
+  //     lastName: "Smith",
+  //     imgUrl: "/path-to-image-2.jpg",
+  //     missionNumber: "12",
+  //     clockMission: "2",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 3,
+  //     firstName: "Michael",
+  //     lastName: "Johnson",
+  //     imgUrl: "/path-to-image-3.jpg",
+  //     missionNumber: "13",
+  //     clockMission: "3",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 1,
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     imgUrl: "/path-to-image-1.jpg",
+  //     missionNumber: "11",
+  //     clockMission: "1",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 2,
+  //     firstName: "Jane",
+  //     lastName: "Smith",
+  //     imgUrl: "/path-to-image-2.jpg",
+  //     missionNumber: "12",
+  //     clockMission: "2",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 3,
+  //     firstName: "Michael",
+  //     lastName: "Johnson",
+  //     imgUrl: "/path-to-image-3.jpg",
+  //     missionNumber: "13",
+  //     clockMission: "3",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 1,
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     imgUrl: "/path-to-image-1.jpg",
+  //     missionNumber: "11",
+  //     clockMission: "1",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 2,
+  //     firstName: "Jane",
+  //     lastName: "Smith",
+  //     imgUrl: "/path-to-image-2.jpg",
+  //     missionNumber: "12",
+  //     clockMission: "2",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 3,
+  //     firstName: "Michael",
+  //     lastName: "Johnson",
+  //     imgUrl: "/path-to-image-3.jpg",
+  //     missionNumber: "13",
+  //     clockMission: "3",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 1,
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     imgUrl: "/path-to-image-1.jpg",
+  //     missionNumber: "11",
+  //     clockMission: "1",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 2,
+  //     firstName: "Jane",
+  //     lastName: "Smith",
+  //     imgUrl: "/path-to-image-2.jpg",
+  //     missionNumber: "12",
+  //     clockMission: "2",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 3,
+  //     firstName: "Michael",
+  //     lastName: "Johnson",
+  //     imgUrl: "/path-to-image-3.jpg",
+  //     missionNumber: "13",
+  //     clockMission: "3",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 1,
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     imgUrl: "/path-to-image-1.jpg",
+  //     missionNumber: "11",
+  //     clockMission: "1",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 2,
+  //     firstName: "Jane",
+  //     lastName: "Smith",
+  //     imgUrl: "/path-to-image-2.jpg",
+  //     missionNumber: "12",
+  //     clockMission: "2",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 3,
+  //     firstName: "Michael",
+  //     lastName: "Johnson",
+  //     imgUrl: "/path-to-image-3.jpg",
+  //     missionNumber: "13",
+  //     clockMission: "3",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 3,
+  //     firstName: "Michael",
+  //     lastName: "Johnson",
+  //     imgUrl: "/path-to-image-3.jpg",
+  //     missionNumber: "13",
+  //     clockMission: "3",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 3,
+  //     firstName: "Michael",
+  //     lastName: "Johnson",
+  //     imgUrl: "/path-to-image-3.jpg",
+  //     missionNumber: "13",
+  //     clockMission: "3",
+  //     name: "",
+  //     connect: "",
+  //   },
+  //   {
+  //     id: 1,
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     imgUrl: "/path-to-image-1.jpg",
+  //     missionNumber: "11",
+  //     clockMission: "1",
+  //     name: "",
+  //     connect: "",
+  //   },
 
-    {
-      id: 20,
-      firstName: "David",
-      lastName: "Williams",
-      imgUrl: "/path-to-image-20.jpg",
-      missionNumber: "14",
-      clockMission: "4",
-      name: "",
-      connect: "",
-    },
-  ]);
+  //   {
+  //     id: 20,
+  //     firstName: "David",
+  //     lastName: "Williams",
+  //     imgUrl: "/path-to-image-20.jpg",
+  //     missionNumber: "14",
+  //     clockMission: "4",
+  //     name: "",
+  //     connect: "",
+  //   },
+  // ]);
 
-  useEffect(() => {
-    if (apiData && !isLoading) {
-      const updatedMockData = [
-        // { id: 999, firstName: "اضافه کردن", lastName: "", imgUrl: "" },
-        ...apiData,
-      ];
-      setMockData(updatedMockData);
-    }
-  }, [apiData, isLoading]);
+  // useEffect(() => {
+  //   if (apiData && !isLoading) {
+  //     const updatedMockData = [
+  //       // { id: 999, firstName: "اضافه کردن", lastName: "", imgUrl: "" },
+  //       ...apiData,
+  //     ];
+  //     setMockData(updatedMockData);
+  //   }
+  // }, [apiData, isLoading]);
 
   const handleEdit = user => {
     setSelectedUser(user);
@@ -341,25 +344,26 @@ const DashboardContainer = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    // ایجاد اتصال SignalR
-    const connection = createSignalRConnection();
+    const connection = startConnection(handleReceiveMessage, canStartMission);
 
-    // شروع اتصال به SignalR
-    startConnection(connection);
-
-    // مشترک شدن در به‌روزرسانی‌های SignalR
-    subscribeToUpdates(connection, newData => {
-      setData(prevData => [...prevData, newData]); // داده‌های جدید را به داده‌های فعلی اضافه می‌کند
-    });
-
-    // برگرداندن تابع تمیزکاری برای قطع ارتباط در صورت خروج از کامپوننت
     return () => {
-      if (connection) {
-        connection.stop();
-      }
+      // Cleanup on component unmount
+      connection.stop();
     };
   }, []);
 
+  const handleReceiveMessage = message => {
+    console.log("1232342", message);
+
+    if (message) {
+      setActive(message);
+    }
+  };
+  const canStartMission = missionId => {
+    console.log("missionIdmissionIdmissionId", missionId);
+    setMissionId(missionId);
+    localStorage.setItem("missionId", missionId); // Save missionId to localStorage
+  };
   console.log("signalRdata", data);
 
   return (
