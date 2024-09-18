@@ -20,6 +20,9 @@ import { useHistory } from "react-router-dom";
 import { ConfigureButton } from "../../assets/styles/layout/Calendar";
 import { getAllSoftwareFeatures, getSelectedItems } from "../../Actions/Table/table";
 import { CustomerSoftwareFeaturesBuy } from "Services/softwareServices";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
 
 let pageSize = 10;
 
@@ -101,6 +104,10 @@ export const TableList = ({
   const [currentPage, setCurrentPage] = useState(
     location?.state?.currentPage ? location?.state?.currentPage : 1
   );
+
+  // State for Jalali calendar time range
+  const [fromTime, setFromTime] = useState(null);
+  const [toTime, setToTime] = useState(null);
   // const currentTableData = useMemo(() => {
   //   const firstPageIndex = (currentPage - 1) * pageSize;
   //   const lastPageIndex = firstPageIndex + pageSize;
@@ -162,6 +169,35 @@ export const TableList = ({
         />
       )} */}
       <PublicTableComponent.ContainerHeader>
+        {/* Jalali Date Pickers for FromTime and ToTime */}
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            justifyContent: "flex-end",
+            width: "100%",
+            zIndex: 1000000,
+          }}
+        >
+          <DatePicker
+            value={fromTime}
+            onChange={setFromTime}
+            calendar={persian}
+            locale={persian_fa}
+            format="YYYY/MM/DD"
+            placeholder="از تاریخ"
+            style={{ width: "150px" }}
+          />
+          <DatePicker
+            value={toTime}
+            onChange={setToTime}
+            calendar={persian}
+            locale={persian_fa}
+            format="YYYY/MM/DD"
+            placeholder="تا تاریخ"
+            style={{ width: "150px" }}
+          />
+        </div>
         {tabsData ? (
           <div>
             {tabsData.map((item, index) => (
