@@ -6,6 +6,7 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 // Components
 import { Typography, Button, Modal } from "../Commons";
 import { ListItem } from "./ListItem";
+import { useAppContext } from "Context/AppContext";
 
 // Styled Elements
 import { PublicTableComponent } from "./index";
@@ -90,6 +91,8 @@ export const TableList = ({
   getUniqueSoftwareId,
 }) => {
   const dispatch = useDispatch();
+  const { showModal, openModal, closeModal, selectedUser,setShowModal } = useAppContext(); // Use the context
+
   const location = useLocation();
   const history = useHistory();
   const changePageHandler = (path, opt) => history.push(path, opt);
@@ -239,7 +242,9 @@ export const TableList = ({
 
     pdfMake.createPdf(docDefinition).download("table_data.pdf");
   };
-
+const AddStations=()=>{
+  setShowModal(true)
+}
   return (
     <PublicTableComponent.SContainer>
       {/* {isAddMode && (
@@ -256,7 +261,7 @@ export const TableList = ({
           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
         >
           <div
-            onClick={exportExcel}
+            onClick={AddStations}
             variant="linear"
             color="white"
             bg="linear-gradient(to left, #37abb8, #71fbff)"
@@ -291,7 +296,6 @@ export const TableList = ({
             justifyContent: "flex-end",
             alignItems: "center",
             width: "100%",
-            zIndex: 1000000,
           }}
         >
           <DatePicker
@@ -455,7 +459,7 @@ export const TableList = ({
                 description={description}
                 hoverDetail={hoverDetail}
                 hoverActionItems={hoverActionItems}
-                statusObjStyle={item[item.length - 3]}
+                // statusObjStyle={item[item.length - 3]}
                 contractStyle={item[item.length - (hoverDetail || contractPage ? 3 : 0)]}
                 key={item[item?.length - (hoverDetail ? 2 : 1)]}
                 items={item}

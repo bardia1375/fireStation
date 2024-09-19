@@ -3,28 +3,45 @@ import styled, { css } from "styled-components";
 import "./style.css";
 import serverApi from "Services/httpService";
 import { successMessage, errorMessage } from "Utils/commonFunctions";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {  useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
-import { editUserData } from "../Services/services";
+import { editStationData, editUserData, postStationData } from "../Services/services";
 
 function Form({ getData, setShowModal, mockData, oneUser }) {
   const queryClient = useQueryClient(); // دریافت instance از queryClient
 
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [port, setPort] = useState("");
   const [isActive, setIsActive] = useState("غیرفعال");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState(""); // "Admin", "systemUser", "regularUser"
-  const [userName, setUsername] = useState(""); // "Admin", "systemUser", "regularUser"
+  const [priority, setPriority] = useState("");
+  const [role, setRole] = useState("");
+  const [ip, setIp] = useState("");
+  const [items, setItems] = useState([
+    { name: "Item 1", seconds: 0, toSeconds: 60 },
+    { name: "Item 2", seconds: 0, toSeconds: 60 },
+    { name: "Item 3", seconds: 0, toSeconds: 60 },
+    { name: "Item 4", seconds: 0, toSeconds: 60 },
+    { name: "Item 5", seconds: 0, toSeconds: 60 },
+  ]);
+
+  const handleInputChange = (index, field, value) => {
+    const updatedItems = items.map((item, i) => {
+      if (i === index) {
+        return { ...item, [field]: value };
+      }
+      return item;
+    });
+    setItems(updatedItems);
+  };
   const params = useParams();
   console.log("params", params);
   useEffect(() => {
     setFirstName(oneUser?.firstName);
-    setLastName(oneUser?.lastName);
+    setPort(oneUser?.port);
     setIsActive(oneUser?.isActive ? "فعال" : "غیرفعال");
-    setPassword(oneUser?.password);
+    setPriority(oneUser?.priority);
     setRole(oneUser?.role);
-    setUsername(oneUser?.userName);
+    setIp(oneUser?.ip);
   }, [oneUser]);
   const handleAccessSwitch = type => {
     setRole(prev => {
@@ -38,11 +55,11 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
   const postUserData = () => {
     const data = {
       firstName,
-      lastName,
+      port,
       isActive: isActive ? true : false,
-      password,
+      priority,
       role,
-      userName,
+      ip,
     };
 
     return serverApi
@@ -60,8 +77,8 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
   };
 
   const { mutate, isError, isLoading } = useMutation({
-    mutationKey: ["postUserData"],
-    mutationFn: postUserData,
+    mutationKey: ["postStationData"],
+    mutationFn: postStationData,
     onSuccess: () => {
       // پس از موفقیت در mutate، کوئری با کلید "users" مجدداً بازآوری می‌شود
       queryClient.invalidateQueries(["users"]);
@@ -69,39 +86,46 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     },
   });
   const { mutate: EditMutate } = useMutation({
-    mutationKey: ["editUserData"],
-    mutationFn: editUserData,
+    mutationKey: ["editStationData"],
+    mutationFn: editStationData,
     onSuccess: () => {
       // پس از موفقیت در mutate، کوئری با کلید "users" مجدداً بازآوری می‌شود
-      queryClient.invalidateQueries(["users"]);
+      queryClient.invalidateQueries(["dashboard"]);
       setShowModal(false);
     },
   });
   const submit = () => {
-    if (!firstName || !lastName || !isActive || !password || !role || !userName) {
+    if (!firstName || !port || !isActive || !priority || !ip) {
       errorMessage("لطفا تمام فیدها پر شود!");
       return;
     }
+
     if (params.id) {
       const data = {
         id: params.id,
         firstName,
-        lastName,
+        port,
         isActive,
-        password,
+        priority,
         role,
-        userName,
+        ip,
+        items,
       };
+      console.log("paramsfsdfsdfid", data);
+
       EditMutate(data);
     } else {
       const data = {
         firstName,
-        lastName,
+        port,
         isActive,
-        password,
+        priority,
         role,
-        userName,
+        ip,
+        items,
       };
+      console.log("paramsfsdfsdfid", data);
+
       mutate(data);
     }
 
@@ -117,7 +141,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
         <div className="container">
           <div style={{ color: "#04165d" }} className="row bg_3">
             <h2>
-              <i style={{ color: "#0089a7" }}>پرسنل</i>
+              <i style={{ color: "#0089a7", fontSize: "1em" }}>ایستگاه‌ها</i>
             </h2>
 
             <div className="col-3 input-effect">
@@ -136,27 +160,13 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
 
             <div className="col-3 input-effect">
               <input
-                value={lastName}
-                onChange={e => setLastName(e.target.value)}
+                value={ip}
+                onChange={e => setIp(e.target.value)}
                 className="effect-21"
-                type="text"
-                placeholder="نام خانوادگی"
+                type="number"
+                placeholder="آی پی دستگاه"
               />
-              <label>نام خانوادگی</label>
-              <span className="focus-border">
-                <i></i>
-              </span>
-            </div>
-
-            <div className="col-3 input-effect">
-              <input
-                value={userName}
-                onChange={e => setUsername(e.target.value)}
-                className="effect-21"
-                type="text"
-                placeholder="نام کاربری"
-              />
-              <label>نام کاربری</label>
+              <label>ip:</label>
               <span className="focus-border">
                 <i></i>
               </span>
@@ -165,14 +175,29 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
             <div className="col-3 input-effect">
               {" "}
               <input
-                value={password}
-                onChange={e => setPassword(e.target.value)}
+                value={priority}
+                onChange={e => setPriority(e.target.value)}
                 className="effect-21"
-                type="password"
-                placeholder="رمز عبور"
+                type="number"
+                placeholder="الویت"
                 width={"500px"}
               />
-              <label>First Name</label>
+              <label>الویت</label>
+              <span className="focus-border">
+                <i></i>
+              </span>
+            </div>
+            <div className="col-3 input-effect">
+              {" "}
+              <input
+                value={port}
+                onChange={e => setPort(e.target.value)}
+                className="effect-21"
+                type="number"
+                placeholder="پورت"
+                width={"500px"}
+              />
+              <label>port:</label>
               <span className="focus-border">
                 <i></i>
               </span>
@@ -192,61 +217,58 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
                 </SwitchContainer>
               </div>
             </div>
-            {/* Custom Switches */}
-            <div className="col-3">
-              <AccessLabel>دسترسی:</AccessLabel> {/* لیبل مرجع */}
-              <SwitchRow style={{ padding: "0 4vw" }}>
-                <div>
-                  <label>مدیر</label>
-                  <SwitchContainer>
-                    <SwitchInput
-                      type="checkbox"
-                      checked={role === "Admin"}
-                      onChange={() => handleAccessSwitch("Admin")}
-                    />
-                    <Slider />
-                  </SwitchContainer>
-                </div>
-
-                <div>
-                  <label>کاربر سامانه</label>
-                  <SwitchContainer>
-                    <SwitchInput
-                      type="checkbox"
-                      checked={role === "systemUser"}
-                      onChange={() => handleAccessSwitch("systemUser")}
-                    />
-                    <Slider />
-                  </SwitchContainer>
-                </div>
-
-                <div>
-                  <label>کاربر عادی</label>
-                  <SwitchContainer>
-                    <SwitchInput
-                      type="checkbox"
-                      checked={role === "regularUser"}
-                      onChange={() => handleAccessSwitch("regularUser")}
-                    />
-                    <Slider />
-                  </SwitchContainer>
-                </div>
-              </SwitchRow>
-            </div>
           </div>
         </div>
-      </div>{" "}
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr " }}>
+        {items.map((item, index) => (
+          <div
+            key={index}
+            className="col-3 input-effect"
+            style={{
+              display: "flex",
+              gap: "16px",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
+            <h4>{item.name}</h4>
+            <div style={{ display: "flex" }}>
+              <input
+                type="number"
+                className="effect-21"
+                value={item.seconds}
+                onChange={e =>
+                  handleInputChange(index, "seconds", Math.max(0, Math.min(60, +e.target.value)))
+                }
+                min="0"
+                max="100"
+              />
+              <input
+                type="number"
+                className="effect-21"
+                value={item.toSeconds}
+                onChange={e =>
+                  handleInputChange(index, "toSeconds", Math.max(0, Math.min(60, +e.target.value)))
+                }
+                min="0"
+                max="100"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
       <div style={{ display: "flex", alignItems: "flex-end", marginTop: "8px" }}>
         <Button className="col-3 input-effect" style={{ width: "10vw" }} onClick={submit}>
           ثبت
         </Button>
         <Link
-          to="/personnel"
+          to="/dashboard"
           className="col-3 input-effect"
           style={{ width: "10vw" }}
           onClick={onclose}
         >
-          بستن{" "}
+          پشیمان شدم
         </Link>
       </div>
     </Card>

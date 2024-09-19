@@ -1380,7 +1380,7 @@ aside .ticketsList {
   height: calc(100vh - 285px);
   position: absolute;
   width: 100%;
-  z-index: 100;
+  z-index: 10000;
   top: 90px;
   background: 0% 0% no-repeat padding-box padding-box rgb(214, 238, 241);
   box-shadow: inset 0px 0px 99px #80a5ac21;

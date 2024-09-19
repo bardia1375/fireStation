@@ -1,13 +1,15 @@
-export interface ModalState{
-  isNewTicketModalOpen:boolean,
-  isDeleteMessageModalOpen:boolean,
-  isMobileMenueOpen:boolean
+export interface ModalState {
+  isNewTicketModalOpen: boolean;
+  isDeleteMessageModalOpen: boolean;
+  isMobileMenueOpen: boolean;
+  isOpen:boolean
 }
 
-const initial:ModalState = {
+const initial: ModalState = {
   isNewTicketModalOpen: false,
   isDeleteMessageModalOpen: false,
   isMobileMenueOpen: false,
+  isOpen:false
 };
 export const modalReducer = (state = initial, action) => {
   switch (action.type) {
@@ -17,7 +19,8 @@ export const modalReducer = (state = initial, action) => {
       return { ...state, isDeleteMessageModalOpen: action.payload };
     case "SET_MENUE":
       return { ...state, isMobileMenueOpen: action.payload };
-
+    case "SET_MODAL":
+      return { ...state, isOpen: action.payload };
     default:
       return state;
   }

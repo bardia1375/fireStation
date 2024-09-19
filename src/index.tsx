@@ -12,6 +12,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { AppProvider } from "Context/AppContext";
 
 const queryClient = new QueryClient();
 
@@ -19,10 +20,12 @@ render(
   <Provider store={store}>
     <Theme>
       <ToastContainer />
-      <QueryClientProvider client={queryClient}>
-        <App />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <AppProvider>
+        <QueryClientProvider client={queryClient}>
+          <App />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </AppProvider>
     </Theme>
   </Provider>,
   document.getElementById("app")

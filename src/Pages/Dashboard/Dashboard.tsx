@@ -56,7 +56,7 @@ const Dashboard = ({
     const data = {
       stationId: "91229662-a96f-4cc1-c66e-08dcd7b7f551",
     };
-    serverApi.post(`/Missions/StartMission?stationId=${data.stationId}`).then(res => {
+    serverApi.post(`/Missions/StartgMission?stationId=${data.stationId}`).then(res => {
       console.log("res", res.data);
     });
   };

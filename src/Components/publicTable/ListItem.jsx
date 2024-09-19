@@ -171,7 +171,6 @@ export const ListItem = ({
   };
 
   const [listExist, setListExist] = useState(false);
-  console.log("it4twerfitemsems", item && item[item.length - 3].split(" ")[0]);
   useEffect(() => {
     let checker = 0;
     listChecker?.map(item => {
@@ -322,7 +321,6 @@ export const ListItem = ({
   //   document.body.removeChild(anchor);
   // }, [downloadLink]);
 
-  console.log("item[item.length - 3]", item);
   return (
     <div style={{ position: "relative" }} onClick={() => onRowClick(item)}>
       {isDeleteMode && (
@@ -349,7 +347,7 @@ export const ListItem = ({
       <PublicTableComponent.ListItem
         onMouseOver={handleOverChange}
         onMouseLeave={handleOutChange}
-        statusObjStyle={item[item.length - 3].split(" ")[0] < item[item.length - 1] ? "فعال" : ""}
+        // statusObjStyle={item[item.length - 3].split(" ")[0] < item[item.length - 1] ? "فعال" : ""}
         contractStyle={contractStyle}
         page={page}
         grid={page !== "گزارش‌ها" ? column : column - 1}

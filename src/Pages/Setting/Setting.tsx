@@ -146,8 +146,8 @@ function Setting({ getData, setShowModal, mockData, oneUser }) {
           </div>
         </div>
       </div>
-      <div style={{ width: "100%", display: "grid", gridTemplateColumns: "1fr" }}>
-        {items.map((item, index) => (
+      <div style={{ width: "100%", display: "flex", gap: "32px",alignItems:"center" }}>
+       <div  style={{ width:" 50%"}}> {items.map((item, index) => (
           <div
             key={index}
             className="col-3 input-effect"
@@ -167,10 +167,10 @@ function Setting({ getData, setShowModal, mockData, oneUser }) {
               onChange={e => handleInputChange(index, "seconds", e.target.value)}
             />
           </div>
-        ))}{" "}
+        ))}{" "}</div>
         <div
           style={{
-            width: "100%",
+            width: "50%",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",

@@ -3,10 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import { RootState } from "../../Reducers"; // Update this path according to your project structure
 import { getAllData } from "../../Actions/Table/table";
-
+import {
+  createSignalRConnection,
+  startConnection,
+} from "../../signalrService.js";
 // Images
 import { TableComponent } from "../../Components/publicTable/Main";
 import serverApi, { setAuthToken } from "Services/httpService";
+import { useAppContext } from "Context/AppContext";
+import Modal from "Components/Modal/Modal";
+import FormContainer from "./Form/FormContainer";
 
 interface Device {
   DeviceSerial: string;
@@ -17,14 +23,26 @@ interface Device {
 
 const Stations: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
+  const { showModal, openModal, closeModal, selectedUser,setShowModal } = useAppContext(); // Use the context
+
   const [devices, setDevices] = useState<Device[]>([]);
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState<any>(null);
+  const [deviceState, setDeviceState] = useState([]); // Initialize as an empty array
 
   const { devicesData, isActive } = useSelector((state: RootState) => state.tableData);
   useEffect(() => {
     setLoading(false);
     setAuthToken();
+  }, []);
+  useEffect(() => {
+    const connection = startConnection(setDeviceState);
+    
+
+
+    return () => {
+      connection?.stop(); // قطع اتصال هنگامUnmount
+    };
   }, []);
   const handleGetOperationList = async () => {
     setDevices([
@@ -39,52 +57,52 @@ const Stations: React.FC = () => {
       },
     ]);
     try {
-      await serverApi.get("Setting/GetSetting").then(res => {
-        setTime(res.data.time);
-      });
-      await serverApi
-        .get("Mission/GetMissions")
-        .then(res => {
-          console.log("resres", res.data);
-          // setDevices([
-          //   {
-          //     DeviceSerial: " ایستگاه اول",
-          //     shamsiStartDate: " ایستگاه اول",
-          //     startTime: " ",
-          //     endTime: " ",
-          //     duration: "",
-          //     sms: "مشاهده",
-          //     time: "",
-          //   },
-          // ]);
-        })
-        .catch(() => {
-          setDevices([
-            {
-              DeviceSerial: " ایستگاه اول",
-              shamsiStartDate: "1403-12-04",
-              startTime: " ",
-              endTime: " ",
-              duration: "",
-              sms: "مشاهده",
-              time: "",
-            },
-          ]);
-        });
+      // await serverApi.get("Setting/GetSetting").then(res => {
+      //   setTime(res.data.time);
+      // });
+      // await serverApi
+      //   .get("Mission/GetMissions")
+      //   .then(res => {
+      //     console.log("resres", res.data);
+      //     // setDevices([
+      //     //   {
+      //     //     DeviceSerial: " ایستگاه اول",
+      //     //     shamsiStartDate: " ایستگاه اول",
+      //     //     startTime: " ",
+      //     //     endTime: " ",
+      //     //     duration: "",
+      //     //     sms: "مشاهده",
+      //     //     time: "",
+      //     //   },
+      //     // ]);
+      //   })
+      //   .catch(() => {
+      //     setDevices([
+      //       {
+      //         DeviceSerial: " ایستگاه اول",
+      //         shamsiStartDate: "1403-12-04",
+      //         startTime: " ",
+      //         endTime: " ",
+      //         duration: "",
+      //         sms: "مشاهده",
+      //         time: "",
+      //       },
+      //     ]);
+      //   });
       setDevices([
         {
-          DeviceSerial: " ایستگاه اول",
-          shamsiStartDate: " ایستگاه اول",
-          startTime: " ",
-          endTime: " ",
-          duration: "",
+          name: " ایستگاه اول",
+          ip: " ایستگاه اول",
+          port: " ",
+          isActive: " ",
+          lastDailyMissionTime: "",
           sms: "مشاهده",
           time: "",
         },
       ]);
-      if (allData) {
-        setDevices(allData);
-      }
+      // if (allData) {
+      //   setDevices(allData);
+      // }
 
       setLoading(false);
     } catch (error) {
@@ -103,24 +121,19 @@ const Stations: React.FC = () => {
   //   });
   // }, []);
   // Set Titles
-  const titles = [
-    { title: "ایستگاه" },
-    { title: "port" },
-
-    { title: "ip" },
-
-    { title: "وضعیت" },
-  ];
+  const titles = [{ title: "ایستگاه" }, { title: "ip" }, { title: "port" }, { title: "اخرین ماموریت" }, { title: "وضعیت"} ];
   console.log("devicesdevicesdevices", devices);
+console.log("bardiasalam",deviceState);
 
-  const dataShow = devices?.map(item => [
-    item.DeviceSerial !== null || undefined ? "ایستگاه اول" : " ایستگاه اول",
-    item.shamsiStartDate !== null || undefined ? "1403-12-04" : "",
-    item.startTime !== null || undefined ? "12:22" : " ",
-    item.endTime !== null || undefined ? "13:45" : " ",
-    item.duration !== null || undefined ? `345 ثانیه` : "",
-
+  const dataShow = deviceState?.map(item => [
+    item.name !== null || undefined ?    item.name : " ایستگاه نامشخص",
+    item.ip !== null || undefined ?item.ip : "-",
+    item.port !== null || undefined ?item.port: "-",
+    item.lastDailyMissionTime !== null || undefined ?item.lastDailyMissionTime : "-",
+    item.isActive !== null || undefined ?!!item.isActive?"فعال" : "غیرفعال":"efv",
+    item.id !== null || undefined ?item.id: "-",
   ]);
+  
   // useEffect(() => {
   //   if (dataShow && dataShow.length !== 0) {
   //     localStorage.setItem("DeviceTable", JSON.stringify(dataShow)); // Store order data in local storage
@@ -156,10 +169,23 @@ const Stations: React.FC = () => {
 
   const AccordionTitle = devices?.map(item => [{ title: "پیام", value: item.sms }]);
   console.log("dataShodataShoww", dataShow);
+  const EditModalOpen = () => {
+    "clicked";
+  };
+  
 
+
+  const closeModal2 = () => {
+    setShowModal(false);
+  };
+
+  const getData = data => {
+    setUserData(data);
+  };
   return (
     <>
       <TableComponent
+        EditModalOpen={() => EditModalOpen()}
         AccordionTitle={AccordionTitle}
         accordion
         page={"دستگاه"}
@@ -167,6 +193,9 @@ const Stations: React.FC = () => {
         TableData={userData || []}
         title={titles}
       />
+      <Modal showModal={showModal} closeModal={closeModal2}>
+        <FormContainer  getData={getData} setShowModal={setShowModal}  />
+      </Modal>
     </>
   );
 };

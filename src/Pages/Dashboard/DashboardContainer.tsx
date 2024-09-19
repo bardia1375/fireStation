@@ -1,7 +1,6 @@
 import Modal from "Components/Modal/Modal";
 import { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import FormContainer from "./Form/FormContainer";
 import { GetMissionSettings, getStations } from "./Services/services";
@@ -9,8 +8,9 @@ import Dashboard from "./Dashboard";
 import {
   createSignalRConnection,
   startConnection,
-  subscribeToUpdates,
 } from "../../signalrService.js";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css"; // Include skeleton CSS for styling
 
 const DashboardContainer = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -20,314 +20,25 @@ const DashboardContainer = () => {
   const [active, setActive] = useState(false);
   const [missionId, setMissionId] = useState(true); // State to hold missionId
 
-  console.log("params", params);
+  const [deviceState, setDeviceState] = useState([]); // Initialize as an empty array
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
 
-  // استفاده از React Query برای دریافت داده‌ها
-  // const {
-  //   data: apiData,
-  //   isLoading,
-  //   isError,
-  // } = useQuery({
-  //   queryKey: ["dashboard"],
-  //   queryFn: getStations,
-  // });
+  useEffect(() => {
+    const connection = startConnection(setDeviceState);
+    
 
-  // // Mock data state
-  // const [mockData, setMockData] = useState([
-  //   {
-  //     id: 1,
-  //     firstName: "John",
-  //     lastName: "Doe",
-  //     imgUrl: "/path-to-image-1.jpg",
-  //     missionNumber: "11",
-  //     clockMission: "1",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 2,
-  //     firstName: "Jane",
-  //     lastName: "Smith",
-  //     imgUrl: "/path-to-image-2.jpg",
-  //     missionNumber: "12",
-  //     clockMission: "2",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 3,
-  //     firstName: "Michael",
-  //     lastName: "Johnson",
-  //     imgUrl: "/path-to-image-3.jpg",
-  //     missionNumber: "13",
-  //     clockMission: "3",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 1,
-  //     firstName: "John",
-  //     lastName: "Doe",
-  //     imgUrl: "/path-to-image-1.jpg",
-  //     missionNumber: "11",
-  //     clockMission: "1",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 2,
-  //     firstName: "Jane",
-  //     lastName: "Smith",
-  //     imgUrl: "/path-to-image-2.jpg",
-  //     missionNumber: "12",
-  //     clockMission: "2",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 3,
-  //     firstName: "Michael",
-  //     lastName: "Johnson",
-  //     imgUrl: "/path-to-image-3.jpg",
-  //     missionNumber: "13",
-  //     clockMission: "3",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 1,
-  //     firstName: "John",
-  //     lastName: "Doe",
-  //     imgUrl: "/path-to-image-1.jpg",
-  //     missionNumber: "11",
-  //     clockMission: "1",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 2,
-  //     firstName: "Jane",
-  //     lastName: "Smith",
-  //     imgUrl: "/path-to-image-2.jpg",
-  //     missionNumber: "12",
-  //     clockMission: "2",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 3,
-  //     firstName: "Michael",
-  //     lastName: "Johnson",
-  //     imgUrl: "/path-to-image-3.jpg",
-  //     missionNumber: "13",
-  //     clockMission: "3",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 1,
-  //     firstName: "John",
-  //     lastName: "Doe",
-  //     imgUrl: "/path-to-image-1.jpg",
-  //     missionNumber: "11",
-  //     clockMission: "1",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 2,
-  //     firstName: "Jane",
-  //     lastName: "Smith",
-  //     imgUrl: "/path-to-image-2.jpg",
-  //     missionNumber: "12",
-  //     clockMission: "2",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 3,
-  //     firstName: "Michael",
-  //     lastName: "Johnson",
-  //     imgUrl: "/path-to-image-3.jpg",
-  //     missionNumber: "13",
-  //     clockMission: "3",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 1,
-  //     firstName: "John",
-  //     lastName: "Doe",
-  //     imgUrl: "/path-to-image-1.jpg",
-  //     missionNumber: "11",
-  //     clockMission: "1",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 2,
-  //     firstName: "Jane",
-  //     lastName: "Smith",
-  //     imgUrl: "/path-to-image-2.jpg",
-  //     missionNumber: "12",
-  //     clockMission: "2",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 3,
-  //     firstName: "Michael",
-  //     lastName: "Johnson",
-  //     imgUrl: "/path-to-image-3.jpg",
-  //     missionNumber: "13",
-  //     clockMission: "3",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 1,
-  //     firstName: "John",
-  //     lastName: "Doe",
-  //     imgUrl: "/path-to-image-1.jpg",
-  //     missionNumber: "11",
-  //     clockMission: "1",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 2,
-  //     firstName: "Jane",
-  //     lastName: "Smith",
-  //     imgUrl: "/path-to-image-2.jpg",
-  //     missionNumber: "12",
-  //     clockMission: "2",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 3,
-  //     firstName: "Michael",
-  //     lastName: "Johnson",
-  //     imgUrl: "/path-to-image-3.jpg",
-  //     missionNumber: "13",
-  //     clockMission: "3",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 1,
-  //     firstName: "John",
-  //     lastName: "Doe",
-  //     imgUrl: "/path-to-image-1.jpg",
-  //     missionNumber: "11",
-  //     clockMission: "1",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 2,
-  //     firstName: "Jane",
-  //     lastName: "Smith",
-  //     imgUrl: "/path-to-image-2.jpg",
-  //     missionNumber: "12",
-  //     clockMission: "2",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 3,
-  //     firstName: "Michael",
-  //     lastName: "Johnson",
-  //     imgUrl: "/path-to-image-3.jpg",
-  //     missionNumber: "13",
-  //     clockMission: "3",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 1,
-  //     firstName: "John",
-  //     lastName: "Doe",
-  //     imgUrl: "/path-to-image-1.jpg",
-  //     missionNumber: "11",
-  //     clockMission: "1",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 2,
-  //     firstName: "Jane",
-  //     lastName: "Smith",
-  //     imgUrl: "/path-to-image-2.jpg",
-  //     missionNumber: "12",
-  //     clockMission: "2",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 3,
-  //     firstName: "Michael",
-  //     lastName: "Johnson",
-  //     imgUrl: "/path-to-image-3.jpg",
-  //     missionNumber: "13",
-  //     clockMission: "3",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 3,
-  //     firstName: "Michael",
-  //     lastName: "Johnson",
-  //     imgUrl: "/path-to-image-3.jpg",
-  //     missionNumber: "13",
-  //     clockMission: "3",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 3,
-  //     firstName: "Michael",
-  //     lastName: "Johnson",
-  //     imgUrl: "/path-to-image-3.jpg",
-  //     missionNumber: "13",
-  //     clockMission: "3",
-  //     name: "",
-  //     connect: "",
-  //   },
-  //   {
-  //     id: 1,
-  //     firstName: "John",
-  //     lastName: "Doe",
-  //     imgUrl: "/path-to-image-1.jpg",
-  //     missionNumber: "11",
-  //     clockMission: "1",
-  //     name: "",
-  //     connect: "",
-  //   },
 
-  //   {
-  //     id: 20,
-  //     firstName: "David",
-  //     lastName: "Williams",
-  //     imgUrl: "/path-to-image-20.jpg",
-  //     missionNumber: "14",
-  //     clockMission: "4",
-  //     name: "",
-  //     connect: "",
-  //   },
-  // ]);
+    return () => {
+      connection?.stop(); // قطع اتصال هنگامUnmount
+    };
+  }, []);
 
-  // useEffect(() => {
-  //   if (apiData && !isLoading) {
-  //     const updatedMockData = [
-  //       // { id: 999, firstName: "اضافه کردن", lastName: "", imgUrl: "" },
-  //       ...apiData,
-  //     ];
-  //     setMockData(updatedMockData);
-  //   }
-  // }, [apiData, isLoading]);
+  useEffect(() => {
+    // Log the deviceState to verify the structure of data received
+    console.log("Updated deviceState:", deviceState);
+  }, [deviceState]);
 
-  const handleEdit = user => {
+  const handleEdit = (user) => {
     setSelectedUser(user);
     setShowModal(true);
   };
@@ -335,71 +46,61 @@ const DashboardContainer = () => {
   const closeModal = () => {
     setShowModal(false);
   };
-  const getData = data => {
-    setUserData(data);
-  };
 
-  // if (isLoading) return <p>Loading...</p>;
-  // if (isError) return <p>Error fetching data</p>;
-  const [data, setData] = useState([]);
-
-  const [deviceState, setDeviceState] = useState(null);
-
-  useEffect(() => {
-    const connection = startConnection(setDeviceState);
-
-    return () => {
-      connection.stop(); // قطع اتصال هنگامUnmount
-    };
-  }, []);
-  console.log("deviceState", deviceState);
-
-  const handleReceiveMessage = message => {
-    console.log("1232342", message);
-
-    if (message) {
-      setActive(message);
-    }
-  };
-  const canStartMission = missionId => {
-    console.log("missionIdmissionIdmissionId", missionId);
+  const canStartMission = (missionId) => {
+    console.log("missionId", missionId);
     setMissionId(missionId);
     localStorage.setItem("missionId", missionId); // Save missionId to localStorage
   };
-  console.log("signalRdata", data);
 
   return (
     <SContainer style={{ width: "100%", position: "relative" }}>
       <div
-        style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr ", gap: "8px" }}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(7, 1fr)", // Cleaner grid styling
+          gap: "8px",
+        }}
       >
-        {Array(28)
-          .fill({ id: 0 })
-          .map((station, index) => (
-            <Dashboard
-              id={station.id + index}
-              key={station.id}
-              firstName={station.firstName}
-              lastName={station.lastName}
-              imgUrl={station.imgUrl}
-              onEdit={() => handleEdit(station)}
-              missionNumber={station.missionNumber}
-              clockMission={station.clockMission}
-              name={station.name}
-              connect={station.connect}
-              dataLength={index === 0}
-              setShowModal={setShowModal}
-            />
-          ))}
+        {
+          // Render the actual content when loading is done
+          Array.isArray(deviceState) && deviceState.length > 0 ? (
+            deviceState.map((station, index) => (
+              <Dashboard
+                id={station.id + index}
+                key={station.id}
+                firstName={station.firstName}
+                lastName={station.lastName}
+                imgUrl={station.imgUrl}
+                onEdit={() => handleEdit(station)}
+                missionNumber={station.missionNumber}
+                clockMission={station.clockMission}
+                name={station.name}
+                connect={station.connect}
+                dataLength={index === 0}
+                setShowModal={setShowModal}
+              />
+            ))
+          ) : 
+            (
+              // Render Skeletons while data is loading
+              [...Array(7)].map((_, index) => (
+                <SkeletonContainer key={index}>
+                  <Skeleton height={150} width="100%" />
+                  <Skeleton height={25} width="60%" style={{ marginTop: "10px" }} />
+                  <Skeleton height={20} width="80%" style={{ marginTop: "8px" }} />
+                </SkeletonContainer>
+              ))
+            
+          )
+        }
       </div>
-      {/* <Modal showModal={showModal} closeModal={closeModal} Submit={Submit}>
-        <FormContainer getData={getData} setShowModal={setShowModal} mockData={mockData} />
-      </Modal> */}
     </SContainer>
   );
 };
 
 export default DashboardContainer;
+
 export const SContainer = styled.div`
   position: relative;
   width: 100%;
@@ -409,4 +110,11 @@ export const SContainer = styled.div`
   padding: 24px;
   height: 100%;
   overflow: auto;
+`;
+
+const SkeletonContainer = styled.div`
+  background: #f0f0f0;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 `;

@@ -1,6 +1,6 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 
-const startConnection = (updateDeviceState) => {
+const startConnection = (updateStationState) => {
   const connection = new HubConnectionBuilder()
     .withUrl("http://192.168.20.33:2224/Stations")
     .configureLogging(LogLevel.Information)
@@ -15,7 +15,7 @@ const startConnection = (updateDeviceState) => {
       // ثبت تابع برای دریافت پیام‌ها از سرور
       connection.on("getStations", (message) => {
         console.log("Received message from server:", message);
-        updateDeviceState(message); // به روز رسانی داده‌ها
+        updateStationState(message); // به روز رسانی داده‌ها
       });
     })
     .catch((error) => {
