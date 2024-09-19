@@ -3,14 +3,14 @@ import styled, { css } from "styled-components";
 import "./style.css";
 import serverApi from "Services/httpService";
 import { successMessage, errorMessage } from "Utils/commonFunctions";
-import {  useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
-import { editStationData, editUserData, postStationData } from "../Services/services";
+import { editStationData, postStationData } from "../Services/services";
 
 function Form({ getData, setShowModal, mockData, oneUser }) {
   const queryClient = useQueryClient(); // دریافت instance از queryClient
 
-  const [firstName, setFirstName] = useState("");
+  const [name, setName] = useState("");
   const [port, setPort] = useState("");
   const [isActive, setIsActive] = useState("غیرفعال");
   const [priority, setPriority] = useState("");
@@ -36,7 +36,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
   const params = useParams();
   console.log("params", params);
   useEffect(() => {
-    setFirstName(oneUser?.firstName);
+    setName(oneUser?.name);
     setPort(oneUser?.port);
     setIsActive(oneUser?.isActive ? "فعال" : "غیرفعال");
     setPriority(oneUser?.priority);
@@ -52,29 +52,6 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     });
     // setAccessType(type);
   };
-  const postUserData = () => {
-    const data = {
-      firstName,
-      port,
-      isActive: isActive ? true : false,
-      priority,
-      role,
-      ip,
-    };
-
-    return serverApi
-      .post("/UserManagement/CreateUser", data)
-      .then(res => {
-        if (res.data) {
-          successMessage("عملیات با موفقیت انجام شد.");
-        } else {
-          errorMessage("عملیات با شکست مواجه شد!");
-        }
-      })
-      .catch(() => {
-        errorMessage("عملیات با شکست مواجه شد!");
-      });
-  };
 
   const { mutate, isError, isLoading } = useMutation({
     mutationKey: ["postStationData"],
@@ -82,20 +59,50 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     onSuccess: () => {
       // پس از موفقیت در mutate، کوئری با کلید "users" مجدداً بازآوری می‌شود
       queryClient.invalidateQueries(["users"]);
+      const multipleItem = {
+        stationId: reza.id,
+        stepOneFromTime: items[0].seconds,
+        stepOneToTime: items[0].toSeconds,
+        stepTwoFromTime: items[1].seconds,
+        stepTwoToTime: items[1].toSeconds,
+        stepThreeFromTime: items[2].seconds,
+        stepThreeToTime: items[2].toSeconds,
+        stepFourFromTime: items[3].seconds,
+        stepFourToTime: items[3].toSeconds,
+        stepFiveFromTime: items[4].seconds,
+        stepFiveToTime: items[4].toSeconds,
+      };
+      serverApi.post("Stations/UpsertStationSettings", multipleItem);
+
       setShowModal(false);
     },
   });
-  const { mutate: EditMutate } = useMutation({
+  const { mutate: EditMutate, data: reza } = useMutation({
     mutationKey: ["editStationData"],
     mutationFn: editStationData,
     onSuccess: () => {
       // پس از موفقیت در mutate، کوئری با کلید "users" مجدداً بازآوری می‌شود
-      queryClient.invalidateQueries(["dashboard"]);
+      queryClient.invalidateQueries(["stations"]);
+      const multipleItem = {
+        stationId: reza.id,
+        stepOneFromTime: items[0].seconds,
+        stepOneToTime: items[0].toSeconds,
+        stepTwoFromTime: items[1].seconds,
+        stepTwoToTime: items[1].toSeconds,
+        stepThreeFromTime: items[2].seconds,
+        stepThreeToTime: items[2].toSeconds,
+        stepFourFromTime: items[3].seconds,
+        stepFourToTime: items[3].toSeconds,
+        stepFiveFromTime: items[4].seconds,
+        stepFiveToTime: items[4].toSeconds,
+      };
+      serverApi.post("Stations/UpsertStationSettings", multipleItem);
+
       setShowModal(false);
     },
   });
   const submit = () => {
-    if (!firstName || !port || !isActive || !priority || !ip) {
+    if (false) {
       errorMessage("لطفا تمام فیدها پر شود!");
       return;
     }
@@ -103,33 +110,28 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     if (params.id) {
       const data = {
         id: params.id,
-        firstName,
+        name,
         port,
-        isActive,
+        isActive:isActive=="فغال"?true:false,
         priority,
-        role,
         ip,
-        items,
       };
       console.log("paramsfsdfsdfid", data);
 
       EditMutate(data);
     } else {
       const data = {
-        firstName,
+        name,
         port,
-        isActive,
-        priority,
-        role,
+        isActive:isActive=="فغال"?true:false,        priority,
         ip,
-        items,
       };
       console.log("paramsfsdfsdfid", data);
 
       mutate(data);
     }
 
-    getData(data);
+    // getData(data);
   };
 
   const onclose = () => {
@@ -146,8 +148,8 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
 
             <div className="col-3 input-effect">
               <input
-                value={firstName}
-                onChange={e => setFirstName(e.target.value)}
+                value={name}
+                onChange={e => setName(e.target.value)}
                 className="effect-21"
                 type="text"
                 placeholder="نام"
@@ -163,7 +165,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
                 value={ip}
                 onChange={e => setIp(e.target.value)}
                 className="effect-21"
-                type="number"
+                type="string"
                 placeholder="آی پی دستگاه"
               />
               <label>ip:</label>

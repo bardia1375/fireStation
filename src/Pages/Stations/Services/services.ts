@@ -10,11 +10,11 @@ export const getStatiosById = async id => {
   return data.data;
 };
 export const editStationData = async item => {
-  const { data } = await serverApi.put(`/UserManagement/EditStations`, item);
+  const { data } = await serverApi.put(`/Stations/EditStations`, item);
   return data.data;
 };
 export const postStationData = async item => {
-  const { data } = await serverApi.put(`/UserManagement/CreateStations`, item);
+  const { data } = await serverApi.post(`/Stations/CreateStation`, item);
   return data.data;
 };
 export const StartMission = async item => {
