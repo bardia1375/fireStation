@@ -7,10 +7,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { editStationData, postStationData } from "../Services/services";
 
-function Form({ getData, setShowModal, mockData, oneUser,deviceState }) {
+function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState }) {
   const queryClient = useQueryClient(); // دریافت instance از queryClient
-   console.log("deviceStatdeviceStatee",deviceState);
-   
+  console.log("deviceStatdeviceStatee", deviceState);
+  console.log("oneStationSetting", oneStationSetting);
+
   const [name, setName] = useState("");
   const [port, setPort] = useState("");
   const [isActive, setIsActive] = useState("غیرفعال");
@@ -19,25 +20,24 @@ function Form({ getData, setShowModal, mockData, oneUser,deviceState }) {
   const [ip, setIp] = useState("");
   const { id } = useParams();
   console.log("ididid", id);
- const [stationFilter,setStationFilter]=useState()
+  const [stationFilter, setStationFilter] = useState();
   const [items, setItems] = useState([
-    { name: "Item 1", seconds: 0, toSeconds: 60 },
-    { name: "Item 2", seconds: 0, toSeconds: 60 },
-    { name: "Item 3", seconds: 0, toSeconds: 60 },
-    { name: "Item 4", seconds: 0, toSeconds: 60 },
-    { name: "Item 5", seconds: 0, toSeconds: 60 },
+    { name: "عالی", seconds: 0, toSeconds: 60 },
+    { name: "خوب", seconds: 0, toSeconds: 60 },
+    { name: "متوسط", seconds: 0, toSeconds: 60 },
+    { name: "بد", seconds: 0, toSeconds: 60 },
+    { name: "خیلی بد", seconds: 0, toSeconds: 60 },
   ]);
-useEffect(()=>{
-const filter=  deviceState.filter((el)=>{
-    return el.id===id
-  })
-  console.log("filterbardia",filter);
-  if(filter.length!==0){
-      setStationFilter(filter[0])
-
-  }
-},[deviceState])
-console.log("stationFilter",stationFilter);
+  useEffect(() => {
+    const filter = deviceState.filter(el => {
+      return el.id === id;
+    });
+    console.log("filterbardia", filter);
+    if (filter.length !== 0) {
+      setStationFilter(filter[0]);
+    }
+  }, [deviceState]);
+  console.log("stationFilter", stationFilter);
 
   const handleInputChange = (index, field, value) => {
     const updatedItems = items.map((item, i) => {
@@ -57,7 +57,14 @@ console.log("stationFilter",stationFilter);
     setPriority(stationFilter?.priority);
     setRole(stationFilter?.role);
     setIp(stationFilter?.ip);
-  }, [stationFilter]);
+    setItems([
+      { name: "عالی", seconds: oneStationSetting?.stepOneFromTime, toSeconds: oneStationSetting?.stepOneToTime },
+      { name: "خوب", seconds: oneStationSetting?.stepTwoFromTime, toSeconds: oneStationSetting?.stepTwoToTime },
+      { name: "متوسط", seconds: oneStationSetting?.stepThreeFromTime, toSeconds:oneStationSetting?. stepThreeToTime },
+      { name: "بد", seconds: oneStationSetting?.stepFourFromTime, toSeconds: oneStationSetting?.stepFourToTime },
+      { name: "خیلی بد", seconds: oneStationSetting?.stepFiveFromTime, toSeconds: oneStationSetting?.stepFiveToTime },
+    ]);
+  }, [stationFilter, oneStationSetting]);
   const handleAccessSwitch = type => {
     setRole(prev => {
       if (prev === type) {
@@ -100,20 +107,6 @@ console.log("stationFilter",stationFilter);
       setShowModal(false);
       // پس از موفقیت در mutate، کوئری با کلید "users" مجدداً بازآوری می‌شود
       queryClient.invalidateQueries(["stations"]);
-      const multipleItem = {
-        stationId:id,
-        stepOneFromTime: items[0].seconds,
-        stepOneToTime: items[0].toSeconds,
-        stepTwoFromTime: items[1].seconds,
-        stepTwoToTime: items[1].toSeconds,
-        stepThreeFromTime: items[2].seconds,
-        stepThreeToTime: items[2].toSeconds,
-        stepFourFromTime: items[3].seconds,
-        stepFourToTime: items[3].toSeconds,
-        stepFiveFromTime: items[4].seconds,
-        stepFiveToTime: items[4].toSeconds,
-      };
-      serverApi.post("Stations/UpsertStationSettings", multipleItem);
 
       setShowModal(false);
     },
@@ -134,7 +127,20 @@ console.log("stationFilter",stationFilter);
         ip,
       };
       console.log("paramsfsdfsdfid", data);
-
+      const multipleItem = {
+        stationId: id,
+        stepOneFromTime: items[0].seconds,
+        stepOneToTime: items[0].toSeconds,
+        stepTwoFromTime: items[1].seconds,
+        stepTwoToTime: items[1].toSeconds,
+        stepThreeFromTime: items[2].seconds,
+        stepThreeToTime: items[2].toSeconds,
+        stepFourFromTime: items[3].seconds,
+        stepFourToTime: items[3].toSeconds,
+        stepFiveFromTime: items[4].seconds,
+        stepFiveToTime: items[4].toSeconds,
+      };
+      serverApi.post("Stations/UpsertStationSettings", multipleItem);
       EditMutate(data);
     } else {
       const data = {

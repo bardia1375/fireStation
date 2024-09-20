@@ -9,6 +9,7 @@ export const TableComponent = props => {
       <TableList
         setRefresh={props.setRefresh}
         EditModalOpen={props.EditModalOpen}
+        reportTiming={props.reportTiming}
         purchase={props.purchase}
         preOrder={props.preOrder}
         refresh={props.refresh}

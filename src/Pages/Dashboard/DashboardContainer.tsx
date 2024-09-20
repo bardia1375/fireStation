@@ -68,14 +68,17 @@ const DashboardContainer = () => {
             deviceState.map((station, index) => (
               <Dashboard
                 id={station.id + index}
+                stationId={station.id}
                 key={station.id}
                 firstName={station.firstName}
                 lastName={station.lastName}
-                imgUrl={station.imgUrl}
+                hasConnection={station.hasConnection}
+                hasCurrentMission={station.hasCurrentMission}
                 onEdit={() => handleEdit(station)}
                 missionNumber={station.missionNumber}
-                clockMission={station.clockMission}
+                currentMissionDuration={station.currentMissionDuration}
                 name={station.name}
+                lastDailyMissionTime={station.lastDailyMissionTime}
                 connect={station.connect}
                 dataLength={index === 0}
                 setShowModal={setShowModal}

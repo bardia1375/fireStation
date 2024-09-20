@@ -21,6 +21,7 @@ import Report from "Pages/Report/Report";
 import Setting from "Pages/Setting/Setting";
 import DashboardContainer from "Pages/Dashboard/DashboardContainer";
 import Stations from "Pages/Stations/Stations";
+import ReportContainer from "Pages/Report/ReportContainer";
 
 export default function Body() {
   const { isNewTicketModalOpen, isMobileMenueOpen } = useSelector(state => state.modal);

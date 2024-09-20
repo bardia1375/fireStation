@@ -5,12 +5,19 @@ export const getStations = async () => {
   const { data } = await serverApi.get("/UserManagement/getStations");
   return data.data;
 };
-export const getStatiosById = async id => {
-  const { data } = await serverApi.get(`/UserManagement/getStationsById?id=${id}`);
-  return data.data;
+export const getStatiosById = async (id) => {
+  // ارسال stationId به عنوان query parameter
+  const { data } = await serverApi.get(`/Stations/GetStationSettings`, {
+    params: {
+      stationId: id,
+    },
+  });
+  
+  return data.data; // برگرداندن داده‌های دریافتی
 };
+
 export const editStationData = async item => {
-  const { data } = await serverApi.put(`/Stations/EditStations`, item);
+  const { data } = await serverApi.put(`/Stations/EditStation`, item);
   return data.data;
 };
 export const postStationData = async item => {

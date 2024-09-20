@@ -78,7 +78,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     },
   });
   const submit = () => {
-    if (!firstName || !lastName || !isActive || !password || !role || !userName) {
+    if (!firstName || !lastName || !isActive  || !role || !userName) {
       errorMessage("لطفا تمام فیدها پر شود!");
       return;
     }
@@ -87,7 +87,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
         id: params.id,
         firstName,
         lastName,
-        isActive,
+        isActive:isActive==="فعال"?true:false,
         password,
         role,
         userName,

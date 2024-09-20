@@ -35,6 +35,7 @@ let pageSize = 10;
 export const TableList = ({
   page,
   addModalDescription,
+  reportTiming,
   description,
   hoverDetail,
   dropData,
@@ -91,7 +92,7 @@ export const TableList = ({
   getUniqueSoftwareId,
 }) => {
   const dispatch = useDispatch();
-  const { showModal, openModal, closeModal, selectedUser,setShowModal } = useAppContext(); // Use the context
+  const { showModal, openModal, closeModal, selectedUser, setShowModal, setFromDate, setToDate  } = useAppContext(); // Use the context
 
   const location = useLocation();
   const history = useHistory();
@@ -242,9 +243,28 @@ export const TableList = ({
 
     pdfMake.createPdf(docDefinition).download("table_data.pdf");
   };
-const AddStations=()=>{
-  setShowModal(true)
-}
+  const AddStations = () => {
+    setShowModal(true);
+  };
+
+  //   const mutation = useMutation({
+  //   mutationFn: () => sendMissionReport({ fromDate, toDate }), // ارسال داده‌ها به تابع سرویس
+  //   onSuccess: (data) => {
+  //     console.log("Mission report data:", data); // نمایش داده‌های دریافتی در console
+  //     // اینجا می‌توانید داده‌های دریافت شده را به فرم یا کامپوننت دیگری ارسال کنید
+  //   },
+  //   onError: (error) => {
+  //     console.error("Error sending mission report:", error); // در صورت بروز خطا
+  //   },
+  // });
+  const handleSubmit = () => {
+    if (fromTime) {
+      setFromDate(fromTime.format("YYYY-MM-DD")); // ارسال تاریخ انتخاب‌شده به setFromDate
+    }
+    if (toTime) {
+      setToDate(toTime.format("YYYY-MM-DD")); // ارسال تاریخ انتخاب‌شده به setToDate
+    }
+  };
   return (
     <PublicTableComponent.SContainer>
       {/* {isAddMode && (
@@ -289,7 +309,7 @@ const AddStations=()=>{
           </div>
         </div>
         {/* Jalali Date Pickers for FromTime and ToTime */}
-        <div
+ {  reportTiming&&     <div
           style={{
             display: "flex",
             gap: "10px",
@@ -343,11 +363,12 @@ const AddStations=()=>{
           />
 
           <ConfigureButton
+            onClick={handleSubmit} // ثبت تاریخ‌ها
             style={{ border: "none", padding: 0, height: "30px", width: "100px", margin: 10 }}
           >
             ثبت
           </ConfigureButton>
-        </div>
+        </div>}
         {tabsData ? (
           <div>
             {tabsData.map((item, index) => (

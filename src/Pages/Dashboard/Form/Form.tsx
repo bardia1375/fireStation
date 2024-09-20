@@ -17,11 +17,11 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
   const [role, setRole] = useState("");
   const [ip, setIp] = useState("");
   const [items, setItems] = useState([
-    { name: "Item 1", seconds: 0, toSeconds: 60 },
-    { name: "Item 2", seconds: 0, toSeconds: 60 },
-    { name: "Item 3", seconds: 0, toSeconds: 60 },
-    { name: "Item 4", seconds: 0, toSeconds: 60 },
-    { name: "Item 5", seconds: 0, toSeconds: 60 },
+    { name: "عالی", seconds: 0, toSeconds: 60 },
+    { name: "خوب", seconds: 0, toSeconds: 60 },
+    { name: "متوسط", seconds: 0, toSeconds: 60 },
+    { name: "بد", seconds: 0, toSeconds: 60 },
+    { name: "خیلی بد", seconds: 0, toSeconds: 60 },
   ]);
 
   const handleInputChange = (index, field, value) => {

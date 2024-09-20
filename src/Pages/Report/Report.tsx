@@ -152,6 +152,7 @@ const Report: React.FC = () => {
         data={dataShow || []}
         TableData={userData || []}
         title={titles}
+        reportTiming
       />
     </>
   );
