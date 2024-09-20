@@ -16,6 +16,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
   const [priority, setPriority] = useState("");
   const [role, setRole] = useState("");
   const [ip, setIp] = useState("");
+  const {id}=useParams()
   const [items, setItems] = useState([
     { name: "Item 1", seconds: 0, toSeconds: 60 },
     { name: "Item 2", seconds: 0, toSeconds: 60 },
@@ -112,7 +113,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
         id: params.id,
         name,
         port,
-        isActive:isActive=="فغال"?true:false,
+        isActive: isActive == "فغال" ? true : false,
         priority,
         ip,
       };
@@ -123,7 +124,8 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
       const data = {
         name,
         port,
-        isActive:isActive=="فغال"?true:false,        priority,
+        isActive: isActive == "فغال" ? true : false,
+        priority,
         ip,
       };
       console.log("paramsfsdfsdfid", data);
@@ -222,44 +224,50 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
           </div>
         </div>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr " }}>
-        {items.map((item, index) => (
-          <div
-            key={index}
-            className="col-3 input-effect"
-            style={{
-              display: "flex",
-              gap: "16px",
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
-          >
-            <h4>{item.name}</h4>
-            <div style={{ display: "flex" }}>
-              <input
-                type="number"
-                className="effect-21"
-                value={item.seconds}
-                onChange={e =>
-                  handleInputChange(index, "seconds", Math.max(0, Math.min(60, +e.target.value)))
-                }
-                min="0"
-                max="100"
-              />
-              <input
-                type="number"
-                className="effect-21"
-                value={item.toSeconds}
-                onChange={e =>
-                  handleInputChange(index, "toSeconds", Math.max(0, Math.min(60, +e.target.value)))
-                }
-                min="0"
-                max="100"
-              />
+      {id && (
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr " }}>
+          {items.map((item, index) => (
+            <div
+              key={index}
+              className="col-3 input-effect"
+              style={{
+                display: "flex",
+                gap: "16px",
+                alignItems: "center",
+                justifyContent: "flex-start",
+              }}
+            >
+              <h4>{item.name}</h4>
+              <div style={{ display: "flex" }}>
+                <input
+                  type="number"
+                  className="effect-21"
+                  value={item.seconds}
+                  onChange={e =>
+                    handleInputChange(index, "seconds", Math.max(0, Math.min(60, +e.target.value)))
+                  }
+                  min="0"
+                  max="100"
+                />
+                <input
+                  type="number"
+                  className="effect-21"
+                  value={item.toSeconds}
+                  onChange={e =>
+                    handleInputChange(
+                      index,
+                      "toSeconds",
+                      Math.max(0, Math.min(60, +e.target.value))
+                    )
+                  }
+                  min="0"
+                  max="100"
+                />
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
       <div style={{ display: "flex", alignItems: "flex-end", marginTop: "8px" }}>
         <Button className="col-3 input-effect" style={{ width: "10vw" }} onClick={submit}>
           ثبت

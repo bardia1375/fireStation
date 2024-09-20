@@ -459,7 +459,7 @@ const AddStations=()=>{
                 description={description}
                 hoverDetail={hoverDetail}
                 hoverActionItems={hoverActionItems}
-                // statusObjStyle={item[item.length - 3]}
+                statusObjStyle={item[item.length - 3]}
                 contractStyle={item[item.length - (hoverDetail || contractPage ? 3 : 0)]}
                 key={item[item?.length - (hoverDetail ? 2 : 1)]}
                 items={item}

@@ -186,12 +186,14 @@ console.log("bardiasalam",deviceState);
     <>
       <TableComponent
         EditModalOpen={() => EditModalOpen()}
-        AccordionTitle={AccordionTitle}
-        accordion
+        // AccordionTitle={AccordionTitle}
+        // accordion
         page={"دستگاه"}
         data={dataShow || []}
         TableData={userData || []}
         title={titles}
+        penButton
+        navigateEditAddress="/stations"
       />
       <Modal showModal={showModal} closeModal={closeModal2}>
         <FormContainer  getData={getData} setShowModal={setShowModal}  />

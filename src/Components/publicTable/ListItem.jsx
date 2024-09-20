@@ -11,6 +11,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { DeleteModal } from "./deleteModal/DeleteModal";
 import { Typography } from "../Commons/Typography";
 import { CloneModal } from "./cloneModal/CloneModal";
+import { useAppContext } from "Context/AppContext";
 
 // Styled Elements
 import { PublicTableComponent } from ".";
@@ -97,6 +98,8 @@ export const ListItem = ({
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
+  const {setShowModal } = useAppContext(); // Use the context
+
   // States
   const [isHover, setIsHover] = useState(hoverActionItems ? false : true);
   const [isHoverDetail, setIsHoverDetail] = useState(hoverDetail ? false : true);
@@ -134,14 +137,19 @@ export const ListItem = ({
       });
     }
   };
-  const goToEditPageHandler = () =>
-    history.push(`${navigateEditAddress}${items[items.length - (hoverDetail ? 2 : 1)]}`, {
+  const goToEditPageHandler = () =>{
+    setShowModal(true)
+    history.push(`${navigateEditAddress}/${items[items.length - (hoverDetail ? 2 : 1)]}`, {
       state: {
         ...items,
         from: location?.pathname,
         currentPage: currentPage,
       },
-    });
+
+    }
+  
+  )};
+
   // const goToSendMessagePageHandler = () =>
   //   navigate("/employees/send-message", { state: { ...items } });
 
@@ -321,6 +329,7 @@ export const ListItem = ({
   //   document.body.removeChild(anchor);
   // }, [downloadLink]);
 
+  console.log("item[item.length - 3]", item);
   return (
     <div style={{ position: "relative" }} onClick={() => onRowClick(item)}>
       {isDeleteMode && (
@@ -347,7 +356,7 @@ export const ListItem = ({
       <PublicTableComponent.ListItem
         onMouseOver={handleOverChange}
         onMouseLeave={handleOutChange}
-        // statusObjStyle={item[item.length - 3].split(" ")[0] < item[item.length - 1] ? "فعال" : ""}
+        statusObjStyle={item[item.length - 3].split(" ")[0] < item[item.length - 1] ? "فعال" : ""}
         contractStyle={contractStyle}
         page={page}
         grid={page !== "گزارش‌ها" ? column : column - 1}

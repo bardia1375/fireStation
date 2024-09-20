@@ -82,6 +82,8 @@ export default function Body() {
               <Route path="/setting" component={Setting} />
               <Route path="/reports" component={Report} />
               <Route path="/stations" exact component={Stations} />
+              <Route path="/stations/:id" exact component={Stations} />
+
               <Route path="/dashboard" exact component={DashboardContainer} />
               <Route path="/Dashboard/:id" component={DashboardContainer} />
               <Route path="/personnel" exact component={PersonnelContainer} />
