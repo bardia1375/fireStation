@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getStatiosById } from "../Services/services";
 
-function FormContainer({ getData, setShowModal, mockData }) {
+function FormContainer({ getData, setShowModal, mockData,deviceState }) {
   const params = useParams();
   console.log("params", params);
   const {
@@ -20,7 +20,7 @@ function FormContainer({ getData, setShowModal, mockData }) {
 
   return (
     <div>
-      <Form getData={getData} oneUser={oneUser} setShowModal={setShowModal} mockData={mockData} />
+      <Form getData={getData} oneUser={oneUser} setShowModal={setShowModal} mockData={mockData} deviceState={deviceState} />
     </div>
   );
 }

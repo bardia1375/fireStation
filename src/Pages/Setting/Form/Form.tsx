@@ -246,7 +246,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
           style={{ width: "10vw" }}
           onClick={onclose}
         >
-          پشیمان شدم
+          انصراف
         </Link>
       </div>
     </Card>

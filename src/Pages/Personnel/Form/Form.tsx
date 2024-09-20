@@ -213,8 +213,8 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
                   <SwitchContainer>
                     <SwitchInput
                       type="checkbox"
-                      checked={role === "systemUser"}
-                      onChange={() => handleAccessSwitch("systemUser")}
+                      checked={role === "Watcher"}
+                      onChange={() => handleAccessSwitch("Watcher")}
                     />
                     <Slider />
                   </SwitchContainer>
@@ -225,8 +225,8 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
                   <SwitchContainer>
                     <SwitchInput
                       type="checkbox"
-                      checked={role === "regularUser"}
-                      onChange={() => handleAccessSwitch("regularUser")}
+                      checked={role === "NormalUser"}
+                      onChange={() => handleAccessSwitch("NormalUser")}
                     />
                     <Slider />
                   </SwitchContainer>

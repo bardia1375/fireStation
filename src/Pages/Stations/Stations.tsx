@@ -196,7 +196,7 @@ console.log("bardiasalam",deviceState);
         navigateEditAddress="/stations"
       />
       <Modal showModal={showModal} closeModal={closeModal2}>
-        <FormContainer  getData={getData} setShowModal={setShowModal}  />
+        <FormContainer  getData={getData} setShowModal={setShowModal} deviceState={deviceState} />
       </Modal>
     </>
   );

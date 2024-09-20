@@ -7,16 +7,19 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { editStationData, postStationData } from "../Services/services";
 
-function Form({ getData, setShowModal, mockData, oneUser }) {
+function Form({ getData, setShowModal, mockData, oneUser,deviceState }) {
   const queryClient = useQueryClient(); // دریافت instance از queryClient
-
+   console.log("deviceStatdeviceStatee",deviceState);
+   
   const [name, setName] = useState("");
   const [port, setPort] = useState("");
   const [isActive, setIsActive] = useState("غیرفعال");
   const [priority, setPriority] = useState("");
   const [role, setRole] = useState("");
   const [ip, setIp] = useState("");
-  const {id}=useParams()
+  const { id } = useParams();
+  console.log("ididid", id);
+ const [stationFilter,setStationFilter]=useState()
   const [items, setItems] = useState([
     { name: "Item 1", seconds: 0, toSeconds: 60 },
     { name: "Item 2", seconds: 0, toSeconds: 60 },
@@ -24,6 +27,17 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     { name: "Item 4", seconds: 0, toSeconds: 60 },
     { name: "Item 5", seconds: 0, toSeconds: 60 },
   ]);
+useEffect(()=>{
+const filter=  deviceState.filter((el)=>{
+    return el.id===id
+  })
+  console.log("filterbardia",filter);
+  if(filter.length!==0){
+      setStationFilter(filter[0])
+
+  }
+},[deviceState])
+console.log("stationFilter",stationFilter);
 
   const handleInputChange = (index, field, value) => {
     const updatedItems = items.map((item, i) => {
@@ -37,13 +51,13 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
   const params = useParams();
   console.log("params", params);
   useEffect(() => {
-    setName(oneUser?.name);
-    setPort(oneUser?.port);
-    setIsActive(oneUser?.isActive ? "فعال" : "غیرفعال");
-    setPriority(oneUser?.priority);
-    setRole(oneUser?.role);
-    setIp(oneUser?.ip);
-  }, [oneUser]);
+    setName(stationFilter?.name);
+    setPort(stationFilter?.port);
+    setIsActive(stationFilter?.isActive ? "فعال" : "غیرفعال");
+    setPriority(stationFilter?.priority);
+    setRole(stationFilter?.role);
+    setIp(stationFilter?.ip);
+  }, [stationFilter]);
   const handleAccessSwitch = type => {
     setRole(prev => {
       if (prev === type) {
@@ -58,6 +72,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     mutationKey: ["postStationData"],
     mutationFn: postStationData,
     onSuccess: () => {
+      setShowModal(false);
       // پس از موفقیت در mutate، کوئری با کلید "users" مجدداً بازآوری می‌شود
       queryClient.invalidateQueries(["users"]);
       const multipleItem = {
@@ -82,10 +97,11 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     mutationKey: ["editStationData"],
     mutationFn: editStationData,
     onSuccess: () => {
+      setShowModal(false);
       // پس از موفقیت در mutate، کوئری با کلید "users" مجدداً بازآوری می‌شود
       queryClient.invalidateQueries(["stations"]);
       const multipleItem = {
-        stationId: reza.id,
+        stationId:id,
         stepOneFromTime: items[0].seconds,
         stepOneToTime: items[0].toSeconds,
         stepTwoFromTime: items[1].seconds,
@@ -108,9 +124,9 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
       return;
     }
 
-    if (params.id) {
+    if (id) {
       const data = {
-        id: params.id,
+        id: id,
         name,
         port,
         isActive: isActive == "فغال" ? true : false,
@@ -273,12 +289,12 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
           ثبت
         </Button>
         <Link
-          to="/dashboard"
+          to="/stations"
           className="col-3 input-effect"
           style={{ width: "10vw" }}
           onClick={onclose}
         >
-          پشیمان شدم
+          انصراف
         </Link>
       </div>
     </Card>

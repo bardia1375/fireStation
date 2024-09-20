@@ -8,8 +8,8 @@ export const getUsersById = async id => {
   const { data } = await serverApi.get(`/UserManagement/GetUserById?id=${id}`);
   return data.data;
 };
-export const editUserData = async () => {
-  const { data } = await serverApi.put(`/UserManagement/EditUser`);
+export const editUserData = async items => {
+  const { data } = await serverApi.put(`/UserManagement/EditUser`,items);
   return data.data;
 };
 export const postUserData = async items => {

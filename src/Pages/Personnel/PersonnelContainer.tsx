@@ -76,7 +76,7 @@ const PersonnelContainer = () => {
         ))}
       </div>
 
-      <Modal width="80vw" showModal={showModal} closeModal={closeModal} title="Edit User" Submit={Submit}>
+      <Modal width="80vw" showModal={showModal} closeModal={closeModal} Submit={Submit}>
         <FormContainer getData={getData} setShowModal={setShowModal} mockData={mockData} />
       </Modal>
     </SContainer>
