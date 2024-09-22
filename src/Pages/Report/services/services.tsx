@@ -14,3 +14,15 @@ export const sendMissionReport = async ({ fromDate, toDate, stationId }) => {
   const { data } = await serverApi.post(`/Missions/MissionReport`, payload);
   return data; // بازگرداندن داده‌های دریافت شده
 };
+
+export const getReports = async (fromDate, toDate) => {
+  const payload = {
+    page: 0,
+    limit: 1000,
+    fromDate: fromDate,
+    toDate: toDate,
+    // stationId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  };
+  const { data } = await serverApi.post(`/Missions/MissionReport`, payload);
+  return data;
+};

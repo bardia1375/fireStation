@@ -4,19 +4,18 @@ import { getAllMyTickets } from "./../Actions/Ticket/ticket";
 import { useDispatch } from "react-redux";
 import TicketItem from "./Ticket/TicketItem";
 import { menues } from "../Utils/constVar";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import { userLogOut } from "../Actions/User/user";
 export default function SideBar() {
   const dispatch = useDispatch();
 
   const [tickets, setTickets] = useState([]);
   const [height, setHeight] = useState(true);
+  const history = useHistory(); // اضافه کردن useHistory برای هدایت
 
-  const { searchTerm, isActive, isSearching } = useSelector(
-    (state) => state.tickets
-  );
+  const { searchTerm, isActive, isSearching } = useSelector(state => state.tickets);
   const handleGetMyTicketsList = async () => {
-    const { allTickets } = await dispatch(getAllMyTickets(1,100));
+    const { allTickets } = await dispatch(getAllMyTickets(1, 100));
     setTickets(allTickets);
   };
   // filterTicketsBysearch
@@ -34,10 +33,9 @@ export default function SideBar() {
     };
   }, [isActive]);
 
-  const onScroll = (e) => {
+  const onScroll = e => {
     const bottom =
-      e.currentTarget.scrollHeight - e.currentTarget.scrollTop ===
-      e.currentTarget.clientHeight;
+      e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
     if (bottom) {
       setHeight(false);
     } else {
@@ -54,15 +52,31 @@ export default function SideBar() {
       ? "linear-gradient(to bottom, black calc(100% - 120px), transparent 100%)"
       : null,
   };
-  const handleChange = (title) => {
+  const handleChange = title => {
     if (title === "خروج") {
       dispatch(userLogOut());
+      window.location.href = "/auth/login"; // هدایت به صفحه لاگین
+    }
+  };
+  const renderRole = () => {
+    const role = localStorage.getItem("role");
+    switch (role) {
+      case "Admin":
+        return "مدیر";
+      case "Watcher":
+        return "کاربر سامانه";
+        break;
+      case "NormalUser":
+        return "کاربر عادی";
+        break;
+      default:
+        break;
     }
   };
   return (
     <>
       <ul className="SidebarList" style={style} onScroll={onScroll}>
-        {menues.map((item) => {
+        {menues.map(item => {
           return (
             <NavLink
               activeClassName="activeRouteSideBar"
@@ -77,6 +91,7 @@ export default function SideBar() {
             </NavLink>
           );
         })}
+        <div className="roleUser">{renderRole()}</div>
       </ul>
     </>
   );

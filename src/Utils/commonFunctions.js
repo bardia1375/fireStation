@@ -1,20 +1,38 @@
 import { toast } from "react-toastify";
 
-export const successMessage = (message) => {
+export const successMessage = message => {
   toast.success(message, {
     position: "top-right",
     closeOnClick: true,
   });
 };
 
-export const errorMessage = (message) => {
+export const errorMessage = message => {
   toast.error(message, {
     position: "top-right",
     closeOnClick: true,
   });
 };
 
-export const handleError = (error) => {
+// utils/convertNumbers.js
+export const convertNumbersToEnglish = (input) => {
+  if (typeof input !== 'string') return ""; // input'un string olup olmadığını kontrol edin
+  console.log("bardiainput",input);
+  
+  const persianNumbers = "۰۱۲۳۴۵۶۷۸۹";
+  const englishNumbers = "0123456789";
+  const conversionMap = {};
+
+  for (let i = 0; i < persianNumbers.length; i++) {
+    conversionMap[persianNumbers[i]] = englishNumbers[i];
+  }
+
+  return input.replace(/[۰-۹]/g, match => conversionMap[match]);
+};
+
+
+
+export const handleError = error => {
   if (error.response) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
@@ -44,8 +62,7 @@ export const handleErrorResponse = (result, showToast = true) => {
     case "response":
       showToast &&
         errorMessage(
-          (result.response && result.response.data.message) ||
-            result.errorBody.data.message
+          (result.response && result.response.data.message) || result.errorBody.data.message
         );
 
       break;
@@ -57,7 +74,7 @@ export const handleErrorResponse = (result, showToast = true) => {
   }
   return false;
 };
-export const convertEnglishNumberToPersian = (num) => {
+export const convertEnglishNumberToPersian = num => {
   var id = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
   return num?.toString().replace(/[0-9]/g, function (w) {
     return id[+w];

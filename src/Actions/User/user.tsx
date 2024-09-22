@@ -59,8 +59,10 @@ export const userLogOut = loginInfo => async dispatch => {
   //   handleErrorResponse(response);
   // } else {
   // }
+  window.location.href = "/auth/login"; // هدایت به صفحه لاگین
+
   localStorage.removeItem("tickment_token");
-  localStorage.removeItem("CanSendTicket");
+  localStorage.removeItem("refresh_token");
   caches.keys().then(names => {
     names.forEach(name => {
       caches.delete(name);

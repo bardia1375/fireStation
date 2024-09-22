@@ -1573,10 +1573,17 @@ aside .ticketsList {
   background: var(--primary);
   border-radius: 5px;
 }
+
 .SidebarList {
   margin-right: 1vw;
   overflow-x: hidden;
+  position: relative;
   mask-image: linear-gradient(to bottom, black calc(100% - 48px), transparent 100%);
+}
+.roleUser {
+  position: absolute;
+  bottom: 50px;
+  right:0
 }
 .SidebarListItem {
   display: flex;

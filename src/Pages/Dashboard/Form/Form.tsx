@@ -179,10 +179,10 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
                 onChange={e => setPriority(e.target.value)}
                 className="effect-21"
                 type="number"
-                placeholder="الویت"
+                placeholder="اولویت"
                 width={"500px"}
               />
-              <label>الویت</label>
+              <label>اولویت</label>
               <span className="focus-border">
                 <i></i>
               </span>

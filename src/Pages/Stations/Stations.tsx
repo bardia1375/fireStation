@@ -3,10 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import { RootState } from "../../Reducers"; // Update this path according to your project structure
 import { getAllData } from "../../Actions/Table/table";
-import {
-  createSignalRConnection,
-  startConnection,
-} from "../../signalrService.js";
+import { createSignalRConnection, startConnection } from "../../signalrService.js";
 // Images
 import { TableComponent } from "../../Components/publicTable/Main";
 import serverApi, { setAuthToken } from "Services/httpService";
@@ -23,7 +20,7 @@ interface Device {
 
 const Stations: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
-  const { showModal, openModal, closeModal, selectedUser,setShowModal } = useAppContext(); // Use the context
+  const { showModal, openModal, closeModal, selectedUser, setShowModal } = useAppContext(); // Use the context
 
   const [devices, setDevices] = useState<Device[]>([]);
   const [loading, setLoading] = useState(false);
@@ -37,8 +34,6 @@ const Stations: React.FC = () => {
   }, []);
   useEffect(() => {
     const connection = startConnection(setDeviceState);
-    
-
 
     return () => {
       connection?.stop(); // قطع اتصال هنگامUnmount
@@ -121,19 +116,25 @@ const Stations: React.FC = () => {
   //   });
   // }, []);
   // Set Titles
-  const titles = [{ title: "ایستگاه" }, { title: "ip" }, { title: "port" }, { title: "اخرین ماموریت" }, { title: "وضعیت"} ];
+  const titles = [
+    { title: "ایستگاه" },
+    { title: "ip" },
+    { title: "port" },
+    { title: "اخرین ماموریت" },
+    { title: "وضعیت" },
+  ];
   console.log("devicesdevicesdevices", devices);
-console.log("bardiasalam",deviceState);
+  console.log("bardiasalam", deviceState);
 
   const dataShow = deviceState?.map(item => [
-    item.name !== null || undefined ?    item.name : " ایستگاه نامشخص",
-    item.ip !== null || undefined ?item.ip : "-",
-    item.port !== null || undefined ?item.port: "-",
-    item.lastDailyMissionTime !== null || undefined ?item.lastDailyMissionTime : "-",
-    item.isActive !== null || undefined ?!!item.isActive?"فعال" : "غیرفعال":"efv",
-    item.id !== null || undefined ?item.id: "-",
+    item.name !== null || undefined ? item.name : " ایستگاه نامشخص",
+    item.ip !== null || undefined ? item.ip : "-",
+    item.port !== null || undefined ? item.port : "-",
+    item.lastDailyMissionTime !== null || undefined ? item.lastDailyMissionTime : "-",
+    item.isActive !== null || undefined ? (!!item.isActive ? "فعال" : "غیرفعال") : "efv",
+    item.id !== null || undefined ? item.id : "-",
   ]);
-  
+
   // useEffect(() => {
   //   if (dataShow && dataShow.length !== 0) {
   //     localStorage.setItem("DeviceTable", JSON.stringify(dataShow)); // Store order data in local storage
@@ -172,8 +173,6 @@ console.log("bardiasalam",deviceState);
   const EditModalOpen = () => {
     "clicked";
   };
-  
-
 
   const closeModal2 = () => {
     setShowModal(false);
@@ -188,15 +187,17 @@ console.log("bardiasalam",deviceState);
         EditModalOpen={() => EditModalOpen()}
         // AccordionTitle={AccordionTitle}
         // accordion
+
         page={"دستگاه"}
         data={dataShow || []}
         TableData={userData || []}
         title={titles}
         penButton
+        settingButton
         navigateEditAddress="/stations"
       />
       <Modal showModal={showModal} closeModal={closeModal2}>
-        <FormContainer  getData={getData} setShowModal={setShowModal} deviceState={deviceState} />
+        <FormContainer getData={getData} setShowModal={setShowModal} deviceState={deviceState} />
       </Modal>
     </>
   );

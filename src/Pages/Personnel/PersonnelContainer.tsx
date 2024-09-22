@@ -9,8 +9,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { getUsers } from "./Services/services";
 
-
-
 const PersonnelContainer = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -19,23 +17,33 @@ const PersonnelContainer = () => {
   console.log("params", params);
 
   // استفاده از React Query برای دریافت داده‌ها
-  const { data: apiData, isLoading, isError } = useQuery({
+  const {
+    data: apiData,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["users"],
     queryFn: getUsers,
   });
- console.log(apiData);
- 
+  console.log(apiData);
+
   // Mock data state
   const [mockData, setMockData] = useState([]);
 
   useEffect(() => {
+    const role = localStorage.getItem("role");
+
     if (apiData && !isLoading) {
+      if (role === "Admin") {
+        const updatedMockData = [
+          { id: 999, firstName: "اضافه کردن", lastName: "", imgUrl: "" },
+          ...apiData,
+        ];
+        setMockData(updatedMockData);
+      } else {
+        setMockData(apiData);
+      }
       // افزودن یک عنصر جدید به mockData پس از دریافت داده‌ها
-      const updatedMockData = [
-        { id: 999, firstName: "اضافه کردن", lastName: "", imgUrl: "" },
-        ...apiData,
-      ];
-      setMockData(updatedMockData);
     }
   }, [apiData, isLoading]);
 

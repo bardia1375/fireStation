@@ -7,9 +7,11 @@ export const TableComponent = props => {
     <>
       {/* <SubHeader /> */}
       <TableList
+        devices={props.devices}
         setRefresh={props.setRefresh}
         EditModalOpen={props.EditModalOpen}
         reportTiming={props.reportTiming}
+        dataPrint={props.dataPrint}
         purchase={props.purchase}
         preOrder={props.preOrder}
         refresh={props.refresh}

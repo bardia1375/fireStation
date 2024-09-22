@@ -62,6 +62,21 @@ export default function UserInfo(params) {
       }));
     }
   }, [nameRef2.current?.offsetWidth, nameRef.current?.offsetWidth]);
+  const renderRole = () => {
+    const role = localStorage.getItem("role");
+    switch (role) {
+      case "Admin":
+        return "مدیر";
+      case "Watcher":
+        return "کاربر سامانه";
+        break;
+      case "NormalUser":
+        return "کاربر عادی";
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <>
       <div to="/" className="tickment__navbar__user">
@@ -73,7 +88,7 @@ export default function UserInfo(params) {
             ref={nameRef}
             isHead={false}
           >
-            آتش نشانی
+            آتش نشانی ({renderRole()})
           </PositionName>
         </PositionNameWrapper>
 

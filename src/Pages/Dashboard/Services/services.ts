@@ -18,10 +18,10 @@ export const postStationData = async item => {
   return data.data;
 };
 export const StartMission = async item => {
-  const { data } = await serverApi.put(`/Missions/StartMissyhion`, item);
+  const { data } = await serverApi.put(`/Missions/StartMission`, item);
   return data.data;
 };
 export const GetMissionSettings = async stationId => {
-  const { data } = await axios.get(`http://192.168.20.33:2224/Stations`);
+  const { data } = await serverApi.get(`/Stations`);
   return data.data;
 };

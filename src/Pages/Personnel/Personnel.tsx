@@ -5,6 +5,8 @@ import { IoPersonSharp } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
 
 const Personnel = ({ id, firstName, lastName, imgUrl, onEdit, dataLength, setShowModal }) => {
+  const role = localStorage.getItem("role");
+
   return (
     <>
       {!dataLength ? (
@@ -20,15 +22,17 @@ const Personnel = ({ id, firstName, lastName, imgUrl, onEdit, dataLength, setSho
           </Link>
         </div>
       ) : (
-        <div className="card">
-          <div className="card add-card">
-            <div className="add-card-content" onClick={() => setShowModal(true)}>
-              <FaPlus className="plus-icon" color="#ffa700" /> {/* آیکون به‌علاوه */}
-              {/* <BsFillPersonPlusFill /> */}
-              <span className="add-text">افزودن</span>
+        role === "Admin" && (
+          <div className="card">
+            <div className="card add-card" onClick={() => setShowModal(true)}>
+              <div className="add-card-content">
+                <FaPlus className="plus-icon" color="#ffa700" /> {/* آیکون به‌علاوه */}
+                {/* <BsFillPersonPlusFill /> */}
+                <span className="add-text">افزودن</span>
+              </div>
             </div>
           </div>
-        </div>
+        )
       )}
     </>
   );

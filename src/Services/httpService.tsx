@@ -68,7 +68,7 @@ serverApi.interceptors.response.use(
     }
 
     // نمایش پیام خطا
-    if (!error.response || error.response.status !== 401) {
+    if (!error.response ) {
       toast.error("مشکلی از سمت سرور رخ داده است!", {
         position: "top-right",
       });

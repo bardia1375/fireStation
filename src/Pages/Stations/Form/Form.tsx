@@ -3,15 +3,19 @@ import styled, { css } from "styled-components";
 import "./style.css";
 import serverApi from "Services/httpService";
 import { successMessage, errorMessage } from "Utils/commonFunctions";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { editStationData, postStationData } from "../Services/services";
+import { getSettingData } from "Services/services";
 
 function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState }) {
   const queryClient = useQueryClient(); // دریافت instance از queryClient
   console.log("deviceStatdeviceStatee", deviceState);
   console.log("oneStationSetting", oneStationSetting);
-
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["qualityTime"], // کلید یکتا برای کوئری
+    queryFn: getSettingData,
+  });
   const [name, setName] = useState("");
   const [port, setPort] = useState("");
   const [isActive, setIsActive] = useState("غیرفعال");
@@ -21,13 +25,8 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
   const { id } = useParams();
   console.log("ididid", id);
   const [stationFilter, setStationFilter] = useState();
-  const [items, setItems] = useState([
-    { name: "عالی", seconds: 0, toSeconds: 60 },
-    { name: "خوب", seconds: 0, toSeconds: 60 },
-    { name: "متوسط", seconds: 0, toSeconds: 60 },
-    { name: "بد", seconds: 0, toSeconds: 60 },
-    { name: "خیلی بد", seconds: 0, toSeconds: 60 },
-  ]);
+
+  const [items, setItems] = useState<{ name: string; seconds: number; toSeconds: number }[]>([]);
   useEffect(() => {
     const filter = deviceState.filter(el => {
       return el.id === id;
@@ -36,7 +35,18 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
     if (filter.length !== 0) {
       setStationFilter(filter[0]);
     }
-  }, [deviceState]);
+  }, []);
+  console.log("datadata", data);
+
+  // useEffect(() => {
+  //   setItems([
+  //     { name: data.firstStage, seconds: 0, toSeconds: 60 },
+  //     { name: data.secondStage, seconds: 0, toSeconds: 60 },
+  //     { name: data.thirdStage, seconds: 0, toSeconds: 60 },
+  //     { name: data.fourthStage, seconds: 0, toSeconds: 60 },
+  //     { name: data.fifthStage, seconds: 0, toSeconds: 60 },
+  //   ]);
+  // }, [data]);
   console.log("stationFilter", stationFilter);
 
   const handleInputChange = (index, field, value) => {
@@ -58,11 +68,31 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
     setRole(stationFilter?.role);
     setIp(stationFilter?.ip);
     setItems([
-      { name: "عالی", seconds: oneStationSetting?.stepOneFromTime, toSeconds: oneStationSetting?.stepOneToTime },
-      { name: "خوب", seconds: oneStationSetting?.stepTwoFromTime, toSeconds: oneStationSetting?.stepTwoToTime },
-      { name: "متوسط", seconds: oneStationSetting?.stepThreeFromTime, toSeconds:oneStationSetting?. stepThreeToTime },
-      { name: "بد", seconds: oneStationSetting?.stepFourFromTime, toSeconds: oneStationSetting?.stepFourToTime },
-      { name: "خیلی بد", seconds: oneStationSetting?.stepFiveFromTime, toSeconds: oneStationSetting?.stepFiveToTime },
+      {
+        name: data?.firstStage,
+        seconds: oneStationSetting?.stepOneFromTime,
+        toSeconds: oneStationSetting?.stepOneToTime,
+      },
+      {
+        name: data?.secondStage,
+        seconds: oneStationSetting?.stepTwoFromTime,
+        toSeconds: oneStationSetting?.stepTwoToTime,
+      },
+      {
+        name: data?.thirdStage,
+        seconds: oneStationSetting?.stepThreeFromTime,
+        toSeconds: oneStationSetting?.stepThreeToTime,
+      },
+      {
+        name: data?.fourthStage,
+        seconds: oneStationSetting?.stepFourFromTime,
+        toSeconds: oneStationSetting?.stepFourToTime,
+      },
+      {
+        name: data?.fifthStage,
+        seconds: oneStationSetting?.stepFiveFromTime,
+        toSeconds: oneStationSetting?.stepFiveToTime,
+      },
     ]);
   }, [stationFilter, oneStationSetting]);
   const handleAccessSwitch = type => {
@@ -75,7 +105,7 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
     // setAccessType(type);
   };
 
-  const { mutate, isError, isLoading } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["postStationData"],
     mutationFn: postStationData,
     onSuccess: () => {
@@ -104,14 +134,28 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
     mutationKey: ["editStationData"],
     mutationFn: editStationData,
     onSuccess: () => {
+      const multipleItem = {
+        stationId: id,
+        stepOneFromTime: items[0].seconds,
+        stepOneToTime: items[0].toSeconds,
+        stepTwoFromTime: items[1].seconds,
+        stepTwoToTime: items[1].toSeconds,
+        stepThreeFromTime: items[2].seconds,
+        stepThreeToTime: items[2].toSeconds,
+        stepFourFromTime: items[3].seconds,
+        stepFourToTime: items[3].toSeconds,
+        stepFiveFromTime: items[4].seconds,
+        stepFiveToTime: items[4].toSeconds,
+      };
       setShowModal(false);
       // پس از موفقیت در mutate، کوئری با کلید "users" مجدداً بازآوری می‌شود
       queryClient.invalidateQueries(["stations"]);
+      serverApi.post("Stations/UpsertStationSettings", multipleItem);
 
       setShowModal(false);
     },
   });
-  const submit = () => {
+  const submit = async () => {
     if (false) {
       errorMessage("لطفا تمام فیدها پر شود!");
       return;
@@ -122,7 +166,7 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
         id: id,
         name,
         port,
-        isActive: isActive == "فغال" ? true : false,
+        isActive: isActive == "فعال" ? true : false,
         priority,
         ip,
       };
@@ -140,13 +184,13 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
         stepFiveFromTime: items[4].seconds,
         stepFiveToTime: items[4].toSeconds,
       };
-      serverApi.post("Stations/UpsertStationSettings", multipleItem);
-      EditMutate(data);
+      await EditMutate(data);
+      // serverApi.post("Stations/UpsertStationSettings", multipleItem);
     } else {
       const data = {
         name,
         port,
-        isActive: isActive == "فغال" ? true : false,
+        isActive: isActive == "فعال" ? true : false,
         priority,
         ip,
       };
@@ -205,10 +249,10 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
                 onChange={e => setPriority(e.target.value)}
                 className="effect-21"
                 type="number"
-                placeholder="الویت"
+                placeholder="اولویت"
                 width={"500px"}
               />
-              <label>الویت</label>
+              <label>اولویت</label>
               <span className="focus-border">
                 <i></i>
               </span>

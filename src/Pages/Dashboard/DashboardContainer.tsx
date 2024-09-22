@@ -5,10 +5,7 @@ import { useParams } from "react-router-dom";
 import FormContainer from "./Form/FormContainer";
 import { GetMissionSettings, getStations } from "./Services/services";
 import Dashboard from "./Dashboard";
-import {
-  createSignalRConnection,
-  startConnection,
-} from "../../signalrService.js";
+import { createSignalRConnection, startConnection } from "../../signalrService.js";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css"; // Include skeleton CSS for styling
 
@@ -25,8 +22,6 @@ const DashboardContainer = () => {
 
   useEffect(() => {
     const connection = startConnection(setDeviceState);
-    
-
 
     return () => {
       connection?.stop(); // قطع اتصال هنگامUnmount
@@ -38,7 +33,7 @@ const DashboardContainer = () => {
     console.log("Updated deviceState:", deviceState);
   }, [deviceState]);
 
-  const handleEdit = (user) => {
+  const handleEdit = user => {
     setSelectedUser(user);
     setShowModal(true);
   };
@@ -47,7 +42,7 @@ const DashboardContainer = () => {
     setShowModal(false);
   };
 
-  const canStartMission = (missionId) => {
+  const canStartMission = missionId => {
     console.log("missionId", missionId);
     setMissionId(missionId);
     localStorage.setItem("missionId", missionId); // Save missionId to localStorage
@@ -64,29 +59,29 @@ const DashboardContainer = () => {
       >
         {
           // Render the actual content when loading is done
-          Array.isArray(deviceState) && deviceState.length > 0 ? (
-            deviceState.map((station, index) => (
-              <Dashboard
-                id={station.id + index}
-                stationId={station.id}
-                key={station.id}
-                firstName={station.firstName}
-                lastName={station.lastName}
-                hasConnection={station.hasConnection}
-                hasCurrentMission={station.hasCurrentMission}
-                onEdit={() => handleEdit(station)}
-                missionNumber={station.missionNumber}
-                currentMissionDuration={station.currentMissionDuration}
-                name={station.name}
-                lastDailyMissionTime={station.lastDailyMissionTime}
-                connect={station.connect}
-                dataLength={index === 0}
-                setShowModal={setShowModal}
-              />
-            ))
-          ) : 
-            (
-              // Render Skeletons while data is loading
+          Array.isArray(deviceState) && deviceState.length > 0
+            ? deviceState.map((station, index) => (
+                <Dashboard
+                  id={station.id + index}
+                  stationId={station.id}
+                  key={station.id}
+                  firstName={station.firstName}
+                  lastName={station.lastName}
+                  hasConnection={station.hasConnection}
+                  hasCurrentMission={station.hasCurrentMission}
+                  onEdit={() => handleEdit(station)}
+                  missionNumber={station.missionNumber}
+                  currentMissionDuration={station.currentMissionDuration}
+                  name={station.name}
+                  lastDailyMissionTime={station.lastDailyMissionTime}
+                  connect={station.connect}
+                  dataLength={index === 0}
+                  setShowModal={setShowModal}
+                  lastDailyMissionDuration={station.lastDailyMissionDuration}
+                  dailyMissionCount={station.dailyMissionCount}
+                />
+              ))
+            : // Render Skeletons while data is loading
               [...Array(7)].map((_, index) => (
                 <SkeletonContainer key={index}>
                   <Skeleton height={150} width="100%" />
@@ -94,8 +89,6 @@ const DashboardContainer = () => {
                   <Skeleton height={20} width="80%" style={{ marginTop: "8px" }} />
                 </SkeletonContainer>
               ))
-            
-          )
         }
       </div>
     </SContainer>

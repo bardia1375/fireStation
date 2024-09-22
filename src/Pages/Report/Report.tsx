@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
-import { RootState } from "../../Reducers"; // Update this path according to your project structure
+import { RootState } from "../../Reducers";
 import { getAllData } from "../../Actions/Table/table";
+import DatePicker from "react-multi-date-picker";
+import { ConfigureButton } from "../../assets/styles/layout/Calendar";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import moment from "moment-jalaali";
+import { convertNumbersToEnglish } from "../../Utils/commonFunctions"; // Import the function for number conversion
 
 // Images
 import { TableComponent } from "../../Components/publicTable/Main";
 import serverApi, { setAuthToken } from "Services/httpService";
+import { getReports } from "./services/services";
 
 interface Device {
   DeviceSerial: string;
@@ -20,59 +27,34 @@ const Report: React.FC = () => {
   const [devices, setDevices] = useState<Device[]>([]);
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState<any>(null);
-
+  const [fromTime, setFromTime] = useState<any>("");
+  const [toTime, setToTime] = useState<any>("");
   const { devicesData, isActive } = useSelector((state: RootState) => state.tableData);
+
   useEffect(() => {
     setLoading(false);
     setAuthToken();
   }, []);
+  useEffect(() => {
+    // setFromTime(moment().format("jYYYY-jMM-jDD"))
+    // setToTime(moment().format("jYYYY-jMM-jDD"))
+  }, []);
   const handleGetOperationList = async () => {
     try {
-      await serverApi.get("Setting/GetSetting").then(res => {
-        setTime(res.data.time);
+      const payload = {
+        page: 0,
+        limit: 1000,
+        fromDate: moment().format("jYYYY-jMM-jDD"),
+        toDate: moment().format("jYYYY-jMM-jDD"),
+        // stationId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      };
+      // const data = getReports(fromTime, toTime).then(res => res.data);
+      // console.log("sdfsdfsdf", data);
+      serverApi.post(`/Missions/MissionReport`, payload).then(res => {
+        setDevices(res.data.data.data);
       });
-      await serverApi.get("Mission/GetMissions").then(res => {
-        console.log("resres", res.data);
-        // setDevices([
-        //   {
-        //     DeviceSerial: " ایستگاه اول",
-        //     shamsiStartDate: " ایستگاه اول",
-        //     startTime: " ",
-        //     endTime: " ",
-        //     duration: "",
-        //     sms: "مشاهده",
-        //     time: "",
-        //   },
-        // ]);
-      });
-      setDevices([
-        {
-          DeviceSerial: " ایستگاه اول",
-          shamsiStartDate: " ایستگاه اول",
-          startTime: " ",
-          endTime: " ",
-          duration: "",
-          sms: "مشاهده",
-          time: "",
-        },
-      ]);
-      if (allData) {
-        setDevices(allData);
-      }
-
       setLoading(false);
     } catch (error) {
-      setDevices([
-        {
-          DeviceSerial: " ایستگاه اول",
-          shamsiStartDate: "1403-12-04",
-          startTime: " ",
-          endTime: " ",
-          duration: "",
-          sms: "مشاهده",
-          time: "",
-        },
-      ]);
       console.error("Error fetching devices:", error);
       setLoading(false);
     }
@@ -81,78 +63,163 @@ const Report: React.FC = () => {
   useEffect(() => {
     handleGetOperationList();
   }, []);
+
   const [time, setTime] = useState();
-  // useEffect(() => {
-  //   serverApi.get("Setting/GetSetting").then(res => {
-  //     setTime(res.data.time);
-  //   });
-  // }, []);
-  // Set Titles
   const titles = [
+    { title: "کاربر" },
     { title: "ایستگاه" },
     { title: "تاریخ" },
-    { title: "کاربر" },
-    { title: "زمان آغاز" },
-    { title: "زمان پایان" },
+    { title: "ساعت" },
+    // { title: "ip" },
+    // { title: "port" },
     { title: "مدت زمان" },
     { title: "وضعیت" },
+    { title: "کیفیت" },
   ];
+
   console.log("devicesdevicesdevices", devices);
-
+  //   {
+  //     "id": "cf59aae5-15b0-4429-6238-08dcdadfd976",
+  //     "fullName": "Admin Admin",
+  //     "stationName": "Station1",
+  //     "ip": "192.168.20.116",
+  //     "port": 8080,
+  //     "date": "1403/07/01",
+  //     "time": "11:53:34",
+  //     "duration": 0,
+  //     "endedType": "در حال انجام",
+  //     "qualityType": null
+  // }
+  //   {
+  //     "id": "f1c66c2e-09e5-4946-d92b-08dcdae59a85",
+  //     "fullName": "Admin Admin",
+  //     "stationName": "Station2",
+  //     "ip": "192.168.20.115",
+  //     "port": 8080,
+  //     "date": "1403/07/01",
+  //     "time": "14:09:15",
+  //     "duration": 36,
+  //     "endedType": "کارت",
+  //     "qualityType": "زشت"
+  // }
   const dataShow = devices?.map(item => [
-    item.DeviceSerial !== null || undefined ? "ایستگاه اول" : " ایستگاه اول",
-    item.shamsiStartDate !== null || undefined ? "1403-12-04" : "",
-    item.startTime !== null || undefined ? "12:22" : " ",
-    item.endTime !== null || undefined ? "13:45" : " ",
-    item.duration !== null || undefined ? `345 ثانیه` : "",
-    item.sms !== null || undefined ? "عادی" : "مشاهده",
-    item.time !== null || undefined ? "345" : "",
-    item.time !== null || undefined ? "345" : "",
+    item.fullName ?? "-",
+
+    item.stationName ?? "1403-12-04",
+    item.date ?? "-",
+    item.time ?? "-",
+
+    // item.ip ?? "12:22",
+    // item.port ?? "13:45",
+    item.duration ?? "345 ثانیه",
+    item.endedType ?? "345",
+    item.qualityType ?? "345",
+    item.id ?? "345",
   ]);
-  // useEffect(() => {
-  //   if (dataShow && dataShow.length !== 0) {
-  //     localStorage.setItem("DeviceTable", JSON.stringify(dataShow)); // Store order data in local storage
-  //     setUserData(dataShow);
-  //   }
-  //   if (dataShow && dataShow.length === 0) {
-  //     setUserData(userData);
-  //   }
-  // }, [dataShow?.length]);
-
-  // // Effect hook to check for changes in order data and fetch new data if needed
-  // useEffect(() => {
-  //   // Get stored order data from local storage
-  //   const storedUserDataString = localStorage.getItem("DeviceTable");
-
-  //   // Parse stored order data if it exists, or set to an empty array if null
-  //   const storedUserData = storedUserDataString ? JSON.parse(storedUserDataString) : [];
-
-  //   // Update user data state with stored data
-  //   setUserData(storedUserData);
-
-  //   // Check if there is user data, dataShow has a length, and they are different
-  //   if (
-  //     userData &&
-  //     dataShow &&
-  //     dataShow.length !== 0 &&
-  //     dataShow?.sort().join(",") !== userData?.sort().join(",")
-  //   ) {
-  //     handleGetOperationList(); // Fetch new order data if there are changes
-  //   }
-  // }, [dataShow?.length]);
-  console.log("devicesdevices", devices);
 
   const AccordionTitle = devices?.map(item => [{ title: "پیام", value: item.sms }]);
+
+  const handleSubmit = () => {
+    // Check if fromTime and toTime are not null
+    if (fromTime && toTime) {
+      // Convert fromTime and toTime from Persian to Gregorian
+      const formattedFromTime = moment(fromTime).format("jYYYY-jMM-jDD");
+      const formattedToTime = moment(toTime).format("jYYYY-jMM-jDD");
+      console.log("formattedFromTime", formattedToTime);
+      console.log("formattedToTime", formattedToTime);
+
+      const data = {
+        page: 0,
+        limit: 0,
+        fromDate: formattedFromTime,
+        toDate: formattedToTime,
+      };
+
+      // Log the formatted dates
+      console.log("From Time:", formattedFromTime);
+      console.log("To Time:", formattedToTime);
+
+      // Perform your submission or API call with these dates
+      serverApi
+        .post("/Missions/MissionReport", data)
+        .then(response => {
+          setDevices(response.data.data.data);
+          console.log("Submission successful:", response.data.data.data[0]);
+        })
+        .catch(error => {
+          console.error("Submission error:", error);
+        });
+    } else {
+      console.error("Both fromTime and toTime need to be selected.");
+    }
+  };
+ console.log("devdevicesices",devices);
+ 
   return (
     <>
       <TableComponent
         AccordionTitle={AccordionTitle}
         accordion
         page={"دستگاه"}
+        devices={devices}
         data={dataShow || []}
         TableData={userData || []}
         title={titles}
-        reportTiming
+        // dataPrint={dataPrint}
+        reportTiming={
+          <>
+            <DatePicker
+              value={fromTime}
+              onChange={setFromTime}
+              calendar={persian}
+              locale={persian_fa}
+              format="YYYY/MM/DD"
+              placeholder="از تاریخ"
+              style={{
+                width: "150px",
+                padding: "16px",
+                fontSize: "14px",
+                borderRadius: "8px",
+                border: "1px solid #ccc",
+                backgroundColor: "#f9f9f9",
+                color: "#333",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                transition: "border-color 0.2s ease-in-out",
+              }}
+              onFocus={e => (e.target.style.borderColor = "#007bff")}
+              onBlur={e => (e.target.style.borderColor = "#ccc")}
+            />
+
+            <DatePicker
+              value={toTime}
+              onChange={setToTime}
+              calendar={persian}
+              locale={persian_fa}
+              format="YYYY/MM/DD"
+              placeholder="تا تاریخ"
+              style={{
+                width: "150px",
+                padding: "16px",
+                fontSize: "14px",
+                borderRadius: "8px",
+                border: "1px solid #ccc",
+                backgroundColor: "#f9f9f9",
+                color: "#333",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                transition: "border-color 0.2s ease-in-out",
+              }}
+              onFocus={e => (e.target.style.borderColor = "#007bff")}
+              onBlur={e => (e.target.style.borderColor = "#ccc")}
+            />
+
+            <ConfigureButton
+              onClick={handleSubmit} // ثبت تاریخ‌ها
+              style={{ border: "none", padding: 0, height: "30px", width: "100px", margin: 10 }}
+            >
+              ثبت
+            </ConfigureButton>
+          </>
+        }
       />
     </>
   );

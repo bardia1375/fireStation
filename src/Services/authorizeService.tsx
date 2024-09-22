@@ -21,6 +21,7 @@ export const loginService = async (loginInfo: LoginInfoType) => {
 
     localStorage.setItem("tickment_token", response.data.data.token);
     localStorage.setItem("refresh_token", response.data.data.refreshToken);
+    localStorage.setItem("role", response.data.data.role);
 
     return response;
   } catch (error) {

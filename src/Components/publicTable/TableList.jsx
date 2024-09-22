@@ -34,6 +34,7 @@ let pageSize = 10;
 
 export const TableList = ({
   page,
+  devices,
   addModalDescription,
   reportTiming,
   description,
@@ -92,7 +93,8 @@ export const TableList = ({
   getUniqueSoftwareId,
 }) => {
   const dispatch = useDispatch();
-  const { showModal, openModal, closeModal, selectedUser, setShowModal, setFromDate, setToDate  } = useAppContext(); // Use the context
+  const { showModal, openModal, closeModal, selectedUser, setShowModal, setFromDate, setToDate } =
+    useAppContext(); // Use the context
 
   const location = useLocation();
   const history = useHistory();
@@ -104,6 +106,7 @@ export const TableList = ({
   const navigate = useHistory();
   let [selectedRow, setSelectedRow] = useState([]);
   let [selectedRowId, setSelectedRowId] = useState([]);
+  const role = localStorage.getItem("role");
 
   // Use a Set to keep track of unique last elements
   const uniqueKeys = new Set();
@@ -167,11 +170,32 @@ export const TableList = ({
     await CustomerSoftwareFeaturesBuy(body);
   };
 
+  const titleStations = [
+    { key: "fullName", title: "کاربر" },
+    { key: "stationName", title: "ایستگاه" },
+    { key: "date", title: "تاریخ" },
+    { key: "time", title: "ساعت" },
+    { key: "duration", title: "مدت زمان" },
+    { key: "endedType", title: "وضعیت" },
+    { key: "qualityType", title: "کیفیت" },
+  ];
+
   const exportExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(data); // Assuming data is an array of objects
+    // تبدیل داده‌های دستگاه به فرمت جدید با عناوین فارسی
+    const formattedDevices = devices.map(device => {
+      const newDevice = {};
+      titleStations.forEach(({ key, title }) => {
+        newDevice[title] = device[key]; // مپ کردن مقادیر دستگاه به عناوین فارسی
+      });
+      return newDevice;
+    });
+    console.log("formattedDevices", formattedDevices);
+
+    // تبدیل داده‌ها به شیت اکسل
+    const worksheet = XLSX.utils.json_to_sheet(formattedDevices);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-    XLSX.writeFile(workbook, "table_data.xlsx");
+    XLSX.writeFile(workbook, "table_data.xlsx"); // ذخیره فایل به عنوان اکسل
   };
 
   // Your font files in base64
@@ -280,15 +304,17 @@ export const TableList = ({
         <div
           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
         >
-          <div
-            onClick={AddStations}
-            variant="linear"
-            color="white"
-            bg="linear-gradient(to left, #37abb8, #71fbff)"
-            style={{ cursor: "pointer" }}
-          >
-            <MdAddBusiness size={40} />
-          </div>
+          {role === "Admin" && (
+            <div
+              onClick={AddStations}
+              variant="linear"
+              color="white"
+              bg="linear-gradient(to left, #37abb8, #71fbff)"
+              style={{ cursor: "pointer" }}
+            >
+              <MdAddBusiness size={40} />
+            </div>
+          )}
           <div
             onClick={exportExcel}
             variant="linear"
@@ -298,7 +324,7 @@ export const TableList = ({
           >
             <PiMicrosoftExcelLogo size={40} />
           </div>{" "}
-          <div
+          {/* <div
             onClick={exportPDF}
             variant="linear"
             color="white"
@@ -306,10 +332,10 @@ export const TableList = ({
             style={{ cursor: "pointer" }}
           >
             <GrDocumentPdf size={30} />
-          </div>
+          </div> */}
         </div>
         {/* Jalali Date Pickers for FromTime and ToTime */}
- {  reportTiming&&     <div
+        <div
           style={{
             display: "flex",
             gap: "10px",
@@ -318,57 +344,8 @@ export const TableList = ({
             width: "100%",
           }}
         >
-          <DatePicker
-            value={fromTime}
-            onChange={setFromTime}
-            calendar={persian}
-            locale={persian_fa}
-            format="YYYY/MM/DD"
-            placeholder="از تاریخ"
-            style={{
-              width: "150px",
-              padding: "16px",
-              fontSize: "14px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              backgroundColor: "#f9f9f9",
-              color: "#333",
-              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-              transition: "border-color 0.2s ease-in-out",
-            }}
-            onFocus={e => (e.target.style.borderColor = "#007bff")}
-            onBlur={e => (e.target.style.borderColor = "#ccc")}
-          />
-
-          <DatePicker
-            value={toTime}
-            onChange={setToTime}
-            calendar={persian}
-            locale={persian_fa}
-            format="YYYY/MM/DD"
-            placeholder="تا تاریخ"
-            style={{
-              width: "150px",
-              padding: "16px",
-              fontSize: "14px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              backgroundColor: "#f9f9f9",
-              color: "#333",
-              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-              transition: "border-color 0.2s ease-in-out",
-            }}
-            onFocus={e => (e.target.style.borderColor = "#007bff")}
-            onBlur={e => (e.target.style.borderColor = "#ccc")}
-          />
-
-          <ConfigureButton
-            onClick={handleSubmit} // ثبت تاریخ‌ها
-            style={{ border: "none", padding: 0, height: "30px", width: "100px", margin: 10 }}
-          >
-            ثبت
-          </ConfigureButton>
-        </div>}
+          {reportTiming}
+        </div>
         {tabsData ? (
           <div>
             {tabsData.map((item, index) => (
