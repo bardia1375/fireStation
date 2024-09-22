@@ -59,7 +59,7 @@
   text-align: center;
 }
 .login__btn {
-  background: transparent linear-gradient(271deg, #75c9db -3%, #04165d 100%) 0% 0% no-repeat
+  background: transparent linear-gradient(271deg, #f35702 -3%, rgb(202, 52, 3) 100%) 0% 0% no-repeat
     padding-box;
   padding: 0.5rem;
   border-radius: 3rem;

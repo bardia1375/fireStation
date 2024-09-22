@@ -78,7 +78,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     },
   });
   const submit = () => {
-    if (!firstName || !lastName || !isActive  || !role || !userName) {
+    if (!firstName || !lastName || !isActive || !role || !userName) {
       errorMessage("لطفا تمام فیدها پر شود!");
       return;
     }
@@ -87,7 +87,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
         id: params.id,
         firstName,
         lastName,
-        isActive:isActive==="فعال"?true:false,
+        isActive: isActive === "فعال" ? true : false,
         password,
         role,
         userName,
@@ -113,71 +113,93 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
   };
   return (
     <Card>
-      <div className="mahi_holder">
+      <div className="mahi_holder" style={{ width: "100%" }}>
         <div className="container">
           <div style={{ color: "#04165d" }} className="row bg_3">
             <h2>
               <i style={{ color: "#0089a7" }}>پرسنل</i>
             </h2>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+              }}
+            >
+              <div className="col-3 input-effect">
+                {" "}
+                <label>نام</label>
+                <input
+                  value={firstName}
+                  onChange={e => setFirstName(e.target.value)}
+                  className="effect-21"
+                  type="text"
+                  placeholder="نام"
+                />
+                {/* <span className="focus-border">
+                  <i></i>
+                </span> */}
+              </div>
 
-            <div className="col-3 input-effect">
-              <input
-                value={firstName}
-                onChange={e => setFirstName(e.target.value)}
-                className="effect-21"
-                type="text"
-                placeholder="نام"
-              />
-              <label>نام</label>
-              <span className="focus-border">
-                <i></i>
-              </span>
+              <div className="col-3 input-effect">
+                {" "}
+                <label>نام خانوادگی</label>
+                <input
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
+                  className="effect-21"
+                  type="text"
+                  placeholder="نام خانوادگی"
+                />
+                {/* <span className="focus-border">
+                  <i></i>
+                </span> */}
+              </div>
             </div>
 
-            <div className="col-3 input-effect">
-              <input
-                value={lastName}
-                onChange={e => setLastName(e.target.value)}
-                className="effect-21"
-                type="text"
-                placeholder="نام خانوادگی"
-              />
-              <label>نام خانوادگی</label>
-              <span className="focus-border">
-                <i></i>
-              </span>
-            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+              }}
+            >
+              <div className="col-3 input-effect">
+                {" "}
+                <label>نام کاربری</label>
+                <input
+                  value={userName}
+                  onChange={e => setUsername(e.target.value)}
+                  className="effect-21"
+                  type="text"
+                  placeholder="نام کاربری"
+                />
+                {/* <span className="focus-border">
+                  <i></i>
+                </span> */}
+              </div>
 
-            <div className="col-3 input-effect">
-              <input
-                value={userName}
-                onChange={e => setUsername(e.target.value)}
-                className="effect-21"
-                type="text"
-                placeholder="نام کاربری"
-              />
-              <label>نام کاربری</label>
-              <span className="focus-border">
-                <i></i>
-              </span>
+              <div className="col-3 input-effect">
+                {" "}
+                <label>رمز عبور</label>
+                <div style={{ display: "flex", gap: "8px" }}>
+                  <input
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    className="effect-21"
+                    type="password"
+                    placeholder="رمز عبور"
+                    width={"500px"}
+                  />
+                  <Button style={{ width: "10vw" }}>ثبت</Button>
+                </div>
+                {/* <span className="focus-border">
+                  <i></i>
+                </span> */}
+              </div>
             </div>
-
-            <div className="col-3 input-effect">
-              {" "}
-              <input
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                className="effect-21"
-                type="password"
-                placeholder="رمز عبور"
-                width={"500px"}
-              />
-              <label>First Name</label>
-              <span className="focus-border">
-                <i></i>
-              </span>
-            </div>
-
             <div className="col-3">
               <AccessLabel>وضعیت:</AccessLabel>
               <div style={{ display: "flex", padding: "0 4vw" }}>
@@ -236,17 +258,17 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
           </div>
         </div>
       </div>{" "}
-      <div style={{ display: "flex", alignItems: "flex-end", marginTop: "8px" }}>
+      <div style={{ display: "flex", alignItems: "center", marginTop: "8px" }}>
         <Button className="col-3 input-effect" style={{ width: "10vw" }} onClick={submit}>
           ثبت
         </Button>
         <Link
           to="/personnel"
           className="col-3 input-effect"
-          style={{ width: "10vw" }}
+          style={{ width: "10vw", fontSize: "1.5rem" }}
           onClick={onclose}
         >
-          بستن{" "}
+          انصراف{" "}
         </Link>
       </div>
     </Card>

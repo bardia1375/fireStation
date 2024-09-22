@@ -7,36 +7,48 @@ const startConnection = (updateStationState, ip, port) => {
     .withAutomaticReconnect() // قابلیت اتصال مجدد خودکار
     .build();
 
-  connection
-    .start()
-    .then(() => {
-      console.log("SignalR Connected!");
+  async function start() {
+    try {
+      await connection.start(); // Wait for connection to be established
+      console.log("SignalR Connected.");
 
-      // ثبت تابع برای دریافت پیام‌ها از سرور
-      connection.on("getStations", message => {
-        console.log("Received message from server:", message);
-        updateStationState(message); // به روز رسانی داده‌ها
-      });
-
-      // فراخوانی متد SendDevicePing برای ارسال ip و port به سرور
-      connection
-        .invoke("sendDevicePing", { ip: "192.168.20.115", port: "8080", continuePinging: true })
-        .then(response => {
-          console.log("Received response from SendDevicePing:", response);
-          // اگر نیاز است، پاسخ را به state اضافه کنید یا هر پردازش دیگری انجام دهید
-        })
-        .catch(error => {
-          console.error("Error invoking SendDevicePing: ", error);
+      // Call invoke only after connection is established
+      try {
+        await connection.invoke("sendDevicePing", {
+          ip: "192.168.20.115", // استفاده از پارامتر ip
+          port: "8080", // استفاده از پارامتر port
+          continuePinging: true,
         });
-    })
-    .catch(error => {
-      console.error("SignalR Connection Error: ", error);
-    });
+        console.log(`Ping sent to IP: ${ip}, Port: ${port}`);
+      } catch (err) {
+        console.error("Error invoking sendDevicePing:", err);
+      }
 
-  // مدیریت قطع شدن اتصال و تلاش برای اتصال مجدد
-  connection.onclose(error => {
-    console.log("Connection closed due to error. Trying to reconnect...", error);
+    } catch (err) {
+      console.log("Failed to connect, retrying...");
+      console.log(err);
+      setTimeout(start, 5000); // Retry connection after 5 seconds
+    }
+  }
+
+  connection.onclose(async () => {
+    console.log("Connection closed, restarting...");
+    await start(); // Restart the connection on close
   });
+
+  // Start the connection
+  start();
+
+  // دریافت پیام‌های getStations
+  connection.on("getStations", (message) => {
+    console.log("Received message from server:", message);
+    updateStationState(message); // به روز رسانی داده‌ها
+  });
+
+  // دریافت پیام‌های getDevicePing
+  // connection.on("getDevicePing", (message) => {
+  //   console.log("Received device ping:", message);
+  // });
 
   return connection;
 };

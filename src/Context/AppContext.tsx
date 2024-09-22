@@ -7,6 +7,8 @@ interface AppContextType {
   openModal: (user: User) => void;
   closeModal: () => void;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  showPingModal: boolean;
+  setShowPingModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface User {
@@ -38,8 +40,9 @@ export const useAppContext = () => {
 
 // Create the Provider to wrap the entire app
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [showPingModal, setShowPingModal] = useState<boolean>(false);
 
   const openModal = (user: User) => {
     setSelectedUser(user);
@@ -51,7 +54,17 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   };
 
   return (
-    <AppContext.Provider value={{ showModal, openModal, closeModal, selectedUser,setShowModal }}>
+    <AppContext.Provider
+      value={{
+        showModal,
+        openModal,
+        closeModal,
+        selectedUser,
+        setShowModal,
+        setShowPingModal,
+        showPingModal,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

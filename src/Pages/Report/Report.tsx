@@ -42,10 +42,10 @@ const Report: React.FC = () => {
   const handleGetOperationList = async () => {
     try {
       const payload = {
-        page: 0,
+        page: 1,
         limit: 1000,
-        fromDate: moment().format("jYYYY-jMM-jDD"),
-        toDate: moment().format("jYYYY-jMM-jDD"),
+        fromDate: moment().format("YYYY-MM-DD"),
+        toDate: moment().format("YYYY-MM-DD"),
         // stationId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       };
       // const data = getReports(fromTime, toTime).then(res => res.data);
@@ -129,8 +129,8 @@ const Report: React.FC = () => {
       console.log("formattedToTime", formattedToTime);
 
       const data = {
-        page: 0,
-        limit: 0,
+        page: 1,
+        limit: 1000,
         fromDate: formattedFromTime,
         toDate: formattedToTime,
       };
@@ -153,8 +153,8 @@ const Report: React.FC = () => {
       console.error("Both fromTime and toTime need to be selected.");
     }
   };
- console.log("devdevicesices",devices);
- 
+  console.log("devdevicesices", devices);
+
   return (
     <>
       <TableComponent

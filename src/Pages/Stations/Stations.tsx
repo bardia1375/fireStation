@@ -10,6 +10,7 @@ import serverApi, { setAuthToken } from "Services/httpService";
 import { useAppContext } from "Context/AppContext";
 import Modal from "Components/Modal/Modal";
 import FormContainer from "./Form/FormContainer";
+import FormPingContainer from "./Form/FormPingContainer";
 
 interface Device {
   DeviceSerial: string;
@@ -20,7 +21,15 @@ interface Device {
 
 const Stations: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
-  const { showModal, openModal, closeModal, selectedUser, setShowModal } = useAppContext(); // Use the context
+  const {
+    showModal,
+    openModal,
+    closeModal,
+    selectedUser,
+    setShowModal,
+    setShowPingModal,
+    showPingModal,
+  } = useAppContext(); // Use the context
 
   const [devices, setDevices] = useState<Device[]>([]);
   const [loading, setLoading] = useState(false);
@@ -174,10 +183,12 @@ const Stations: React.FC = () => {
     "clicked";
   };
 
-  const closeModal2 = () => {
+  const closeModalContainer = () => {
     setShowModal(false);
   };
-
+  const closeModalPing = () => {
+    setShowPingModal(false);
+  };
   const getData = data => {
     setUserData(data);
   };
@@ -196,8 +207,15 @@ const Stations: React.FC = () => {
         settingButton
         navigateEditAddress="/stations"
       />
-      <Modal showModal={showModal} closeModal={closeModal2}>
+      <Modal showModal={showModal} closeModal={closeModalContainer} width="80vw">
         <FormContainer getData={getData} setShowModal={setShowModal} deviceState={deviceState} />
+      </Modal>
+      <Modal showModal={showPingModal} closeModal={closeModalPing} width="50vw">
+        <FormPingContainer
+          getData={getData}
+          setShowModal={setShowModal}
+          deviceState={deviceState}
+        />
       </Modal>
     </>
   );

@@ -31,23 +31,23 @@ export const verifyToken = () => async dispatch => {
 export const userLogin = loginInfo => async dispatch => {
   await dispatch({ type: "USER_LOGIN_STARTED", payload: true });
   const response = await loginService(loginInfo);
+  console.log("reresponsesponse", response);
 
-  if (response.error || !response.data.Data) {
+  if (response.error || !response.data.data) {
     console.log("error darim!");
-    handleErrorResponse(response);
-    response?.data?.Message && errorMessage(response.data?.Message);
+    // handleErrorResponse(response);
+    errorMessage(`نام کاربری یا رمز عبور اشتباه است`);
     await dispatch({ type: "USER_LOGIN_FAILURE", payload: true });
   } else {
     successMessage("با موفقیت وارد شدید");
-    localStorage.setItem(
-      "Responsible",
-      response.data.Data.TokenInfo.FirstName + " " + response.data.Data.TokenInfo.LastName
-    );
-    localStorage.setItem("Company", response.data.Data.TokenInfo.Name);
-
+    // localStorage.setItem(
+    //   "Responsible",
+    //   response.data.data.TokenInfo.FirstName + " " + response.data.data.TokenInfo.LastName
+    // );
+    // localStorage.setItem("Company", response.data.data.TokenInfo.Name);
     await dispatch({
       type: "VERIFY_USER_SUCCESS",
-      payload: response.data.Data,
+      payload: response.data.data,
     });
   }
 };

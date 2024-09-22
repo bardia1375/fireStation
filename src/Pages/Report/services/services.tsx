@@ -17,7 +17,7 @@ export const sendMissionReport = async ({ fromDate, toDate, stationId }) => {
 
 export const getReports = async (fromDate, toDate) => {
   const payload = {
-    page: 0,
+    page: 1,
     limit: 1000,
     fromDate: fromDate,
     toDate: toDate,

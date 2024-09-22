@@ -15,10 +15,10 @@ export const errorMessage = message => {
 };
 
 // utils/convertNumbers.js
-export const convertNumbersToEnglish = (input) => {
-  if (typeof input !== 'string') return ""; // input'un string olup olmadığını kontrol edin
-  console.log("bardiainput",input);
-  
+export const convertNumbersToEnglish = input => {
+  if (typeof input !== "string") return ""; // input'un string olup olmadığını kontrol edin
+  console.log("bardiainput", input);
+
   const persianNumbers = "۰۱۲۳۴۵۶۷۸۹";
   const englishNumbers = "0123456789";
   const conversionMap = {};
@@ -29,8 +29,6 @@ export const convertNumbersToEnglish = (input) => {
 
   return input.replace(/[۰-۹]/g, match => conversionMap[match]);
 };
-
-
 
 export const handleError = error => {
   if (error.response) {
@@ -60,10 +58,7 @@ export const handleErrorResponse = (result, showToast = true) => {
 
       break;
     case "response":
-      showToast &&
-        errorMessage(
-          (result.response && result.response.data.message) || result.errorBody.data.message
-        );
+      errorMessage(result.data.message);
 
       break;
 

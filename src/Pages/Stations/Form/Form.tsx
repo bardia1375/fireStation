@@ -7,6 +7,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { editStationData, postStationData } from "../Services/services";
 import { getSettingData } from "Services/services";
+import { useAppContext } from "Context/AppContext";
 
 function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState }) {
   const queryClient = useQueryClient(); // دریافت instance از queryClient
@@ -25,7 +26,7 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
   const { id } = useParams();
   console.log("ididid", id);
   const [stationFilter, setStationFilter] = useState();
-
+  const { setShowPingModal, showPingModal } = useAppContext();
   const [items, setItems] = useState<{ name: string; seconds: number; toSeconds: number }[]>([]);
   useEffect(() => {
     const filter = deviceState.filter(el => {
@@ -207,72 +208,88 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
   };
   return (
     <Card>
-      <div className="mahi_holder">
+      <div className="mahi_holder" style={{ width: "100%" }}>
         <div className="container">
           <div style={{ color: "#04165d" }} className="row bg_3">
             <h2>
               <i style={{ color: "#0089a7", fontSize: "1em" }}>ایستگاه‌ها</i>
             </h2>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+              }}
+            >
+              <div className="col-3 ">
+                <label>نام</label>
+                <div>
+                  <input
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    className="effect-21"
+                    type="text"
+                    placeholder="نام"
+                  />
+                  {/* <span className="focus-border">
+                    <i></i>
+                  </span> */}
+                </div>
+              </div>
 
-            <div className="col-3 input-effect">
-              <input
-                value={name}
-                onChange={e => setName(e.target.value)}
-                className="effect-21"
-                type="text"
-                placeholder="نام"
-              />
-              <label>نام</label>
-              <span className="focus-border">
-                <i></i>
-              </span>
-            </div>
+              <div className="col-3 ">
+                <label>ip</label>
 
-            <div className="col-3 input-effect">
-              <input
-                value={ip}
-                onChange={e => setIp(e.target.value)}
-                className="effect-21"
-                type="string"
-                placeholder="آی پی دستگاه"
-              />
-              <label>ip:</label>
-              <span className="focus-border">
-                <i></i>
-              </span>
+                <input
+                  value={ip}
+                  onChange={e => setIp(e.target.value)}
+                  className="effect-21"
+                  type="string"
+                  placeholder="آی پی دستگاه"
+                />
+                {/* <span className="focus-border">
+                  <i></i>
+                </span> */}
+              </div>
             </div>
-
-            <div className="col-3 input-effect">
-              {" "}
-              <input
-                value={priority}
-                onChange={e => setPriority(e.target.value)}
-                className="effect-21"
-                type="number"
-                placeholder="اولویت"
-                width={"500px"}
-              />
-              <label>اولویت</label>
-              <span className="focus-border">
-                <i></i>
-              </span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+              }}
+            >
+              <div className="col-3 ">
+                <label>اولویت</label>{" "}
+                <input
+                  value={priority}
+                  onChange={e => setPriority(e.target.value)}
+                  className="effect-21"
+                  type="number"
+                  placeholder="اولویت"
+                  width={"500px"}
+                />
+                {/* <span className="focus-border">
+                  <i></i>
+                </span> */}
+              </div>
+              <div className="col-3 ">
+                <label>port</label>{" "}
+                <input
+                  value={port}
+                  onChange={e => setPort(e.target.value)}
+                  className="effect-21"
+                  type="number"
+                  placeholder="پورت"
+                  width={"500px"}
+                />
+                {/* <span className="focus-border">
+                  <i></i>
+                </span> */}
+              </div>
             </div>
-            <div className="col-3 input-effect">
-              {" "}
-              <input
-                value={port}
-                onChange={e => setPort(e.target.value)}
-                className="effect-21"
-                type="number"
-                placeholder="پورت"
-                width={"500px"}
-              />
-              <label>port:</label>
-              <span className="focus-border">
-                <i></i>
-              </span>
-            </div>
-
             <div className="col-3">
               <AccessLabel>وضعیت:</AccessLabel>
               <div style={{ display: "flex", padding: "0 4vw" }}>
@@ -291,20 +308,11 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
         </div>
       </div>
       {id && (
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr " }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: "0 32px" }}>
           {items.map((item, index) => (
-            <div
-              key={index}
-              className="col-3 input-effect"
-              style={{
-                display: "flex",
-                gap: "16px",
-                alignItems: "center",
-                justifyContent: "flex-start",
-              }}
-            >
+            <div key={index} className="col-3 input-effect" style={{}}>
               <h4>{item.name}</h4>
-              <div style={{ display: "flex" }}>
+              <div className=" input-effect" style={{ display: "flex" }}>
                 <input
                   type="number"
                   className="effect-21"
@@ -334,7 +342,15 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
           ))}
         </div>
       )}
-      <div style={{ display: "flex", alignItems: "flex-end", marginTop: "8px" }}>
+      <div style={{ width: "100%", display: "flex", gap: "4px" }}>
+        <Button bg="blue" style={{ width: "60px" }} onClick={() => setShowPingModal(true)}>
+          لاگ
+        </Button>
+        {/* <Button bg="blue" style={{ width: "60px" }} onClick={submit}>
+          پینگ
+        </Button> */}
+      </div>
+      <div style={{ display: "flex", alignItems: "center", marginTop: "8px" }}>
         <Button className="col-3 input-effect" style={{ width: "10vw" }} onClick={submit}>
           ثبت
         </Button>

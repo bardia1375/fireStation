@@ -98,7 +98,7 @@ export const ListItem = ({
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  const {setShowModal } = useAppContext(); // Use the context
+  const { setShowModal, setShowPingModal } = useAppContext(); // Use the context
 
   // States
   const [isHover, setIsHover] = useState(hoverActionItems ? false : true);
@@ -137,19 +137,26 @@ export const ListItem = ({
       });
     }
   };
-  const goToEditPageHandler = () =>{
-    setShowModal(true)
+  const goToEditPageHandler = () => {
+    setShowModal(true);
     history.push(`${navigateEditAddress}/${items[items.length - (hoverDetail ? 2 : 1)]}`, {
       state: {
         ...items,
         from: location?.pathname,
         currentPage: currentPage,
       },
-
-    }
-  
-  )};
-
+    });
+  };
+  const goToPingPageHandler = () => {
+    setShowPingModal(true);
+    history.push(`${navigateEditAddress}/${items[items.length - (hoverDetail ? 2 : 1)]}`, {
+      state: {
+        ...items,
+        from: location?.pathname,
+        currentPage: currentPage,
+      },
+    });
+  };
   // const goToSendMessagePageHandler = () =>
   //   navigate("/employees/send-message", { state: { ...items } });
 
@@ -576,7 +583,7 @@ export const ListItem = ({
                     <img src={DisabledOuter} alt="Outer" onClick={goToEditPageHandler} />
                   )}
                   {settingButton && (
-                    <img src={Setting} alt="Setting" onClick={goToEditPageHandler} />
+                    <img src={Setting} alt="Setting" onClick={goToPingPageHandler} />
                   )}
 
                   {/* {trashButton ||

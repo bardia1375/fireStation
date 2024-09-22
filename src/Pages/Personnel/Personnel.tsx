@@ -10,16 +10,18 @@ const Personnel = ({ id, firstName, lastName, imgUrl, onEdit, dataLength, setSho
   return (
     <>
       {!dataLength ? (
-        <div className="card">
+        <div className="personnelCard">
           {/* <img src={imgUrl} className="card-img" /> */}
           <IoPersonSharp className="personnel-img" color="gray" />
 
           <h3>
             {firstName} {lastName}
           </h3>
-          <Link to={`/personnel/${id}`} className="PersonnelEdit-btn" onClick={onEdit}>
-            <FaEdit size={16} />
-          </Link>
+          {role === "Admin" && (
+            <Link to={`/personnel/${id}`} className="PersonnelEdit-btn" onClick={onEdit}>
+              <FaEdit size={16} />
+            </Link>
+          )}
         </div>
       ) : (
         role === "Admin" && (

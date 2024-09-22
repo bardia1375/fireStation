@@ -56,7 +56,20 @@
   align-items: center;
   justify-content: center;
 }
-
+.personnelCard {
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 180px;
+}
 .personnel-img {
   width: 8vh;
   height: 8vh;
