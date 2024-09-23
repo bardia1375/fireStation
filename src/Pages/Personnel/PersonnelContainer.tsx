@@ -73,6 +73,7 @@ const PersonnelContainer = () => {
         {mockData.map((person, index) => (
           <Personnel
             key={person.id}
+            isActive={person.isActive}
             id={person.id}
             firstName={person.firstName}
             lastName={person.lastName}

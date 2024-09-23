@@ -8,6 +8,8 @@ export const TableComponent = props => {
       {/* <SubHeader /> */}
       <TableList
         devices={props.devices}
+        AddStationsIcon={props.AddStationsIcon}
+        excelExport={props.excelExport}
         setRefresh={props.setRefresh}
         EditModalOpen={props.EditModalOpen}
         reportTiming={props.reportTiming}

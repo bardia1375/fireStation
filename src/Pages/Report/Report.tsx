@@ -158,8 +158,9 @@ const Report: React.FC = () => {
   return (
     <>
       <TableComponent
-        AccordionTitle={AccordionTitle}
-        accordion
+        excelExport
+        // AccordionTitle={AccordionTitle}
+        // accordion
         page={"دستگاه"}
         devices={devices}
         data={dataShow || []}

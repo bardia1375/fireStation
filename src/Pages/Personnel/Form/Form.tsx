@@ -68,16 +68,30 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
       setShowModal(false);
     },
   });
-  const { mutate: EditMutate } = useMutation({
+  const { mutate: EditMutate, data } = useMutation({
     mutationKey: ["editUserData"],
     mutationFn: editUserData,
-    onSuccess: () => {
+    onSuccess: responseData => {
+      console.log("Data from mutation:", responseData);
+      if (!responseData.isSuccess) {
+        errorMessage("نام کاربری وارد شده تکراری است");
+      } else {
+        successMessage("عملیات با موفقیت انجام شد");
+        setShowModal(false);
+        queryClient.invalidateQueries(["users"]);
+      }
+
       // پس از موفقیت در mutate، کوئری با کلید "users" مجدداً بازآوری می‌شود
-      queryClient.invalidateQueries(["users"]);
-      setShowModal(false);
+    },
+    onError: () => {
+      console.log("sdfsdfs", data);
     },
   });
   const submit = () => {
+    if (password) {
+      errorMessage("اگر میخواهید رمز جدیدی ثبت کنید ابتدا باید بر روی دکمه ثبت رمز کلیک کنید");
+      return;
+    }
     if (!firstName || !lastName || !isActive || !role || !userName) {
       errorMessage("لطفا تمام فیدها پر شود!");
       return;
@@ -110,6 +124,16 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
 
   const onclose = () => {
     setShowModal(false);
+  };
+  const handlePassword = () => {
+    const data = {
+      id: params.id,
+      password: password,
+    };
+    serverApi.post("/UserManagement/ChangePassword", data).then(() => {
+      successMessage("عملیات با موفقیت انجام شد");
+    });
+    setPassword("");
   };
   return (
     <Card>
@@ -193,7 +217,9 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
                     placeholder="رمز عبور"
                     width={"500px"}
                   />
-                  <Button style={{ width: "10vw" }}>ثبت</Button>
+                  <Button style={{ width: "10vw" }} onClick={handlePassword}>
+                    ثبت رمز
+                  </Button>
                 </div>
                 {/* <span className="focus-border">
                   <i></i>

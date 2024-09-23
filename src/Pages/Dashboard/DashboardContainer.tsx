@@ -74,6 +74,7 @@ const DashboardContainer = () => {
                   currentMissionDuration={station.currentMissionDuration}
                   name={station.name}
                   lastDailyMissionTime={station.lastDailyMissionTime}
+                  isActive={station.isActive}
                   connect={station.connect}
                   dataLength={index === 0}
                   setShowModal={setShowModal}

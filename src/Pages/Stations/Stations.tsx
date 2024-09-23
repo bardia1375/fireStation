@@ -198,7 +198,7 @@ const Stations: React.FC = () => {
         EditModalOpen={() => EditModalOpen()}
         // AccordionTitle={AccordionTitle}
         // accordion
-
+        AddStationsIcon
         page={"دستگاه"}
         data={dataShow || []}
         TableData={userData || []}

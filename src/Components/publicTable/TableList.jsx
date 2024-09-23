@@ -35,11 +35,13 @@ let pageSize = 10;
 export const TableList = ({
   page,
   devices,
+  AddStationsIcon,
   addModalDescription,
   reportTiming,
   description,
   hoverDetail,
   dropData,
+  excelExport,
   titles,
   data,
   column,
@@ -304,7 +306,7 @@ export const TableList = ({
         <div
           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
         >
-          {role === "Admin" && (
+          {role === "Admin" && AddStationsIcon && (
             <div
               onClick={AddStations}
               variant="linear"
@@ -315,15 +317,17 @@ export const TableList = ({
               <MdAddBusiness size={40} />
             </div>
           )}
-          <div
-            onClick={exportExcel}
-            variant="linear"
-            color="white"
-            bg="linear-gradient(to left, #37abb8, #71fbff)"
-            style={{ cursor: "pointer" }}
-          >
-            <PiMicrosoftExcelLogo size={40} />
-          </div>{" "}
+          {excelExport && (
+            <div
+              onClick={exportExcel}
+              variant="linear"
+              color="white"
+              bg="linear-gradient(to left, #37abb8, #71fbff)"
+              style={{ cursor: "pointer" }}
+            >
+              <PiMicrosoftExcelLogo size={40} />
+            </div>
+          )}
           {/* <div
             onClick={exportPDF}
             variant="linear"

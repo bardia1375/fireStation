@@ -10,7 +10,7 @@ export const getUsersById = async id => {
 };
 export const editUserData = async items => {
   const { data } = await serverApi.put(`/UserManagement/EditUser`,items);
-  return data.data;
+  return data;
 };
 export const postUserData = async items => {
   const { data } = await serverApi.put(`/UserManagement/CreateUser`, items);

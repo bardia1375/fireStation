@@ -4,13 +4,22 @@ import { BsFillPersonPlusFill } from "react-icons/bs";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
 
-const Personnel = ({ id, firstName, lastName, imgUrl, onEdit, dataLength, setShowModal }) => {
+const Personnel = ({
+  id,
+  firstName,
+  lastName,
+  imgUrl,
+  onEdit,
+  dataLength,
+  setShowModal,
+  isActive,
+}) => {
   const role = localStorage.getItem("role");
 
   return (
     <>
       {!dataLength ? (
-        <div className="personnelCard">
+        <div className={isActive?`personnelCard`:"personnelCardDis"}>
           {/* <img src={imgUrl} className="card-img" /> */}
           <IoPersonSharp className="personnel-img" color="gray" />
 

@@ -23,6 +23,7 @@ const Dashboard = ({
   lastDailyMissionDuration,
   dailyMissionCount,
   id,
+  isActive,
 }) => {
   const formatTime = totalSeconds => {
     const minutes = Math.floor(totalSeconds / 60);
@@ -52,7 +53,7 @@ const Dashboard = ({
 
   useEffect(() => {
     let timer;
-  
+
     if (isTimerRunning && hasCurrentMission) {
       // Eğer timer çalışıyorsa ve currentMission varsa, interval başlatılır
       timer = setInterval(() => {
@@ -66,11 +67,10 @@ const Dashboard = ({
       // Eğer currentMission false ise, timer'ı durdur
       setIsTimerRunning(false);
     }
-  
+
     // Cleanup: Timer'ı clear et
     return () => clearInterval(timer);
   }, [isTimerRunning, hasCurrentMission]);
-  
 
   // Show the modal on image click
   const handleImageClick = () => {
@@ -108,6 +108,9 @@ const Dashboard = ({
         />
       );
     } else {
+      if (!isActive) {
+        return <div>دستگاه وصل نیست</div>;
+      }
       if (hasConnection) {
         return (
           <img
@@ -156,7 +159,7 @@ const Dashboard = ({
 
       {/* Modal for confirmation */}
       <Modal
-        showModal={!hasCurrentMission && hasConnection && isModalVisible && role!=="NormalUser"}
+        showModal={!hasCurrentMission && hasConnection && isModalVisible && role !== "NormalUser"}
         Submit={handleConfirm} // Start the timer when the user clicks "OK"
         closeModal={handleCancel} // Close the modal when the user clicks "Cancel"
         footer={<Button onClick={handleConfirm}>تایید</Button>}

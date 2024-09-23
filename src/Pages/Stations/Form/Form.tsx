@@ -343,9 +343,9 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
         </div>
       )}
       <div style={{ width: "100%", display: "flex", gap: "4px" }}>
-        <Button bg="blue" style={{ width: "60px" }} onClick={() => setShowPingModal(true)}>
+        {/* <Button bg="blue" style={{ width: "60px" }} onClick={() => setShowPingModal(true)}>
           لاگ
-        </Button>
+        </Button> */}
         {/* <Button bg="blue" style={{ width: "60px" }} onClick={submit}>
           پینگ
         </Button> */}
