@@ -1,4 +1,6 @@
 import tikment from "assets/General/Asset.png";
+import serverApi from "../Services/httpService";
+
 export default function Header() {
   return (
     <div className="tickment__header__container">

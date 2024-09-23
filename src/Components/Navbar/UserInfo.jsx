@@ -3,10 +3,19 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { convertEnglishNumberToPersian } from "./../../Utils/commonFunctions";
+import serverApi from "../../Services/httpService";
+import { useQuery } from "@tanstack/react-query";
+import { getSettingData } from "Services/services";
 
 export default function UserInfo(params) {
   const Company = localStorage.getItem("Company");
   const profileConfig = localStorage.getItem("Responsible");
+  const { isLoading, data } = useQuery({
+    queryKey: ["getSettingData"],
+    queryFn: getSettingData,
+  });
+
+  console.log("dsfsdf", data);
 
   const nameWrapperRef = useRef();
   const nameRef = useRef();
@@ -67,11 +76,11 @@ export default function UserInfo(params) {
     switch (role) {
       case "Admin":
         return "مدیر";
-      case "Watcher":
+      case "NormalUser":
         return "کاربر سامانه";
         break;
-      case "NormalUser":
-        return "کاربر عادی";
+      case "Watcher":
+        return "مشاهده گر";
         break;
       default:
         break;
@@ -88,7 +97,7 @@ export default function UserInfo(params) {
             ref={nameRef}
             isHead={false}
           >
-            آتش نشانی ({renderRole()})
+            {data?.companyName ? data?.companyName : "-"} ({renderRole()})
           </PositionName>
         </PositionNameWrapper>
 

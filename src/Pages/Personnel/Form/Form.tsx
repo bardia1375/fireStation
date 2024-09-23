@@ -4,7 +4,7 @@ import "./style.css";
 import serverApi from "Services/httpService";
 import { successMessage, errorMessage } from "Utils/commonFunctions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { editUserData } from "../Services/services";
 
 function Form({ getData, setShowModal, mockData, oneUser }) {
@@ -17,6 +17,8 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
   const [role, setRole] = useState(""); // "Admin", "systemUser", "regularUser"
   const [userName, setUsername] = useState(""); // "Admin", "systemUser", "regularUser"
   const params = useParams();
+  const [errors, setErrors] = useState({ userName: "", password: "" });
+  const history = useHistory();
   console.log("params", params);
   useEffect(() => {
     setFirstName(oneUser?.firstName);
@@ -63,6 +65,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     mutationKey: ["postUserData"],
     mutationFn: postUserData,
     onSuccess: () => {
+      history.push("/personnel");
       // پس از موفقیت در mutate، کوئری با کلید "users" مجدداً بازآوری می‌شود
       queryClient.invalidateQueries(["users"]);
       setShowModal(false);
@@ -72,6 +75,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     mutationKey: ["editUserData"],
     mutationFn: editUserData,
     onSuccess: responseData => {
+      history.push("/personnel");
       console.log("Data from mutation:", responseData);
       if (!responseData.isSuccess) {
         errorMessage("نام کاربری وارد شده تکراری است");
@@ -87,53 +91,94 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
       console.log("sdfsdfs", data);
     },
   });
+  const validateForm = () => {
+    const newErrors = { userName: "", password: "" };
+
+    // Validate password: should be at least 6 characters and English
+    if (!/^[a-zA-Z0-9!@#$%^&*()_+={}[\]|\\:;"'<>,.?/]+$/.test(password) || password.length < 6) {
+      newErrors.password = "رمز عبور باید حداقل 6 کاراکتر و شامل حروف انگلیسی باشد.";
+      errorMessage(newErrors.password);
+    }
+    //  console.log("newErrors");
+
+    setErrors(newErrors);
+    return Object.values(newErrors).every(error => error === "");
+  };
   const submit = () => {
-    if (password) {
-      errorMessage("اگر میخواهید رمز جدیدی ثبت کنید ابتدا باید بر روی دکمه ثبت رمز کلیک کنید");
-      return;
-    }
+    // بررسی اینکه فیلدهای اجباری پر شده باشند
     if (!firstName || !lastName || !isActive || !role || !userName) {
-      errorMessage("لطفا تمام فیدها پر شود!");
+      errorMessage("لطفا تمام فیلدها پر شود!");
       return;
     }
+  
+    // اعتبارسنجی پسورد اگر وجود داشته باشد
+    if (password && password.length < 6) {
+      errorMessage("پسورد ورودی حداقل باید 6 کاراکتر داشته باشد");
+      return;
+    }
+  
+    // پیام خطا اگر کاربر بخواهد پسورد جدیدی ثبت کند ولی هنوز دکمه ثبت رمز کلیک نشده باشد
+    if (password && params.id) {
+      errorMessage(
+        "اگر میخواهید رمز جدیدی ثبت کنید ابتدا باید بر روی دکمه ثبت رمز کلیک کنید"
+      );
+      return;
+    }
+  
+    // داده‌ها برای ویرایش کاربر
     if (params.id) {
       const data = {
         id: params.id,
         firstName,
         lastName,
         isActive: isActive === "فعال" ? true : false,
-        password,
         role,
         userName,
       };
-      EditMutate(data);
+      EditMutate(data); // ارسال داده‌ها به تابع ویرایش
     } else {
-      const data = {
-        firstName,
-        lastName,
-        isActive,
-        password,
-        role,
-        userName,
-      };
-      mutate(data);
+      // اگر پسورد وجود نداشته باشد و در حال ایجاد کاربر جدید هستیم
+      if (!password) {
+        errorMessage("لطفا پسورد را وارد کنید!");
+        return;
+      } else {
+        const data = {
+          firstName,
+          lastName,
+          isActive: isActive === "فعال" ? true : false,
+          password,
+          role,
+          userName,
+        };
+  
+        mutate(data); // ارسال داده‌ها به تابع ایجاد کاربر
+      }
     }
-
-    getData(data);
+  
+    getData(data); // نمایش داده‌ها
   };
+  
 
   const onclose = () => {
     setShowModal(false);
   };
   const handlePassword = () => {
+    if (!validateForm()) {
+      return; // Do not proceed if validation fails
+    }
     const data = {
       id: params.id,
       password: password,
     };
-    serverApi.post("/UserManagement/ChangePassword", data).then(() => {
-      successMessage("عملیات با موفقیت انجام شد");
+    serverApi.post("/UserManagement/ChangePassword", data).then(res => {
+      console.log("r12312es", res);
+
+      // successMessage("عملیات با موفقیت انجام شد");
     });
     setPassword("");
+  };
+  const handleRoleChange = e => {
+    setRole(e.target.value);
   };
   return (
     <Card>
@@ -208,18 +253,26 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
               <div className="col-3 input-effect">
                 {" "}
                 <label>رمز عبور</label>
-                <div style={{ display: "flex", gap: "8px" }}>
-                  <input
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    className="effect-21"
-                    type="password"
-                    placeholder="رمز عبور"
-                    width={"500px"}
-                  />
-                  <Button style={{ width: "10vw" }} onClick={handlePassword}>
-                    ثبت رمز
-                  </Button>
+                <div>
+                  <div style={{ display: "flex", gap: "8px" }}>
+                    {" "}
+                    <input
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      className="effect-21"
+                      type="password"
+                      placeholder="رمز عبور"
+                      width={"500px"}
+                    />
+                    {params.id && (
+                      <Button style={{ width: "10vw" }} onClick={handlePassword}>
+                        ثبت رمز
+                      </Button>
+                    )}{" "}
+                  </div>
+                  <div style={{ width: "100%", textAlign: "right" }}>
+                    {errors.password && <span className="error-message">{errors.password}</span>}
+                  </div>
                 </div>
                 {/* <span className="focus-border">
                   <i></i>
@@ -242,44 +295,42 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
             </div>
             {/* Custom Switches */}
             <div className="col-3">
-              <AccessLabel>دسترسی:</AccessLabel> {/* لیبل مرجع */}
-              <SwitchRow style={{ padding: "0 4vw" }}>
-                <div>
-                  <label>مدیر</label>
-                  <SwitchContainer>
-                    <SwitchInput
-                      type="checkbox"
-                      checked={role === "Admin"}
-                      onChange={() => handleAccessSwitch("Admin")}
-                    />
-                    <Slider />
-                  </SwitchContainer>
-                </div>
-
-                <div>
-                  <label>کاربر سامانه</label>
-                  <SwitchContainer>
-                    <SwitchInput
-                      type="checkbox"
-                      checked={role === "Watcher"}
-                      onChange={() => handleAccessSwitch("Watcher")}
-                    />
-                    <Slider />
-                  </SwitchContainer>
-                </div>
-
-                <div>
-                  <label>کاربر عادی</label>
-                  <SwitchContainer>
-                    <SwitchInput
-                      type="checkbox"
-                      checked={role === "NormalUser"}
-                      onChange={() => handleAccessSwitch("NormalUser")}
-                    />
-                    <Slider />
-                  </SwitchContainer>
-                </div>
-              </SwitchRow>
+              <AccessLabel>دسترسی:</AccessLabel>
+              <RadioContainer>
+                <RadioButton>
+                  <input
+                    type="radio"
+                    id="Admin"
+                    name="role"
+                    value="Admin"
+                    checked={role === "Admin"}
+                    onChange={handleRoleChange}
+                  />
+                  <label htmlFor="admin">مدیر</label>
+                </RadioButton>
+                <RadioButton>
+                  <input
+                    type="radio"
+                    id="NormalUser"
+                    name="role"
+                    value="NormalUser"
+                    checked={role === "NormalUser"}
+                    onChange={handleRoleChange}
+                  />
+                  <label htmlFor="watcher">کاربر سامانه</label>
+                </RadioButton>
+                <RadioButton>
+                  <input
+                    type="radio"
+                    id="Watcher"
+                    name="role"
+                    value="Watcher"
+                    checked={role === "Watcher"}
+                    onChange={handleRoleChange}
+                  />
+                  <label htmlFor="normalUser">مشاهده گر</label>
+                </RadioButton>
+              </RadioContainer>
             </div>
           </div>
         </div>
@@ -416,5 +467,50 @@ export const Button = styled.div`
   }}
   &:hover {
     transform: scale(0.9);
+  }
+`;
+// Styled Components
+const RadioContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+`;
+
+const RadioButton = styled.div`
+  display: flex;
+  align-items: center;
+
+  input[type="radio"] {
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    margin-right: 8px;
+    vertical-align: middle;
+    transition: all 0.2s ease;
+    margin-left: 8px;
+  }
+
+  input[type="radio"]:checked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: #0089a7;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  label {
+    font-size: 18px;
+    color: #04165d;
+    cursor: pointer;
   }
 `;

@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { setAuthToken } from "./../Services/httpService";
 
 import Header from "./../Components/Header";
 
@@ -13,7 +12,6 @@ const Tickment = ({ location }) => {
   
   useEffect(() => {
     setLoading(false);
-    setAuthToken();
   }, []);
 
 

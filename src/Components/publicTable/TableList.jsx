@@ -371,61 +371,6 @@ export const TableList = ({
         ) : (
           <PublicTableComponent.HeaderActions />
         )}
-        <PublicTableComponent.HeaderActions>
-          {purchase && selectedRow.length > 0 && (
-            <Button
-              //  disabled={!purchasebutton}
-              onClick={() => BuyModules()}
-              variant="linear"
-              display="flex"
-              justify="space-between"
-              // width="160px"
-              // padding="4px 12px"
-              radius="24px"
-              borderStyle="none"
-              color="white"
-              bg={"linear-gradient(to left, #fdcd5c, #f38a39)"}
-              shadow="0px 7px 15px #00000033"
-            >
-              <Typography>خرید</Typography>
-            </Button>
-          )}
-
-          {buttonTitle && (
-            //   <Button
-            //   onClick={() => changePageHandler("/employees/new-employee")}
-            //   variant="linear"
-            //   display="flex"
-            //   align="center"
-            //   padding="2px 15px"
-            //   radius="32px"
-            //   bg="linear-gradient(to left,#37ABB8 0% ,#71FBFF 100%)"
-            //   color="white"
-            // >
-            <Link to={navigateNewAddress}>
-              <Button
-                onClick={
-                  noAddModal
-                    ? () => changePageHandler(navigateNewAddress)
-                    : addModeChangeHandler.bind(null, true)
-                }
-                variant="linear"
-                display="flex"
-                justify="space-between"
-                // width="160px"
-                padding="4px 12px"
-                radius="24px"
-                borderStyle="none"
-                color="white"
-                bg="linear-gradient(252deg, #37abb8 0%, #71fbff 100%)"
-                shadow="0px 7px 15px #00000033"
-              >
-                <Typography>{buttonTitle}</Typography>
-                <PublicTableComponent.HeaderImage src={Plus} alt="Plus" />
-              </Button>
-            </Link>
-          )}
-        </PublicTableComponent.HeaderActions>
       </PublicTableComponent.ContainerHeader>
       <PublicTableComponent.ContainerBody>
         <PublicTableComponent.ListHead grid={page !== "گزارش‌ها" ? column : column - 1}>
@@ -438,7 +383,7 @@ export const TableList = ({
         </PublicTableComponent.ListHead>
 
         <PublicTableComponent.ListBody>
-          {loading === true && (data === undefined || data === null) ? (
+          {loading === true ? (
             <LoadingSpinner />
           ) : loading === false && (data === undefined || data === null) ? (
             <span style={{ display: "flex", justifyContent: "center" }}>

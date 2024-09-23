@@ -6,7 +6,6 @@ import { getAllData } from "../../Actions/Table/table";
 import { createSignalRConnection, startConnection } from "../../signalrService.js";
 // Images
 import { TableComponent } from "../../Components/publicTable/Main";
-import serverApi, { setAuthToken } from "Services/httpService";
 import { useAppContext } from "Context/AppContext";
 import Modal from "Components/Modal/Modal";
 import FormContainer from "./Form/FormContainer";
@@ -35,11 +34,11 @@ const Stations: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState<any>(null);
   const [deviceState, setDeviceState] = useState([]); // Initialize as an empty array
+  const role = localStorage.getItem("role");
 
   const { devicesData, isActive } = useSelector((state: RootState) => state.tableData);
   useEffect(() => {
     setLoading(false);
-    setAuthToken();
   }, []);
   useEffect(() => {
     const connection = startConnection(setDeviceState);
@@ -207,7 +206,11 @@ const Stations: React.FC = () => {
         settingButton
         navigateEditAddress="/stations"
       />
-      <Modal showModal={showModal} closeModal={closeModalContainer} width="80vw">
+      <Modal
+        showModal={role === "Admin" && showModal}
+        closeModal={closeModalContainer}
+        width="80vw"
+      >
         <FormContainer getData={getData} setShowModal={setShowModal} deviceState={deviceState} />
       </Modal>
       <Modal showModal={showPingModal} closeModal={closeModalPing} width="50vw">

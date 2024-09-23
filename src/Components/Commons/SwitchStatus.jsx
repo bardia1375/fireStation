@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 export default function SwitchStatus() {
   const { isActive } = useSelector(state => state.tickets);
-  console.log("isActive",isActive);
+  console.log("isActive", isActive);
   return (
     <>
       <label className="switch">
@@ -14,7 +14,6 @@ export default function SwitchStatus() {
         />
         <span className="slider round"></span>
       </label>
-      نمایش تیکت های باز
     </>
   );
 }

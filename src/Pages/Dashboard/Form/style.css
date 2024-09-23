@@ -10,6 +10,7 @@ body {
   background-attachment: fixed; /* Keep the background fixed while scrolling */
   height: 100vh; /* Ensure body takes full viewport height */
   margin: 0; /* Remove any default margin */
+
 }
 
 h2 {

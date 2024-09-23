@@ -10,11 +10,11 @@ export const getStatiosById = async id => {
   return data.data;
 };
 export const editSettingData = async item => {
-  const { data } = await serverApi.post(`/MissionTimeQualities/Upsert`, item);
+  const { data } = await serverApi.post(`/BaseSettings/Upsert`, item);
   return data.data;
 };
 export const getSettingData = async () => {
-  const { data } = await serverApi.get(`/MissionTimeQualities/GetQualityTime`);
+  const { data } = await serverApi.get(`/BaseSettings/GetBaseSetting`);
   return data.data;
 };
 export const postStationData = async item => {

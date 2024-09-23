@@ -19,7 +19,7 @@ const Personnel = ({
   return (
     <>
       {!dataLength ? (
-        <div className={isActive?`personnelCard`:"personnelCardDis"}>
+        <div className={isActive ? `personnelCard` : "personnelCardDis"}>
           {/* <img src={imgUrl} className="card-img" /> */}
           <IoPersonSharp className="personnel-img" color="gray" />
 

@@ -63,11 +63,11 @@ export default function SideBar() {
     switch (role) {
       case "Admin":
         return "مدیر";
-      case "Watcher":
+      case "NormalUser":
         return "کاربر سامانه";
         break;
-      case "NormalUser":
-        return "کاربر عادی";
+      case "Watcher":
+        return "مشاهده گر";
         break;
       default:
         break;
@@ -91,7 +91,6 @@ export default function SideBar() {
             </NavLink>
           );
         })}
-        <div className="roleUser">{renderRole()}</div>
       </ul>
     </>
   );

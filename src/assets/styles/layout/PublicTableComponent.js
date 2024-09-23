@@ -14,7 +14,7 @@ export const SContainer = styled.div`
   box-shadow: inset 0px -30px 99px #0000000a, 0px 8px 36px #a0bdc180;
   border-radius: 24px;
   padding: 24px;
-  height:100%;
+  height: 100%;
   overflow: auto;
 `;
 
@@ -34,6 +34,10 @@ export const VerticalLine = styled.div`
 export const ContainerHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #f7f7f7;
 `;
 
 export const ContainerBody = styled.div`
@@ -47,6 +51,8 @@ export const HeaderActions = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  position: sticky;
+  top: 0;
   nbn & > button {
   }
 `;
@@ -66,8 +72,7 @@ export const HeaderButton = styled.button`
   padding: 9px 20px;
   margin-left: 5px;
   border-radius: 10px 10px 0 0;
-  background-color: ${({ path, theme }) =>
-    path ? theme.color.lightGray : theme.color.gray};
+  background-color: ${({ path, theme }) => (path ? theme.color.lightGray : theme.color.gray)};
 
   /* background-color: ${({ theme }) => theme.color.gray}; */
   cursor: pointer;
@@ -88,8 +93,9 @@ export const ListHead = styled.div`
   display: grid;
   clear: both;
   white-space: nowrap;
-  grid-template-columns: ${({ grid }) =>
-    grid ? `repeat(${grid}, 1fr)` : "repeat(4, 4fr) 1fr"};
+
+  z-index: 10;
+  grid-template-columns: ${({ grid }) => (grid ? `repeat(${grid}, 1fr)` : "repeat(4, 4fr) 1fr")};
   align-items: center;
   padding: 10px 15px 10px 0px;
   border-radius: 15px;
@@ -117,11 +123,10 @@ export const ListBody = styled.div`
   margin-top: 10px;
   overflow-y: scroll;
   height: 50vh;
-  
+
   @media (min-height: 820px) {
     height: 60%;
     overflow-y: scroll;
-
   }
 
   @media (min-height: 920px) {
@@ -135,11 +140,11 @@ export const ListBody = styled.div`
 
 // List Item
 export const ListItem = styled.div`
-.ListItemTypography{
-  padding-right:16px
-}
+  .ListItemTypography {
+    padding-right: 16px;
+  }
   position: relative;
-  ${(props) => {
+  ${props => {
     switch (props.page) {
       case "حذفیات":
         return css`
@@ -154,16 +159,12 @@ export const ListItem = styled.div`
         `;
     }
   }}
-  ${(props) => {
+  ${props => {
     switch (props.statusObjStyle) {
       case "فعال و در گردش":
         return css`
           color: #fff !important;
-          background: linear-gradient(
-            267deg,
-            #808080 0%,
-            #bababa 100%
-          ) !important;
+          background: linear-gradient(267deg, #808080 0%, #bababa 100%) !important;
           box-shadow: 0px 7px 15px #00000033 !important;
           border: none !important;
         `;
@@ -177,11 +178,7 @@ export const ListItem = styled.div`
       case "غیر فعال":
         return css`
           color: #fff !important;
-          background: linear-gradient(
-            267deg,
-            #808080 0%,
-            #bababa 100%
-          ) !important;
+          background: linear-gradient(267deg, #808080 0%, #bababa 100%) !important;
           box-shadow: 0px 7px 15px #00000033 !important;
           border: none !important;
         `;
@@ -286,10 +283,9 @@ export const ListItem = styled.div`
                   break;
                 `;
     }
-    
   }}
 
-  ${(props) => {
+  ${props => {
     switch (props.contractStyle) {
       case "منقضی شده":
         return css`
@@ -310,8 +306,7 @@ export const ListItem = styled.div`
     }
   }}
   display: grid;
-  grid-template-columns: ${({ grid }) =>
-    grid ? `repeat(${grid}, 1fr)` : "repeat(4, 4fr) 1fr"};
+  grid-template-columns: ${({ grid }) => (grid ? `repeat(${grid}, 1fr)` : "repeat(4, 4fr) 1fr")};
   align-items: center;
   padding: 10px;
   border-radius: 15px;
@@ -326,11 +321,10 @@ export const ListItem = styled.div`
           z-index: ${({ theme }) => theme.z.listItem};
           width: 100%;
           border: 2px solid ${({ theme }) => theme.color.red};
-          color: ${({ theme, page }) =>
-            page === "حذفیات" ? theme.color.white : theme.color.red};
+          color: ${({ theme, page }) => (page === "حذفیات" ? theme.color.white : theme.color.red)};
         `
       : css`
-          ${(props) => {
+          ${props => {
             switch (props.page) {
               case "حذفیات":
                 return css`
@@ -356,7 +350,6 @@ export const ListItem = styled.div`
   & > div:last-child {
     justify-content: flex-end;
   }
-
 `;
 export const Trash = styled.div`
   position: absolute;
@@ -454,7 +447,7 @@ export const DeleteContainer = styled.div`
   border: 2px solid #cbcbcb;
   background-color: ${({ theme }) => theme.color.white};
   box-shadow: inset 0px -30px 40px #00000017, 0px 24px 65px #a0bdc180;
-  color: ${({ theme }) => theme.color.red}; ;
+  color: ${({ theme }) => theme.color.red};
 `;
 
 export const TopSide = styled.div`
@@ -569,11 +562,7 @@ export const Diamond = styled.div`
   transform: rotate(45deg);
   margin: 10px;
   border: ${({ selected, borderColor }) =>
-    selected
-      ? "none"
-      : borderColor
-      ? `1px solid ${borderColor}`
-      : "1px solid lightGrey"};
+    selected ? "none" : borderColor ? `1px solid ${borderColor}` : "1px solid lightGrey"};
   color: ${({ borderColor }) => borderColor && borderColor};
   background-color: ${({ selected, backgroundColor }) =>
     selected ? "white" : backgroundColor ? backgroundColor : null};
@@ -597,11 +586,7 @@ export const Oval = styled.div`
   width: ${({ width }) => (width ? width : "100px")};
   height: ${({ height }) => (height ? height : "60px")};
   border: ${({ selected, borderColor }) =>
-    selected
-      ? "none"
-      : borderColor
-      ? `1px solid ${borderColor}`
-      : "1px solid lightGrey"};
+    selected ? "none" : borderColor ? `1px solid ${borderColor}` : "1px solid lightGrey"};
   color: ${({ borderColor }) => borderColor && borderColor};
   background-color: ${({ selected, backgroundColor }) =>
     selected ? "white" : backgroundColor ? backgroundColor : null};
@@ -625,11 +610,7 @@ export const Circle = styled.div`
   width: ${({ width }) => (width ? width : "60px")};
   height: ${({ height }) => (height ? height : "60px")};
   border: ${({ selected, borderColor }) =>
-    selected
-      ? "none"
-      : borderColor
-      ? `1px solid ${borderColor}`
-      : "1px solid lightGrey"};
+    selected ? "none" : borderColor ? `1px solid ${borderColor}` : "1px solid lightGrey"};
   color: ${({ borderColor }) => borderColor && borderColor};
   background-color: ${({ selected, backgroundColor }) =>
     selected ? "white" : backgroundColor ? backgroundColor : null};
@@ -653,11 +634,7 @@ export const Rectangle = styled.div`
   width: ${({ width }) => (width ? width : "100px")};
   height: ${({ height }) => (height ? height : "50px")};
   border: ${({ selected, borderColor }) =>
-    selected
-      ? "none"
-      : borderColor
-      ? `1px solid ${borderColor}`
-      : "1px solid lightGrey"};
+    selected ? "none" : borderColor ? `1px solid ${borderColor}` : "1px solid lightGrey"};
   color: ${({ borderColor }) => borderColor && borderColor};
   background-color: ${({ selected, backgroundColor }) =>
     selected ? "white" : backgroundColor ? backgroundColor : null};

@@ -12,8 +12,9 @@ import { convertNumbersToEnglish } from "../../Utils/commonFunctions"; // Import
 
 // Images
 import { TableComponent } from "../../Components/publicTable/Main";
-import serverApi, { setAuthToken } from "Services/httpService";
+import serverApi from "Services/httpService";
 import { getReports } from "./services/services";
+import DateRangePicker from "./DateRange";
 
 interface Device {
   DeviceSerial: string;
@@ -33,7 +34,6 @@ const Report: React.FC = () => {
 
   useEffect(() => {
     setLoading(false);
-    setAuthToken();
   }, []);
   useEffect(() => {
     // setFromTime(moment().format("jYYYY-jMM-jDD"))
@@ -119,42 +119,44 @@ const Report: React.FC = () => {
 
   const AccordionTitle = devices?.map(item => [{ title: "پیام", value: item.sms }]);
 
-  const handleSubmit = () => {
-    // Check if fromTime and toTime are not null
-    if (fromTime && toTime) {
-      // Convert fromTime and toTime from Persian to Gregorian
-      const formattedFromTime = moment(fromTime).format("jYYYY-jMM-jDD");
-      const formattedToTime = moment(toTime).format("jYYYY-jMM-jDD");
-      console.log("formattedFromTime", formattedToTime);
-      console.log("formattedToTime", formattedToTime);
+  // const handleSubmit = () => {
+  //   // Check if fromTime and toTime are not null
+  //   if (fromTime && toTime) {
+  //     // Convert fromTime and toTime from Persian to Gregorian
+  //     const formattedFromTime = moment(fromTime).format("jYYYY-jMM-jDD");
+  //     const formattedToTime = moment(toTime).format("jYYYY-jMM-jDD");
+  //     console.log("formattedFromTime", formattedToTime);
+  //     console.log("formattedToTime", formattedToTime);
 
-      const data = {
-        page: 1,
-        limit: 1000,
-        fromDate: formattedFromTime,
-        toDate: formattedToTime,
-      };
+  //     const data = {
+  //       page: 1,
+  //       limit: 1000,
+  //       fromDate: formattedFromTime,
+  //       toDate: formattedToTime,
+  //     };
 
-      // Log the formatted dates
-      console.log("From Time:", formattedFromTime);
-      console.log("To Time:", formattedToTime);
+  //     // Log the formatted dates
+  //     console.log("From Time:", formattedFromTime);
+  //     console.log("To Time:", formattedToTime);
 
-      // Perform your submission or API call with these dates
-      serverApi
-        .post("/Missions/MissionReport", data)
-        .then(response => {
-          setDevices(response.data.data.data);
-          console.log("Submission successful:", response.data.data.data[0]);
-        })
-        .catch(error => {
-          console.error("Submission error:", error);
-        });
-    } else {
-      console.error("Both fromTime and toTime need to be selected.");
-    }
-  };
+  //     // Perform your submission or API call with these dates
+  //     serverApi
+  //       .post("/Missions/MissionReport", data)
+  //       .then(response => {
+  //         setDevices(response.data.data.data);
+  //         console.log("Submission successful:", response.data.data.data[0]);
+  //       })
+  //       .catch(error => {
+  //         console.error("Submission error:", error);
+  //       });
+  //   } else {
+  //     console.error("Both fromTime and toTime need to be selected.");
+  //   }
+  // };
   console.log("devdevicesices", devices);
-
+  const getData = item => {
+    setDevices(item);
+  };
   return (
     <>
       <TableComponent
@@ -167,60 +169,7 @@ const Report: React.FC = () => {
         TableData={userData || []}
         title={titles}
         // dataPrint={dataPrint}
-        reportTiming={
-          <>
-            <DatePicker
-              value={fromTime}
-              onChange={setFromTime}
-              calendar={persian}
-              locale={persian_fa}
-              format="YYYY/MM/DD"
-              placeholder="از تاریخ"
-              style={{
-                width: "150px",
-                padding: "16px",
-                fontSize: "14px",
-                borderRadius: "8px",
-                border: "1px solid #ccc",
-                backgroundColor: "#f9f9f9",
-                color: "#333",
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                transition: "border-color 0.2s ease-in-out",
-              }}
-              onFocus={e => (e.target.style.borderColor = "#007bff")}
-              onBlur={e => (e.target.style.borderColor = "#ccc")}
-            />
-
-            <DatePicker
-              value={toTime}
-              onChange={setToTime}
-              calendar={persian}
-              locale={persian_fa}
-              format="YYYY/MM/DD"
-              placeholder="تا تاریخ"
-              style={{
-                width: "150px",
-                padding: "16px",
-                fontSize: "14px",
-                borderRadius: "8px",
-                border: "1px solid #ccc",
-                backgroundColor: "#f9f9f9",
-                color: "#333",
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                transition: "border-color 0.2s ease-in-out",
-              }}
-              onFocus={e => (e.target.style.borderColor = "#007bff")}
-              onBlur={e => (e.target.style.borderColor = "#ccc")}
-            />
-
-            <ConfigureButton
-              onClick={handleSubmit} // ثبت تاریخ‌ها
-              style={{ border: "none", padding: 0, height: "30px", width: "100px", margin: 10 }}
-            >
-              ثبت
-            </ConfigureButton>
-          </>
-        }
+        reportTiming={<DateRangePicker getData={getData} />}
       />
     </>
   );

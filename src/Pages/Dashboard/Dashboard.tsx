@@ -104,7 +104,7 @@ const Dashboard = ({
           width="50px"
           height="50px"
           alt={`${firstName} ${lastName}`}
-          onClick={handleImageClick} // Show modal on image click
+          // onClick={handleImageClick}
         />
       );
     } else {
@@ -118,7 +118,7 @@ const Dashboard = ({
             width="50px"
             height="50px"
             alt={`${firstName} ${lastName}`}
-            onClick={handleImageClick} // Show modal on image click
+            // onClick={handleImageClick}
           />
         );
       } else {
@@ -128,7 +128,7 @@ const Dashboard = ({
             width="50px"
             height="50px"
             alt={`${firstName} ${lastName}`}
-            onClick={handleImageClick} // Show modal on image click
+            // onClick={handleImageClick}
           />
         );
       }
@@ -137,11 +137,15 @@ const Dashboard = ({
 
   return (
     <>
-      <Link to={`/dashboard/${id}`} className="DashboardCards" onClick={onEdit}>
+      <Link
+        to={`/dashboard/${id}`}
+        className="DashboardCards"
+        onClick={() => setIsModalVisible(true)}
+      >
         <div className="station-header">
           <h3>{name}</h3> {/* نام ایستگاه */}
         </div>
-        <div>{renderImage()}</div>
+        <div style={{ marginTop: "8px" }}>{renderImage()}</div>
         <p
           dir="ltr"
           style={{ margin: "4px 0 16px 0", fontSize: "0.8vw", whiteSpace: "nowrap" }}
@@ -159,7 +163,7 @@ const Dashboard = ({
 
       {/* Modal for confirmation */}
       <Modal
-        showModal={!hasCurrentMission && hasConnection && isModalVisible && role !== "NormalUser"}
+        showModal={!hasCurrentMission && hasConnection && isModalVisible && role !== "Watcher"}
         Submit={handleConfirm} // Start the timer when the user clicks "OK"
         closeModal={handleCancel} // Close the modal when the user clicks "Cancel"
         footer={<Button onClick={handleConfirm}>تایید</Button>}

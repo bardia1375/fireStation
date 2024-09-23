@@ -47,7 +47,12 @@ const DashboardContainer = () => {
     setMissionId(missionId);
     localStorage.setItem("missionId", missionId); // Save missionId to localStorage
   };
-
+  useEffect(() => {
+    const bardia = deviceState.map(res => {
+      return res.isActive === true;
+    });
+    console.log("barbardiadia", bardia);
+  }, [deviceState]);
   return (
     <SContainer style={{ width: "100%", position: "relative" }}>
       <div
@@ -60,28 +65,30 @@ const DashboardContainer = () => {
         {
           // Render the actual content when loading is done
           Array.isArray(deviceState) && deviceState.length > 0
-            ? deviceState.map((station, index) => (
-                <Dashboard
-                  id={station.id + index}
-                  stationId={station.id}
-                  key={station.id}
-                  firstName={station.firstName}
-                  lastName={station.lastName}
-                  hasConnection={station.hasConnection}
-                  hasCurrentMission={station.hasCurrentMission}
-                  onEdit={() => handleEdit(station)}
-                  missionNumber={station.missionNumber}
-                  currentMissionDuration={station.currentMissionDuration}
-                  name={station.name}
-                  lastDailyMissionTime={station.lastDailyMissionTime}
-                  isActive={station.isActive}
-                  connect={station.connect}
-                  dataLength={index === 0}
-                  setShowModal={setShowModal}
-                  lastDailyMissionDuration={station.lastDailyMissionDuration}
-                  dailyMissionCount={station.dailyMissionCount}
-                />
-              ))
+            ? deviceState
+                .filter(station => station.isActive === true) // Filter stations with isActive true
+                .map((station, index) => (
+                  <Dashboard
+                    id={station.id + index}
+                    stationId={station.id}
+                    key={station.id}
+                    firstName={station.firstName}
+                    lastName={station.lastName}
+                    hasConnection={station.hasConnection}
+                    hasCurrentMission={station.hasCurrentMission}
+                    onEdit={() => handleEdit(station)}
+                    missionNumber={station.missionNumber}
+                    currentMissionDuration={station.currentMissionDuration}
+                    name={station.name}
+                    lastDailyMissionTime={station.lastDailyMissionTime}
+                    isActive={station.isActive}
+                    connect={station.connect}
+                    dataLength={index === 0}
+                    setShowModal={setShowModal}
+                    lastDailyMissionDuration={station.lastDailyMissionDuration}
+                    dailyMissionCount={station.dailyMissionCount}
+                  />
+                ))
             : // Render Skeletons while data is loading
               [...Array(7)].map((_, index) => (
                 <SkeletonContainer key={index}>

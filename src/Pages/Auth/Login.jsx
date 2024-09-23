@@ -39,21 +39,27 @@ const Login = () => {
 
   const validateForm = () => {
     const newErrors = { userName: "", password: "" };
-  
+
     // Validate userName: should not contain Persian characters
     if (/[\u0600-\u06FF]/.test(loginInfo.userName)) {
       newErrors.userName = "نام کاربری نباید شامل کاراکترهای فارسی باشد.";
+      errorMessage(newErrors.userName);
+
     }
-  
+
     // Validate password: should be at least 6 characters and English
-    if (!/^[a-zA-Z0-9!@#$%^&*()_+={}[\]|\\:;"'<>,.?/]+$/.test(loginInfo.password) || loginInfo.password.length < 6) {
+    if (
+      !/^[a-zA-Z0-9!@#$%^&*()_+={}[\]|\\:;"'<>,.?/]+$/.test(loginInfo.password) ||
+      loginInfo.password.length < 6
+    ) {
       newErrors.password = "رمز عبور باید حداقل 6 کاراکتر و شامل حروف انگلیسی باشد.";
+      errorMessage(newErrors.password);
     }
-  
+
     setErrors(newErrors);
+
     return Object.values(newErrors).every(error => error === "");
   };
-  
 
   const handleuserLogin = async () => {
     if (!validateForm()) {
@@ -86,17 +92,26 @@ const Login = () => {
         <p className="login__title">پنل مدیریت</p>
 
         <form className="login__form">
-          <div className="login__inputWrapper">
-            <img className="login__inputIcon" src="/images/avatar.svg" alt="" />
-            <input
-              className="login__input"
-              name="userName"
-              type="text"
-              placeholder="شماره همراه خود را وارد کنید"
-              onChange={handleLoginInfo}
-              value={loginInfo.userName}
-            />
-            {errors.userName && <span className="error-message">{errors.userName}</span>}
+          <div style={{ margin: 0, padding: 0 }}>
+            <div className="login__inputWrapper" >
+              {" "}
+              <img className="login__inputIcon" src="/images/avatar.svg" alt="" />
+              <input
+                className="login__input"
+                name="userName"
+                type="text"
+                placeholder="نام کاربری"
+                onChange={handleLoginInfo}
+                value={loginInfo.userName}
+              />{" "}
+            </div>
+            <div>
+              {/* {errors.userName && (
+                <span style={{ border: "2px solid red" }} className="error-message">
+                  {errors.userName}
+                </span>
+              )} */}
+            </div>
           </div>
           <div className="login__inputWrapper">
             <img
@@ -110,12 +125,12 @@ const Login = () => {
               className="login__input"
               type={showPassword ? "text" : "password"}
               name="password"
-              placeholder="رمز عبور خود را وارد کنید"
+              placeholder="رمز عبور "
               onChange={handleLoginInfo}
               value={loginInfo.password}
-            />
-            {errors.password && <span className="error-message">{errors.password}</span>}
-          </div>
+            />{" "}
+            {/* {errors.password && <span className="error-message">{errors.password}</span>} */}
+          </div>{" "}
         </form>
         <div className="login__action">
           <span className="login__btn" onClick={() => !userLoginLoading && handleuserLogin()}>

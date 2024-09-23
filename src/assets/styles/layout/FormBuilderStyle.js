@@ -37,10 +37,8 @@ export const FormItemAction = styled.div`
   display: ${({ noButton, collapse, whenCollapse }) =>
     noButton && collapse === whenCollapse ? "none" : "flex"};
   height: 0px;
-  padding: ${({ oneButton, collapse }) =>
-    oneButton && !collapse ? "15px 15px" : "15px 6px"};
-  border: ${({ isDeleteMode }) =>
-    isDeleteMode ? "none" : "1px solid #e4e4e4"};
+  padding: ${({ oneButton, collapse }) => (oneButton && !collapse ? "15px 15px" : "15px 6px")};
+  border: ${({ isDeleteMode }) => (isDeleteMode ? "none" : "1px solid #e4e4e4")};
   border-radius: 18px;
   margin-top: 18px;
   margin-left: 10px;
@@ -72,8 +70,7 @@ export const CollapseBody = styled.div`
   width: 100%;
   border-radius: 12px;
   border: ${({ isCollapse }) => (isCollapse ? "2px solid #ff4d4d" : "none")};
-  box-shadow: ${({ isCollapse }) =>
-    !isCollapse ? "0px 3px 9px #00000029" : "none"};
+  box-shadow: ${({ isCollapse }) => (!isCollapse ? "0px 3px 9px #00000029" : "none")};
   background: ${({ isCollapse }) =>
     !isCollapse ? "#F5F5F5 0% 0% no-repeat padding-box" : "white"};
   margin: 5px 0;
@@ -127,13 +124,10 @@ export const InputTextName = styled.input`
   background: #ffffff 0% 0% no-repeat padding-box;
   /* border: 1px solid #cbcbcb; */
   border: ${({ noBorderOnFocus, value, type }) =>
-    ((type === "number"
-      ? parseInt(noBorderOnFocus?.Max)
-      : noBorderOnFocus?.Max) < (type === "number" ? parseInt(value) : value) ||
+    ((type === "number" ? parseInt(noBorderOnFocus?.Max) : noBorderOnFocus?.Max) <
+      (type === "number" ? parseInt(value) : value) ||
       (type === "number" ? parseInt(value) : value) <
-        (type === "number"
-          ? parseInt(noBorderOnFocus?.Min)
-          : noBorderOnFocus?.Min)) &&
+        (type === "number" ? parseInt(noBorderOnFocus?.Min) : noBorderOnFocus?.Min)) &&
     value.length > 0
       ? "1px solid red"
       : "1px solid #cbcbcb"};
@@ -144,7 +138,7 @@ export const InputTextName = styled.input`
     width: 100%;
   }
 
-  ${(props) => {
+  ${props => {
     switch (props.page) {
       case "spiderChart":
         return css`
@@ -252,8 +246,7 @@ export const InputCheckBox = styled.input`
 export const VerticalLine = styled.div`
   position: absolute;
   margin-right: 49px;
-  border-left: 1px solid
-    ${({ enableMode }) => (enableMode ? "#75C9DB" : "#ccc")};
+  border-left: 1px solid ${({ enableMode }) => (enableMode ? "#75C9DB" : "#ccc")};
   height: 40px;
   /* margin: 5px; */
 `;
@@ -364,10 +357,8 @@ export const NotCollapseTextBody = styled.div`
           /* height: 70px;
           width: 90%;
           border-radius: 12px;
-          border: ${({ isCollapse }) =>
-            isCollapse ? "2px solid #ff4d4d" : "none"};
-          box-shadow: ${({ isCollapse }) =>
-            !isCollapse ? "0px 3px 9px #00000029" : "none"};
+          border: ${({ isCollapse }) => (isCollapse ? "2px solid #ff4d4d" : "none")};
+          box-shadow: ${({ isCollapse }) => (!isCollapse ? "0px 3px 9px #00000029" : "none")};
           background: ${({ isCollapse }) =>
             !isCollapse ? "#F5F5F5 0% 0% no-repeat padding-box" : "white"}; */
         `
@@ -415,8 +406,7 @@ export const LineText = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: ${({ justifyContent }) =>
-    justifyContent ? justifyContent : "space-between"};
+  justify-content: ${({ justifyContent }) => (justifyContent ? justifyContent : "space-between")};
   align-items: center;
   align-content: center;
 `;
@@ -426,8 +416,7 @@ export const LineButton = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: ${({ justifyContent }) =>
-    justifyContent ? justifyContent : "flex-start"};
+  justify-content: ${({ justifyContent }) => (justifyContent ? justifyContent : "flex-start")};
   align-items: center;
   align-content: center;
 `;
@@ -495,8 +484,7 @@ export const ColumnNumber = styled.div`
   align-items: center;
   justify-content: space-around;
   text-align: center;
-  grid-template-columns: ${({ grid }) =>
-    grid ? `repeat(${grid}, 1fr)` : "repeat(4, 4fr) 1fr"};
+  grid-template-columns: ${({ grid }) => (grid ? `repeat(${grid}, 1fr)` : "repeat(4, 4fr) 1fr")};
 `;
 
 export const DetailMode = styled.div`

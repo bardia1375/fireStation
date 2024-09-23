@@ -8,7 +8,7 @@ const PublicRoute = ({ component, ...rest }) => {
         rest.isAuthenticated ? (
           <Redirect
             to={{
-              pathname: "/mydevice",
+              pathname: "/dashboard",
             }}
           />
         ) : (
