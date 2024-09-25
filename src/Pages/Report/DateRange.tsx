@@ -5,13 +5,14 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import moment from "moment-jalaali";
 import serverApi from "Services/httpService";
-import { errorMessage } from "../../Utils/commonFunctions";
+import { errorMessage, successMessage } from "../../Utils/commonFunctions";
 
 interface DateRangePickerProps {
   getData: (data: any) => void;
+  setLoading: boolean;
 }
 
-const DateRangePicker: React.FC<DateRangePickerProps> = ({ getData }) => {
+const DateRangePicker: React.FC<DateRangePickerProps> = ({ getData, setLoading }) => {
   // مدیریت "از تاریخ" و "تا تاریخ"
   const [fromDate, setFromDate] = useState<any>(null);
   const [toDate, setToDate] = useState<any>(null);
@@ -40,6 +41,8 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ getData }) => {
         .then(response => {
           getData(response.data.data.data);
           console.log("Submission successful:", response.data.data.data);
+          successMessage("گزاش گیری انجام شد");
+          setLoading(false);
         })
         .catch(error => {
           console.error("Submission error:", error);
@@ -94,8 +97,6 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ getData }) => {
         onFocus={e => (e.target.style.borderColor = "#007bff")}
         onBlur={e => (e.target.style.borderColor = "#ccc")}
       />
-
-
       <ConfigureButton
         onClick={submitDates} // ثبت تاریخ‌ها
         style={{ border: "none", padding: 0, height: "30px", width: "100px", margin: 10 }}

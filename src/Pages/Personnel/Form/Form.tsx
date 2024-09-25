@@ -173,7 +173,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     serverApi.post("/UserManagement/ChangePassword", data).then(res => {
       console.log("r12312es", res);
 
-      // successMessage("عملیات با موفقیت انجام شد");
+      successMessage("عملیات با موفقیت انجام شد");
     });
     setPassword("");
   };

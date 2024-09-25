@@ -22,6 +22,7 @@ import Setting from "Pages/Setting/Setting";
 import DashboardContainer from "Pages/Dashboard/DashboardContainer";
 import Stations from "Pages/Stations/Stations";
 import ReportContainer from "Pages/Report/ReportContainer";
+import LogsContainer from "Pages/Logs/LogsContainer";
 
 export default function Body() {
   const { isNewTicketModalOpen, isMobileMenueOpen } = useSelector(state => state.modal);
@@ -81,6 +82,8 @@ export default function Body() {
               <Route path="/questions" component={Devices} />
               <Route path="/devices" component={Devices} />
               <Route path="/setting" component={Setting} />
+              <Route path="/logs" component={LogsContainer} />
+
               <Route path="/reports" component={Report} />
               <Route path="/stations" exact component={Stations} />
               <Route path="/stations/:id" exact component={Stations} />

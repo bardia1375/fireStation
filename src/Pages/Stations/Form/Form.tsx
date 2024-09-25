@@ -19,12 +19,19 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
   });
   const [name, setName] = useState("");
   const [port, setPort] = useState("");
+  const [isHasCurrentMission, setIsHasCurrentMission] = useState();
   const [isActive, setIsActive] = useState("غیرفعال");
   const [priority, setPriority] = useState("");
   const [role, setRole] = useState("");
   const [ip, setIp] = useState("");
   const { id } = useParams();
-  console.log("ididid", id);
+  useEffect(() => {
+    const data = deviceState.filter(item => {
+      return item?.id === id;
+    })[0];
+    setIsHasCurrentMission(data?.hasCurrentMission);
+  }, [deviceState]);
+
   const [stationFilter, setStationFilter] = useState();
   const { setShowPingModal, showPingModal } = useAppContext();
   const [items, setItems] = useState<{ name: string; seconds: number; toSeconds: number }[]>([]);
@@ -37,7 +44,6 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
       setStationFilter(filter[0]);
     }
   }, []);
-  console.log("datadata", data);
 
   // useEffect(() => {
   //   setItems([
@@ -185,7 +191,14 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
         stepFiveFromTime: items[4].seconds,
         stepFiveToTime: items[4].toSeconds,
       };
-      await EditMutate(data);
+
+      if (!isHasCurrentMission) {
+        await EditMutate(data);
+      } else {
+        errorMessage(
+          "دستگاه موردنظر در حال ماموریت است.لطفا تا پایان ماموریت صبر کنید یا ماموریت نرم افزار را خاتمه دهید"
+        );
+      }
       // serverApi.post("Stations/UpsertStationSettings", multipleItem);
     } else {
       const data = {
@@ -318,10 +331,14 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
                   className="effect-21"
                   value={item.seconds}
                   onChange={e =>
-                    handleInputChange(index, "seconds", Math.max(0, Math.min(60, +e.target.value)))
+                    handleInputChange(
+                      index,
+                      "seconds",
+                      Math.max(0, Math.min(1000, +e.target.value))
+                    )
                   }
                   min="0"
-                  max="100"
+                  max="1000"
                 />
                 <input
                   type="number"
@@ -331,11 +348,11 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
                     handleInputChange(
                       index,
                       "toSeconds",
-                      Math.max(0, Math.min(60, +e.target.value))
+                      Math.max(0, Math.min(1000, +e.target.value))
                     )
                   }
                   min="0"
-                  max="100"
+                  max="1000"
                 />
               </div>
             </div>

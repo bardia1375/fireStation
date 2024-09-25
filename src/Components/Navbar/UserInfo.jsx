@@ -14,7 +14,7 @@ export default function UserInfo(params) {
     queryKey: ["getSettingData"],
     queryFn: getSettingData,
   });
-
+  const role = localStorage.getItem("role");
   console.log("dsfsdf", data);
 
   const nameWrapperRef = useRef();
@@ -97,7 +97,8 @@ export default function UserInfo(params) {
             ref={nameRef}
             isHead={false}
           >
-            {data?.companyName ? data?.companyName : "-"} ({renderRole()})
+            <div>{data?.companyName ? data?.companyName : "-"}</div>
+            {/* <div>({renderRole(role)})</div> */}
           </PositionName>
         </PositionNameWrapper>
 

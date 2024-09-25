@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap"); /* فونت شبیه به اعداد دیجیتال */
-
 .DashboardCards {
   background-color: #fff;
   padding-top: 2.2vw;
@@ -53,7 +51,7 @@
 }
 /* استایل ساعت دیجیتال */
 .digital-clock {
-  font-family: "Orbitron", sans-serif; /* فونت دیجیتالی */
+  font-family: "Digiface", sans-serif; /* فونت دیجیتالی */
   /* font-size: 32px; */
   background-color: #2e2e2e; /* پس‌زمینه مشکی */
   color: #00ff00; /* رنگ اعداد سبز */

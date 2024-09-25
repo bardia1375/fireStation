@@ -2222,11 +2222,11 @@ aside .ticketsList {
     align-items: center;
     justify-content: space-between;
     margin: 0 1rem;
-    transform: translateY(6px);
+    gap: 8px;
+    /* transform: translateY(6px); */
   }
   .tickment__navbar__logout-referesh img {
     width: 33px;
-    margin-left: 1rem;
     transition: 0.3s;
     cursor: pointer;
   }

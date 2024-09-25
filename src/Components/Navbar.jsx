@@ -11,11 +11,34 @@ import VerticalDevider from "./Commons/VerticalDevider";
 import SwitchStatus from "./Commons/SwitchStatus";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { BsPersonCircle } from "react-icons/bs";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css"; // برای اضافه کردن استایل‌های پیش‌فرض
+import serverApi from "../Services/httpService";
+import { useQuery } from "@tanstack/react-query";
+export const getSettingData = async () => {
+  const { data } = await serverApi.get(`/profile`);
+  return data.data;
+};
 function Navbar() {
   const { searchTerm, isActive } = useSelector(state => state.tickets);
   const dispatch = useDispatch();
   const location = useLocation();
-
+  const renderRole = () => {
+    const role = localStorage.getItem("role");
+    switch (role) {
+      case "Admin":
+        return "مدیر";
+      case "NormalUser":
+        return "کاربر سامانه";
+        break;
+      case "Watcher":
+        return "مشاهده گر";
+        break;
+      default:
+        break;
+    }
+  };
   const handleShowActiveTickets = e => {
     dispatch(showActiveTickets(!isActive));
   };
@@ -36,6 +59,16 @@ function Navbar() {
   const handleRefresh = () => {
     window.location.reload();
   };
+
+  const { isLoading, isError, data, error } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getSettingData,
+  });
+
+  console.log("datasdf", data);
+  const bardia = data?.split(" ");
+  console.log("bard234234ia", bardia);
+
   return (
     <div className="tickment__navbar-main" style={{ position: "absolute", top: "32px" }}>
       <div className="tickment__navbar-mobile">
@@ -114,9 +147,7 @@ function Navbar() {
                   <VerticalDevider />
                 </>
               ) : (
-                <>
-               
-                </>
+                <></>
               )}
             </div>
             <div className="tickment__navbar__left">
@@ -127,6 +158,31 @@ function Navbar() {
                 <Link onClick={handleRefresh}>
                   <img src="/images/refresh-logo.svg" alt="" />
                 </Link>
+                <div>
+                  {" "}
+                  <Tooltip
+                    anchorId="person-icon"
+                    content={
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <span>
+                          {bardia?.map((el, index) => (
+                            <span style={{margin:"0 2px"}}>{bardia[index]}</span>
+                          ))}
+                        </span>
+                        <div>{renderRole()}</div>
+                      </div>
+                    }
+                    place="bottom"
+                  />
+                  <BsPersonCircle size={33} id="person-icon" />
+                </div>
                 <Link>
                   <img src="/images/logout-logo.svg" alt="" onClick={() => handleLogout()} />
                 </Link>

@@ -1,10 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import * as XLSX from "xlsx";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 // Components
 import { Typography, Button, Modal } from "../Commons";
+import Dropdown from "../../Components/DropDown/Dropdown";
+import MultiSelectDropdown from "../../Components/DropDown/ِDropdownMulti";
+import InputSearch from "../../Components/DropDown/InputSearch";
 import { ListItem } from "./ListItem";
 import { useAppContext } from "Context/AppContext";
 
@@ -29,12 +32,14 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import { GrDocumentPdf } from "react-icons/gr";
 import { PiMicrosoftExcelLogo } from "react-icons/pi";
 import { MdAddBusiness } from "react-icons/md";
+import { MdFilterListAlt } from "react-icons/md";
 
 let pageSize = 10;
 
 export const TableList = ({
   page,
   devices,
+  InputSearchFilter,
   AddStationsIcon,
   addModalDescription,
   reportTiming,
@@ -93,6 +98,7 @@ export const TableList = ({
   AccordionTitle,
   textAccordion,
   getUniqueSoftwareId,
+  onSearch,
 }) => {
   const dispatch = useDispatch();
   const { showModal, openModal, closeModal, selectedUser, setShowModal, setFromDate, setToDate } =
@@ -108,8 +114,25 @@ export const TableList = ({
   const navigate = useHistory();
   let [selectedRow, setSelectedRow] = useState([]);
   let [selectedRowId, setSelectedRowId] = useState([]);
+  const [activeFilter, setActiveFilter] = useState(null); // برای کنترل اینکه کدام دراپ‌داون باز است
+  const filterRef = useRef(null);
+
   const role = localStorage.getItem("role");
 
+  // استفاده از useEffect برای اضافه کردن و حذف رویداد کلیک جهانی
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setActiveFilter(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   // Use a Set to keep track of unique last elements
   const uniqueKeys = new Set();
   const filteredData = [];
@@ -291,6 +314,12 @@ export const TableList = ({
       setToDate(toTime.format("YYYY-MM-DD")); // ارسال تاریخ انتخاب‌شده به setToDate
     }
   };
+  console.log("datdataa", data);
+  const handleFilterClick = (item, index) => {
+    onSearch(item);
+    setActiveFilter(prevIndex => (prevIndex === index ? null : index));
+  };
+
   return (
     <PublicTableComponent.SContainer>
       {/* {isAddMode && (
@@ -375,9 +404,33 @@ export const TableList = ({
       <PublicTableComponent.ContainerBody>
         <PublicTableComponent.ListHead grid={page !== "گزارش‌ها" ? column : column - 1}>
           {titles &&
-            titles.map(item => (
+            titles?.map((item, index) => (
               <Typography size="sm" key={item.title}>
                 {item.title}
+                {item.filter ? (
+                  <>
+                    <MdFilterListAlt
+                      onClick={() => handleFilterClick(item, index)}
+                      style={{ cursor: "pointer" }}
+                    />
+                    {activeFilter === index && (
+                      <div
+                        ref={filterRef}
+                        style={{
+                          position: "absolute",
+                          zIndex: 10,
+                          backgroundColor: "#eeeeee",
+                          padding: "8px",
+                          borderRadius: "16px",
+                        }}
+                      >
+                        {InputSearchFilter}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  ""
+                )}
               </Typography>
             ))}
         </PublicTableComponent.ListHead>
@@ -385,7 +438,7 @@ export const TableList = ({
         <PublicTableComponent.ListBody>
           {loading === true ? (
             <LoadingSpinner />
-          ) : loading === false && (data === undefined || data === null) ? (
+          ) : data.length === 0 && loading === false ? (
             <span style={{ display: "flex", justifyContent: "center" }}>
               داده ای برای نمایش وجود ندارد !
             </span>

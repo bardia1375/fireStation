@@ -58,4 +58,9 @@
   font-weight: 500;
   src: url("../fonts/Yekan-Medium.ttf") format("truetype");
 }
+@font-face {
+  font-family: "Digiface";
+  font-weight: 500;
+  src: url("../fonts/Digiface Regular.ttf") format("truetype");
+}
 @import url("https://fonts.googleapis.com/css?family=Comfortaa|Karla|Cairo:300");

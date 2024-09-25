@@ -2,13 +2,25 @@ import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { successMessage, errorMessage } from "Utils/commonFunctions";
-import { editSettingData, getSettingData } from "./Services/services";
+import {
+  editSettingData,
+  editSettingRele,
+  getSettingData,
+  getSettingRele,
+} from "./Services/services";
+import { MdDownloadDone } from "react-icons/md";
 
 function Setting() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["qualityTime"],
     queryFn: getSettingData,
   });
+  const { data: releData } = useQuery({
+    queryKey: ["qualityRele"],
+    queryFn: getSettingRele,
+  });
+  console.log("releDatareleData", releData);
+
   const queryClient = useQueryClient(); // Access the query client
 
   const role = localStorage.getItem("role");
@@ -19,22 +31,46 @@ function Setting() {
     { name: "4:", value: "" },
     { name: "5:", value: "" },
   ]);
+  const [rele, setRele] = useState([
+    { name: "رله زنگ:", value: "" },
+    { name: "رله یک:", value: "" },
+    { name: "رله دو:", value: "" },
+    { name: "رله سه:", value: "" },
+    { name: "رله چهار:", value: "" },
+    { name: "رله پنج:", value: "" },
+  ]);
   const [companyName, setCompanyName] = useState(""); // جدید
 
   useEffect(() => {
-    if (data) {
+    if (data || releData) {
       setItems([
-        { name: "1 .", value: data.firstStage },
-        { name: "2 .", value: data.secondStage },
-        { name: "3 .", value: data.thirdStage },
-        { name: "4 .", value: data.fourthStage },
-        { name: "5 .", value: data.fifthStage },
+        { name: "1 .", value: data?.firstStage },
+        { name: "2 .", value: data?.secondStage },
+        { name: "3 .", value: data?.thirdStage },
+        { name: "4 .", value: data?.fourthStage },
+        { name: "5 .", value: data?.fifthStage },
       ]);
-      setCompanyName(data.companyName || ""); // جدید
+      setRele([
+        { name: "رله زنگ", value: releData?.firstRelay },
+        { name: "رله یک:", value: releData?.secondRelay },
+        { name: "رله دو:", value: releData?.thirdRelay },
+        { name: "رله سه:", value: releData?.fourthRelay },
+        { name: "رله چهار:", value: releData?.fifthRelay },
+        { name: "رله پنج:", value: releData?.sixthRelay },
+      ]);
+      setCompanyName(data?.companyName || ""); // جدید
     }
-  }, [data]);
+  }, [data, releData]);
 
   const { mutate } = useMutation(editSettingData, {
+    onError: () => {
+      errorMessage("خطا در ارسال داده‌ها!");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["getSettingData"]);
+    },
+  });
+  const { mutate: mutateRele } = useMutation(editSettingRele, {
     onError: () => {
       errorMessage("خطا در ارسال داده‌ها!");
     },
@@ -52,16 +88,44 @@ function Setting() {
     });
     setItems(updatedItems);
   };
+  const handleReleChange = (index, field, value) => {
+    const updatedItems = rele.map((item, i) => {
+      if (i === index) {
+        return { ...item, [field]: value };
+      }
+      return item;
+    });
+    setRele(updatedItems);
+  };
 
   const handleCompanyNameChange = e => {
     setCompanyName(e.target.value);
   };
 
+  const submitRele = () => {
+    // if (items.some(item => item.value.trim() === "") || companyName.trim() === "") {
+    //   errorMessage("لطفا تمام فیلدها پر شوند!");
+    //   return;
+    // }
+
+    const submitData = {
+      firstRelay: rele[0].value,
+      secondRelay: rele[1].value,
+      thirdRelay: rele[2].value,
+      fourthRelay: rele[3].value,
+      fifthRelay: rele[4].value,
+      sixthRelay: rele[5].value,
+    };
+
+    console.log("ارسال داده:", submitData);
+    mutateRele(submitData);
+    successMessage("داده‌ها با موفقیت ثبت شدند");
+  };
   const submit = () => {
-    if (items.some(item => item.value.trim() === "") || companyName.trim() === "") {
-      errorMessage("لطفا تمام فیلدها پر شوند!");
-      return;
-    }
+    // if (items.some(item => item.value.trim() === "") || companyName.trim() === "") {
+    //   errorMessage("لطفا تمام فیلدها پر شوند!");
+    //   return;
+    // }
 
     const submitData = {
       id: data?.id,
@@ -70,6 +134,7 @@ function Setting() {
       thirdStage: items[2].value,
       fourthStage: items[3].value,
       fifthStage: items[4].value,
+      rele: rele,
       companyName: companyName, // اضافه کردن نام شرکت
     };
     console.log("ارسال داده:", submitData);
@@ -83,9 +148,21 @@ function Setting() {
   return (
     <Card>
       <FormContainer>
-        <Label> عنوان:</Label>
-
         <InputSection>
+          {" "}
+          <div
+            style={{
+              textAlign: "left",
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              cursor: "pointer",
+            }}
+          >
+            <Label fontSize="1.8rem"> عنوان:</Label>
+
+            <MdDownloadDone color="green" size={20} onClick={submit} />
+          </div>
           {items.map((item, index) => (
             <InputWrapper key={index}>
               <Label>{item.name}</Label>
@@ -98,8 +175,56 @@ function Setting() {
             </InputWrapper>
           ))}
         </InputSection>
-        <InputSectionBottom>
-          <SettingsSection>
+
+        <InputSectionRele>
+          {" "}
+          <div
+            style={{
+              textAlign: "left",
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              cursor: "pointer",
+            }}
+          >
+            <Label fontSize="1.8rem"> تنظیمات رله:</Label>
+
+            <MdDownloadDone color="green" size={20} onClick={submitRele} />
+          </div>
+          <InputSectionInline>
+            {rele.map((item, index) => (
+              <InputWrapper key={index}>
+                <Label>{item.name}</Label>
+                <Input
+                  type="number"
+                  min={0}
+                  max={256}
+                  value={item.value}
+                  placeholder="عدد مدنظر را وارد کنید"
+                  onChange={e =>
+                    handleReleChange(index, "value", Math.max(0, Math.min(255, +e.target.value)))
+                  }
+                />
+              </InputWrapper>
+            ))}
+          </InputSectionInline>
+        </InputSectionRele>
+        <InputSection>
+          {" "}
+          <div
+            style={{
+              textAlign: "left",
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              cursor: "pointer",
+            }}
+          >
+            <Label fontSize="1.8rem"> تنظیمات نام و پیامک:</Label>
+
+            <MdDownloadDone color="green" size={20} onClick={submit} />
+          </div>
+          <InputWrapper>
             <Label> نام شرکت:</Label>
             <Input
               type="text"
@@ -107,18 +232,18 @@ function Setting() {
               placeholder="نام شرکت خود را وارد کنید"
               onChange={handleCompanyNameChange}
             />{" "}
-          </SettingsSection>{" "}
-          <SettingsSection>
+          </InputWrapper>{" "}
+          <InputWrapper>
             <Label>تنظیمات پیامک:</Label>
             <Input disabled placeholder="این آیتم موقتا غیرفعال است." />
-          </SettingsSection>
-        </InputSectionBottom>
+          </InputWrapper>
+        </InputSection>
       </FormContainer>
-      {role === "Admin" && (
+      {/* {role === "Admin" && (
         <div>
           <Button onClick={submit}>ثبت</Button>
         </div>
-      )}
+      )} */}
     </Card>
   );
 }
@@ -139,7 +264,7 @@ const Card = styled.div`
   overflow: hidden;
   height: 100%;
   gap: 32px;
-
+  overflow-y: scroll;
   @media (min-width: 1000px) {
     padding: 16px;
     gap: 16px;
@@ -161,8 +286,9 @@ const InputSection = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 16px;
-  padding: 16px;
+  padding: 0px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
@@ -170,13 +296,40 @@ const InputSection = styled.div`
 
   @media (min-width: 1000px) {
     padding: 16px;
+  }
+`;
+const InputSectionRele = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 0px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  @media (min-width: 1000px) {
+    padding: 16px;
+  }
+`;
+
+const InputSectionInline = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  border-radius: 8px;
+
+  @media (min-width: 1000px) {
     gap: 24px;
   }
 `;
 
 const InputSectionBottom = styled.div`
   width: 100%;
-  display: flex;
+
   gap: 16px;
   padding: 16px;
   background-color: #f9f9f9;
@@ -212,13 +365,13 @@ const InputWrapper = styled.div`
   }
 `;
 
-const Label = styled.h4`
+const Label = styled.h4<{ fontSize?: string }>`
   margin: 0;
   font-size: 16px;
   color: #333;
 
   @media (min-width: 1000px) {
-    font-size: 12px;
+    font-size: ${props => (props.fontSize ? props.fontSize : "12px")};
   }
 `;
 

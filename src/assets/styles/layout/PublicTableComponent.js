@@ -170,10 +170,8 @@ export const ListItem = styled.div`
         `;
       case "فعال":
         return css`
-          color: red !important;
           background: #ffffff !important;
           box-shadow: 0px 3px 6px #00000029 !important;
-          border: 1px solid red !important;
         `;
       case "غیر فعال":
         return css`

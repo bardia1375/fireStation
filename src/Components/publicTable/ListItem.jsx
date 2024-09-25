@@ -363,7 +363,9 @@ export const ListItem = ({
       <PublicTableComponent.ListItem
         onMouseOver={handleOverChange}
         onMouseLeave={handleOutChange}
-        statusObjStyle={item[item.length - 3].split(" ")[0] < item[item.length - 1] ? "فعال" : ""}
+        statusObjStyle={
+          item && item[item?.length - 3]?.split(" ")[0] < item[item?.length - 1] ? "فعال" : ""
+        }
         contractStyle={contractStyle}
         page={page}
         grid={page !== "گزارش‌ها" ? column : column - 1}

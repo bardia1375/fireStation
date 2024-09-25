@@ -1,52 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "redux-thunk";
-import { RootState } from "../../Reducers"; // Update this path according to your project structure
-import { getAllData } from "../../Actions/Table/table";
-import { createSignalRConnection, startConnection } from "../../signalrService.js";
-// Images
 import { TableComponent } from "../../Components/publicTable/Main";
-import { useAppContext } from "Context/AppContext";
-import Modal from "Components/Modal/Modal";
-import FormContainer from "./Form/FormContainer";
-import FormPingContainer from "./Form/FormPingContainer";
-import { useParams } from "react-router-dom";
 
-interface Device {
-  DeviceSerial: string;
-  DeviceName: string;
-  DeviceCode: string;
-  Status: number;
-}
+type Props = {};
 
-const Stations: React.FC = () => {
-  const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
-  const {
-    showModal,
-    openModal,
-    closeModal,
-    selectedUser,
-    setShowModal,
-    setShowPingModal,
-    showPingModal,
-  } = useAppContext(); // Use the context
-
+export default function Logs({ Logsdata }: Props) {
   const [devices, setDevices] = useState<Device[]>([]);
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState<any>(null);
   const [deviceState, setDeviceState] = useState([]); // Initialize as an empty array
   const role = localStorage.getItem("role");
-  const id = useParams();
-  const { devicesData, isActive } = useSelector((state: RootState) => state.tableData);
   useEffect(() => {
     setLoading(false);
-  }, []);
-  useEffect(() => {
-    const connection = startConnection(setDeviceState);
-
-    return () => {
-      connection?.stop(); // قطع اتصال هنگامUnmount
-    };
   }, []);
   const handleGetOperationList = async () => {
     setDevices([
@@ -118,29 +82,21 @@ const Stations: React.FC = () => {
   useEffect(() => {
     handleGetOperationList();
   }, []);
-  const [time, setTime] = useState();
   // useEffect(() => {
   //   serverApi.get("Setting/GetSetting").then(res => {
   //     setTime(res.data.time);
   //   });
   // }, []);
   // Set Titles
-  const titles = [
-    { title: "ایستگاه" },
-    { title: "ip" },
-    { title: "port" },
-    { title: "اخرین ماموریت" },
-    { title: "وضعیت" },
-  ];
+  const titles = [{ title: "کاربر" }, { title: "تاریخ" }, { title: "شرح" }];
   console.log("devicesdevicesdevices", devices);
   console.log("bardiasalam", deviceState);
+  console.log("Logsdata", Logsdata);
 
-  const dataShow = deviceState?.map(item => [
-    item.name !== null || undefined ? item.name : " ایستگاه نامشخص",
-    item.ip !== null || undefined ? item.ip : "-",
-    item.port !== null || undefined ? item.port : "-",
-    item.lastDailyMissionTime !== null || undefined ? item.lastDailyMissionTime : "-",
-    item.isActive !== null || undefined ? (!!item.isActive ? "فعال" : "غیرفعال") : "efv",
+  const dataShow = Logsdata?.map(item => [
+    item.fullName !== null || undefined ? item.fullName : " ایستگاه نامشخص",
+    item.dateTime !== null || undefined ? item.dateTime : "-",
+    item.message !== null || undefined ? item.message : "-",
     item.id !== null || undefined ? item.id : "-",
   ]);
 
@@ -175,55 +131,17 @@ const Stations: React.FC = () => {
   //     handleGetOperationList(); // Fetch new order data if there are changes
   //   }
   // }, [dataShow?.length]);
-  console.log("devicesdevices", devices);
-
-  const AccordionTitle = devices?.map(item => [{ title: "پیام", value: item.sms }]);
-  console.log("dataShodataShoww", dataShow);
-  const EditModalOpen = () => {
-    "clicked";
-  };
-
-  const closeModalContainer = () => {
-    setShowModal(false);
-  };
-  const closeModalPing = () => {
-    setShowPingModal(false);
-  };
-  const getData = data => {
-    setUserData(data);
-  };
-  console.log("deviceStatdeviceStatee", deviceState);
 
   return (
     <>
+      {" "}
       <TableComponent
-        EditModalOpen={() => EditModalOpen()}
-        // AccordionTitle={AccordionTitle}
-        // accordion
-        AddStationsIcon
-        page={"دستگاه"}
+        page={"تاریخچه"}
         data={dataShow || []}
         TableData={userData || []}
         title={titles}
-        penButton
         navigateEditAddress="/stations"
       />
-      <Modal
-        showModal={role === "Admin" && showModal }
-        closeModal={closeModalContainer}
-        width="80vw"
-      >
-        <FormContainer getData={getData} setShowModal={setShowModal} deviceState={deviceState} />
-      </Modal>
-      <Modal showModal={showPingModal} closeModal={closeModalPing} width="50vw">
-        <FormPingContainer
-          getData={getData}
-          setShowModal={setShowModal}
-          deviceState={deviceState}
-        />
-      </Modal>
     </>
   );
-};
-
-export default Stations;
+}

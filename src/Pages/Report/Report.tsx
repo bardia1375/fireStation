@@ -15,6 +15,8 @@ import { TableComponent } from "../../Components/publicTable/Main";
 import serverApi from "Services/httpService";
 import { getReports } from "./services/services";
 import DateRangePicker from "./DateRange";
+import FormContainer from "./Form/FormContainer";
+import InputSearch from "Components/DropDown/InputSearch";
 
 interface Device {
   DeviceSerial: string;
@@ -26,15 +28,12 @@ interface Device {
 const Report: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
   const [devices, setDevices] = useState<Device[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [userData, setUserData] = useState<any>(null);
   const [fromTime, setFromTime] = useState<any>("");
   const [toTime, setToTime] = useState<any>("");
   const { devicesData, isActive } = useSelector((state: RootState) => state.tableData);
 
-  useEffect(() => {
-    setLoading(false);
-  }, []);
   useEffect(() => {
     // setFromTime(moment().format("jYYYY-jMM-jDD"))
     // setToTime(moment().format("jYYYY-jMM-jDD"))
@@ -64,17 +63,16 @@ const Report: React.FC = () => {
     handleGetOperationList();
   }, []);
 
-  const [time, setTime] = useState();
   const titles = [
-    { title: "کاربر" },
-    { title: "ایستگاه" },
-    { title: "تاریخ" },
-    { title: "ساعت" },
+    { id: 0, title: "کاربر", filter: true, filterTitle: "fullName" },
+    { id: 1, title: "ایستگاه", filter: true, filterTitle: "" },
+    { id: 2, title: "تاریخ" },
+    { id: 3, title: "ساعت" },
     // { title: "ip" },
     // { title: "port" },
-    { title: "مدت زمان" },
-    { title: "وضعیت" },
-    { title: "کیفیت" },
+    { id: 4, title: "مدت زمان" },
+    { id: 5, title: "وضعیت", filter: true, filterTitle: "" },
+    { id: 6, title: "کیفیت", filter: true, filterTitle: "quality" },
   ];
 
   console.log("devicesdevicesdevices", devices);
@@ -157,19 +155,67 @@ const Report: React.FC = () => {
   const getData = item => {
     setDevices(item);
   };
+  const [searchQuery, setSearchQuery] = useState("");
+  const [columnFilter, setColumnFilter] = useState<{ filterTitle: string }>("");
+  const onSearch = item => {
+    console.log("ssssssdddd", item);
+    setColumnFilter(item);
+  };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    if (query) {
+      try {
+        const payload = {
+          page: 1,
+          limit: 1000,
+          fromDate: moment().format("YYYY-MM-DD"),
+          toDate: moment().format("YYYY-MM-DD"),
+          fullName: columnFilter?.filterTitle === "fullName" ? query : "",
+          quality: columnFilter?.filterTitle === "quality" ? query : "",
+          // stationId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        };
+
+        console.log("ارسال درخواست به سرور با payload:", payload);
+
+        serverApi
+          .post(`/Missions/MissionReport`, payload)
+          .then(res => {
+            console.log("پاسخ سرور:", res);
+            setDevices(res.data.data.data);
+          })
+          .catch(error => {
+            console.error("خطا در پاسخ سرور:", error);
+          });
+
+        setLoading(false);
+      } catch (error) {
+        console.error("خطا در ارسال درخواست:", error);
+        setLoading(false);
+      }
+    }
+  };
   return (
     <>
       <TableComponent
         excelExport
+        loading={loading}
         // AccordionTitle={AccordionTitle}
         // accordion
+        InputSearchFilter={
+          <InputSearch
+            value={searchQuery} // مقدار ورودی
+            onSearch={handleSearch} // تابع تغییر ورودی
+          />
+        }
+        onSearch={onSearch}
         page={"دستگاه"}
         devices={devices}
         data={dataShow || []}
         TableData={userData || []}
         title={titles}
         // dataPrint={dataPrint}
-        reportTiming={<DateRangePicker getData={getData} />}
+        reportTiming={<FormContainer getData={getData} setLoading={setLoading} />}
       />
     </>
   );

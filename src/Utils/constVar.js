@@ -35,11 +35,15 @@ export const menues = [
     title: "گزارشات",
     imgUrl: "/images/menuIcon/message.svg",
   },
-
   {
     url: "/setting",
     title: "تنظیمات",
     imgUrl: "/images/menuIcon/setting.svg",
+  },
+  {
+    url: "/logs",
+    title: "تاریخچه سیستم",
+    imgUrl: "/images/menuIcon/message.svg",
   },
   // {
   //   url: "/mycontract",

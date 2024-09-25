@@ -13,8 +13,17 @@ export const editSettingData = async item => {
   const { data } = await serverApi.post(`/BaseSettings/Upsert`, item);
   return data.data;
 };
+export const editSettingRele = async item => {
+  const { data } = await serverApi.post(`/DeviceRelays/Upsert`, item);
+  return data.data;
+};
 export const getSettingData = async () => {
   const { data } = await serverApi.get(`/BaseSettings/GetBaseSetting`);
+  return data.data;
+};
+export const getSettingRele = async () => {
+  const { data } = await serverApi.get(`/DeviceRelays/GetDeviceRelay
+`);
   return data.data;
 };
 export const postStationData = async item => {

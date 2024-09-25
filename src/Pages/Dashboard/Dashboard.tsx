@@ -85,10 +85,15 @@ const Dashboard = ({
       stationId: stationId,
     };
     console.log("اینجا هستیم");
-
-    serverApi.post(`/Missions/StartMission?stationId=${data.stationId}`).then(res => {
-      console.log("res", res.data);
-    });
+    if (!hasCurrentMission) {
+      serverApi.post(`/Missions/StartMission?stationId=${data.stationId}`).then(res => {
+        console.log("res", res.data);
+      });
+    } else {
+      serverApi.post(`/Missions/StopMission?stationId=${data.stationId}`).then(res => {
+        console.log("res", res.data);
+      });
+    }
   };
 
   // Cancel the operation
@@ -148,7 +153,7 @@ const Dashboard = ({
         <div style={{ marginTop: "8px" }}>{renderImage()}</div>
         <p
           dir="ltr"
-          style={{ margin: "4px 0 16px 0", fontSize: "0.8vw", whiteSpace: "nowrap" }}
+          style={{ margin: "4px 0 16px 0", fontSize: "1.2vw", whiteSpace: "nowrap" }}
           className="digital-clock"
         >
           {clockMission} {/* Display the current time */}
@@ -163,7 +168,7 @@ const Dashboard = ({
 
       {/* Modal for confirmation */}
       <Modal
-        showModal={!hasCurrentMission && hasConnection && isModalVisible && role !== "Watcher"}
+        showModal={hasConnection && isModalVisible && role !== "Watcher"}
         Submit={handleConfirm} // Start the timer when the user clicks "OK"
         closeModal={handleCancel} // Close the modal when the user clicks "Cancel"
         footer={<Button onClick={handleConfirm}>تایید</Button>}
@@ -173,7 +178,11 @@ const Dashboard = ({
           <h2>
             <i style={{ color: "#0089a7" }}>ایستگاه</i>
           </h2>
-          <p style={{ margin: "16px 0", fontSize: "2vw" }}>آیا از شروع عملیات اطمینان دارید؟</p>
+          {!hasCurrentMission ? (
+            <p style={{ margin: "16px 0", fontSize: "2vw" }}>آیا از شروع عملیات اطمینان دارید؟</p>
+          ) : (
+            <p style={{ margin: "16px 0", fontSize: "2vw" }}>آیا از پایان عملیات اطمینان دارید؟</p>
+          )}{" "}
         </div>
       </Modal>
     </>
