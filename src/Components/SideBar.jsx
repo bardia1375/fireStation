@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getAllMyTickets } from "./../Actions/Ticket/ticket";
 import { useDispatch } from "react-redux";
-import TicketItem from "./Ticket/TicketItem";
 import { menues } from "../Utils/constVar";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { userLogOut } from "../Actions/User/user";

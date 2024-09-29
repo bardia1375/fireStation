@@ -24,7 +24,6 @@ import { AddModal } from "./addModal/AddModal";
 import { Link, useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { ConfigureButton } from "../../assets/styles/layout/Calendar";
-import { getAllSoftwareFeatures, getSelectedItems } from "../../Actions/Table/table";
 import { CustomerSoftwareFeaturesBuy } from "Services/softwareServices";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
@@ -170,9 +169,7 @@ export const TableList = ({
       return item ? item[item?.length - 1] : "";
     });
     setSelectedRowId(uniqueSoftwareId);
-    console.log("uniqueSoftwareIduniqueSoftwareId", uniqueSoftwareId);
-    dispatch(getSelectedItems(uniqueSoftwareId));
-    if (!purchasebutton) {
+        if (!purchasebutton) {
       if (uniqueSoftwareId.includes(win ? win[win?.length - 1] : "")) {
         const deleteIndex = uniqueSoftwareId.indexOf(win[win?.length - 1]);
         const updatedSelectedRow = [...selectedRow];
