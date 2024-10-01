@@ -24,17 +24,7 @@ function Profile() {
     NationalCode,
     EconomicCode,
     RegNumber,
-    Status,
-    StatusName,
-    Industry,
-    SubIndustry,
-    Responsible,
-    Province,
-    City,
-    Fax,
-    Address,
-    PostalCode,
-    CanSendTicket,
+
   } = useSelector(state => state.auth);
   let [color, setColor] = useState("#0b647c");
   const dispatch = useDispatch();

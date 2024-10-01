@@ -8,9 +8,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 // import { changeInformationMethodStatus } from "routes/Home/Employees/Module";
 
 // Components
-import { DeleteModal } from "./deleteModal/DeleteModal";
 import { Typography } from "../Commons/Typography";
-import { CloneModal } from "./cloneModal/CloneModal";
 import { useAppContext } from "Context/AppContext";
 
 // Styled Elements
@@ -36,10 +34,8 @@ import { Field } from "../../Components/Commons/Field";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import serverApi from "../../Services/httpService";
 import Swal from "sweetalert2";
-import { getAllData, getId } from "../../Actions/Table/table";
 import "./ListItem.css";
 import { Modal } from "../Commons";
-import VideoList from "./VideoList";
 import Accordion from "./Accordion";
 export const ListItem = ({
   page,
@@ -248,54 +244,10 @@ export const ListItem = ({
   const getItem = async (e, particularItem) => {
     setPurchaseButton(e);
     handleGetItemOne(particularItem);
-    dispatch(getId(item));
     e.stopPropagation();
   };
 
-  const sweetAlerting = e => {
-    Swal.fire({
-      title: `آیا میخواهید این ${page} را حذف کنید؟`,
-      icon: "question",
-      iconHtml: "؟",
-      confirmButtonText: "بله",
-      cancelButtonText: "خیر",
-      showCancelButton: true,
-      showCloseButton: true,
-    }).then(result => {
-      if (result.isConfirmed) {
-        const formData = new FormData();
-        formData.append("Id", e.Id);
 
-        serverApi
-          .post(`DeleteOrder`, formData)
-          .then(res => {
-            //setDeleteOrd(res.data);
-            if (res.data.StatusCode === 0) {
-              dispatch(getAllData("Orders", "SET-ORDER"));
-              Swal.fire({
-                text: "سفارش شما با موفقیت حذف شد",
-                icon: "success",
-                timer: 2500,
-              });
-              setRefresh(!refresh);
-            } else {
-              dispatch(getAllData("Orders", "SET-ORDER"));
-              Swal.fire({
-                text: "حذف سفارش با مشکل روبه رو شده است",
-                icon: "error",
-                timer: 2500,
-              });
-              setRefresh(!refresh);
-            }
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      } else {
-        //nothing
-      }
-    });
-  };
   const [contentCt, setContentCt] = useState(false);
 
   let contentCtrl = "content_back";
@@ -339,27 +291,8 @@ export const ListItem = ({
   console.log("item[item.length - 3]", item);
   return (
     <div style={{ position: "relative" }} onClick={() => onRowClick(item)}>
-      {isDeleteMode && (
-        <DeleteModal
-          type={page}
-          onClose={deleteModeChangeHandler}
-          items={items}
-          fetchDeleteData={fetchDeleteData}
-          navigateAddress={navigateAddress}
-          setCurrentPage={setCurrentPage}
-          hoverDetail={hoverDetail}
-        />
-      )}
-      {isCloneMode && (
-        <CloneModal
-          type={page}
-          fetchCloneData={fetchCloneData}
-          setCurrentPage={setCurrentPage}
-          navigateAddress={navigateAddress}
-          onClose={cloneModeChangeHandler}
-          unique={items[items.length - (hoverDetail ? 2 : 1)]}
-        />
-      )}
+
+
       <PublicTableComponent.ListItem
         onMouseOver={handleOverChange}
         onMouseLeave={handleOutChange}
@@ -460,13 +393,7 @@ export const ListItem = ({
           ) : null
         )}
 
-        {isModal && (
-          <div>
-            <Modal background>
-              <VideoList setIsModal={setIsModal} />
-            </Modal>
-          </div>
-        )}
+
 
         {hoverDetail && isHoverDetail && (
           <PublicTableComponent.HoverDetail>

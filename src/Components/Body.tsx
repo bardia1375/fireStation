@@ -26,58 +26,40 @@ import LogsContainer from "Pages/Logs/LogsContainer";
 
 export default function Body() {
   const { isNewTicketModalOpen, isMobileMenueOpen } = useSelector(state => state.modal);
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  const history = useHistory();
 
-  const handleLogout = e => {
-    dispatch(userLogOut());
-  };
 
   //handle mobileMenue
   useEffect(() => {
-    const connection = startConnection(handleReceiveMessage, canStartMission);
+    const connection = startConnection(handleReceiveMessage);
 
     return () => {
       // Cleanup on component unmount
       connection.stop();
     };
   }, []);
-  const [bardia, setBardia] = useState(true);
-  const canStartMission = missionId => {
-    console.log("missionIdmissionIdmissionId", missionId);
-    setBardia(missionId);
-  };
+
   const handleReceiveMessage = id => {
     console.log("idididididididid", id);
   };
   const location = useLocation();
 
-  // useEffect(()=>{
-  //   canStartMission()
-  // },[location.pathname])
+
   return (
     <div className="body__container">
       <Navbar />
-      {bardia ? (
+      {true ? (
         <div
           style={{
             overflowY: isMobileMenueOpen || isNewTicketModalOpen ? "hidden" : "auto",
           }}
           className="Tickment"
         >
-          {/* mobile menue */}
+
           {isMobileMenueOpen && <Menue />}
-          {/* new ticket */}
-          {/* switch bettwen newTicketBtn and allMyTicket on mobile */}
-          {/* effect blur when modal opens */}
-          {isNewTicketModalOpen && window.outerWidth > 768 && <Blur />}
+
           <Main>
             <Switch>
-              {/* <Route
-              path="/home"
-              render={() => (window.outerWidth > 768 ? <></> : <TicketsList />)}
-            /> */}
+
 
               <Route path="/questions" component={Devices} />
               <Route path="/devices" component={Devices} />

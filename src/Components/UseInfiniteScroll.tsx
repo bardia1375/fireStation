@@ -8,8 +8,8 @@ function UseInfiniteScroll(fetchDataCallback) {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);     
-       console.log("newDatanewData");
+      setLoading(true);
+      console.log("newDatanewData");
 
       const newData = await fetchDataCallback(2, 2);
 

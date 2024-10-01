@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getAllMyTickets } from "./../Actions/Ticket/ticket";
 import { useDispatch } from "react-redux";
 import { menues } from "../Utils/constVar";
 import { Link, NavLink, useHistory } from "react-router-dom";
@@ -8,29 +7,8 @@ import { userLogOut } from "../Actions/User/user";
 export default function SideBar() {
   const dispatch = useDispatch();
 
-  const [tickets, setTickets] = useState([]);
   const [height, setHeight] = useState(true);
-  const history = useHistory(); // اضافه کردن useHistory برای هدایت
 
-  const { searchTerm, isActive, isSearching } = useSelector(state => state.tickets);
-  const handleGetMyTicketsList = async () => {
-    const { allTickets } = await dispatch(getAllMyTickets(1, 100));
-    setTickets(allTickets);
-  };
-  // filterTicketsBysearch
-  useEffect(async () => {
-    handleGetMyTicketsList();
-  }, [searchTerm, isSearching]);
-
-  useEffect(() => {
-    handleGetMyTicketsList();
-    const refreshData = setInterval(async () => {
-      handleGetMyTicketsList();
-    }, 120000);
-    return () => {
-      clearInterval(refreshData);
-    };
-  }, [isActive]);
 
   const onScroll = e => {
     const bottom =

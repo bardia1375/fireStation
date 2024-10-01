@@ -3,7 +3,7 @@ import DateRangePicker from "../DateRange";
 
 type Props = {
   getData: (data: any) => void;
-  setLoading: boolean;
+  setLoading: (isLoading: boolean) => void; // Set loading expects a boolean parameter
 };
 export default function Form({ getData, setLoading }: Props) {
   return <DateRangePicker getData={getData} setLoading={setLoading} />;

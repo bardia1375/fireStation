@@ -1,55 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import { ConfigureButton } from "../../assets/styles/layout/Calendar";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import moment from "moment-jalaali";
+import { useMutation, useQueryClient } from "@tanstack/react-query"; // Tanstack Query
 import serverApi from "Services/httpService";
 import { errorMessage, successMessage } from "../../Utils/commonFunctions";
 
 interface DateRangePickerProps {
   getData: (data: any) => void;
-  setLoading: boolean;
 }
 
-const DateRangePicker: React.FC<DateRangePickerProps> = ({ getData, setLoading }) => {
-  // مدیریت "از تاریخ" و "تا تاریخ"
+const DateRangePicker: React.FC<DateRangePickerProps> = ({ getData }) => {
   const [fromDate, setFromDate] = useState<any>(null);
   const [toDate, setToDate] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null); // برای نمایش پیام خطا
+  const queryClient = useQueryClient();
 
-  // تابع ارسال به بک‌اند
-  const submitDates = async () => {
-    // بررسی اینکه آیا تاریخ "از تاریخ" بزرگتر از تاریخ "تا تاریخ" است
+  useEffect(() => {
+    localStorage.setItem("fromDate", moment(fromDate?.toDate()).format("YYYY-MM-DD"));
+    localStorage.setItem("toDate", moment(toDate?.toDate()).format("YYYY-MM-DD"));
+  }, [fromDate, toDate]);
+
+  // Mutation for the date submission
+  const { mutate, isLoading } = useMutation({
+    mutationFn: async (dates: { fromDate: string | null; toDate: string | null }) => {
+      const response = await serverApi.post("/Missions/MissionReport", {
+        ...dates,
+        limit: 1000,
+        page: 1,
+      });
+      return response.data.data.data;
+    },
+    onSuccess: data => {
+      queryClient.invalidateQueries({ queryKey: ["devices"] });
+
+      getData(data);
+      successMessage("گزارش گیری انجام شد");
+    },
+    onError: error => {
+      console.error("Submission error:", error);
+      errorMessage("خطایی رخ داده است");
+    },
+  });
+
+  const submitDates = () => {
     if (fromDate && toDate && fromDate.toDate() > toDate.toDate()) {
       errorMessage("ازتاریخ نباید بزرگتر از تاتاریخ باشد");
       return;
     }
 
-    try {
-      // بررسی اینکه آیا تاریخ معتبر است
-      const fromGregorianDate = fromDate ? moment(fromDate.toDate()).format("YYYY-MM-DD") : null;
-      const toGregorianDate = toDate ? moment(toDate.toDate()).format("YYYY-MM-DD") : null;
-      const newDate = {
-        fromDate: fromGregorianDate,
-        toDate: toGregorianDate,
-        limit: 1000,
-        page: 1,
-      };
-      serverApi
-        .post("/Missions/MissionReport", newDate)
-        .then(response => {
-          getData(response.data.data.data);
-          console.log("Submission successful:", response.data.data.data);
-          successMessage("گزاش گیری انجام شد");
-          setLoading(false);
-        })
-        .catch(error => {
-          console.error("Submission error:", error);
-        });
-    } catch (error) {
-      console.error("Error sending dates:", error);
-    }
+    const fromGregorianDate = fromDate ? moment(fromDate.toDate()).format("YYYY-MM-DD") : null;
+    const toGregorianDate = toDate ? moment(toDate.toDate()).format("YYYY-MM-DD") : null;
+
+    mutate({ fromDate: fromGregorianDate, toDate: toGregorianDate });
   };
 
   return (
@@ -97,11 +101,13 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ getData, setLoading }
         onFocus={e => (e.target.style.borderColor = "#007bff")}
         onBlur={e => (e.target.style.borderColor = "#ccc")}
       />
+
       <ConfigureButton
-        onClick={submitDates} // ثبت تاریخ‌ها
+        onClick={submitDates}
         style={{ border: "none", padding: 0, height: "30px", width: "100px", margin: 10 }}
+        disabled={isLoading} // Disable button while loading
       >
-        ثبت
+        {isLoading ? "در حال ارسال..." : "ثبت"}
       </ConfigureButton>
     </>
   );

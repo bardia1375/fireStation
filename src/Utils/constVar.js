@@ -5,11 +5,7 @@ export const menues = [
   //   imgUrl: "/images/menuIcon/club.svg",
 
   // },
-  // {
-  //   url: "/ticket",
-  //   title: "تیکت های من",
-  //   imgUrl: "/images/menuIcon/myticket.svg",
-  // },
+
   // {
   //   url: "/mySoftware",
   //   title: "نرم افزارهای من",
@@ -76,11 +72,7 @@ export const menues = [
   //     title: "تعمیرات",
   //     imgUrl: "/images/menuIcon/repair.svg",
   //   },
-  //   {
-  //     url: "/myTickets",
-  //     title: "پیام های من",
-  //     imgUrl: "/images/menuIcon/message.svg",
-  //   },
+
   // {
   //   url: "/person",
   //   title: "افراد مرتبط",

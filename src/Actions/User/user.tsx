@@ -51,7 +51,6 @@ export const userLogin = loginInfo => async dispatch => {
     });
   }
 };
-
 // logOut
 export const userLogOut = loginInfo => async dispatch => {
   // const response = await logOutService(loginInfo);
@@ -70,33 +69,24 @@ export const userLogOut = loginInfo => async dispatch => {
   });
   await dispatch({ type: "USER_LOGOUT" });
 };
-// get code
-// export const userGetRecoveryCode = (mobile) => async (dispatch) => {
-//   const response = await userGetRecoveryCodeService(mobile);
-//   if (response.error) {
-//     handleErrorResponse(response);
-//   } else {
-//     await dispatch({ type: "USER_LOGIN_STARTED", payload: response.data.data });
-//   }
-// };
 // get profile
 export const getprofile = () => async dispatch => {
-  const response = await getProfileService();
-  if (response?.error) {
-    handleErrorResponse(response);
-  } else {
-    const profileInformation = response?.data?.Data;
-    localStorage.setItem("CanSendTicket", profileInformation[0].CanSendTicket);
-    await dispatch({
-      type: "VERIFY_USER_SUCCESS",
-      payload: {
-        CanSendTicket: profileInformation[0].CanSendTicket,
-        profileInformation: profileInformation[0],
-        //FirstName: Responsible.split(" ")[0],
+  // const response = await getProfileService();
+  // if (response?.error) {
+  //   handleErrorResponse(response);
+  // } else {
+  //   const profileInformation = response?.data?.Data;
+  //   localStorage.setItem("CanSendTicket", profileInformation[0].CanSendTicket);
+  //   await dispatch({
+  //     type: "VERIFY_USER_SUCCESS",
+  //     payload: {
+  //       CanSendTicket: profileInformation[0].CanSendTicket,
+  //       profileInformation: profileInformation[0],
+  //       //FirstName: Responsible.split(" ")[0],
 
-        //LastName: Responsible.split(" ")[1],
-        //Name: `${Industry} ${SubIndustry}`,
-      },
-    });
-  }
+  //       //LastName: Responsible.split(" ")[1],
+  //       //Name: `${Industry} ${SubIndustry}`,
+  //     },
+  //   });
+  // }
 };

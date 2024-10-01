@@ -44,7 +44,6 @@ const Login = () => {
     if (/[\u0600-\u06FF]/.test(loginInfo.userName)) {
       newErrors.userName = "نام کاربری نباید شامل کاراکترهای فارسی باشد.";
       errorMessage(newErrors.userName);
-
     }
 
     // Validate password: should be at least 6 characters and English
@@ -93,7 +92,7 @@ const Login = () => {
 
         <form className="login__form">
           <div style={{ margin: 0, padding: 0 }}>
-            <div className="login__inputWrapper" >
+            <div className="login__inputWrapper">
               {" "}
               <img className="login__inputIcon" src="/images/avatar.svg" alt="" />
               <input

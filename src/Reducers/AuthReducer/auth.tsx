@@ -12,7 +12,6 @@ export interface AuthState {
   ProfileCompleted: boolean;
   NewMessages: number;
   Type: string;
-  CanSendTicket: boolean;
   Status: number;
   Url: string;
   Email: string;
@@ -44,7 +43,6 @@ const initialState: AuthState = {
   ProfileCompleted: false,
   NewMessages: 0,
   Type: "",
-  CanSendTicket: false,
   Status: 1,
   Url: "",
   Email: "",

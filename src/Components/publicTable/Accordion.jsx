@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-import VideoList from './VideoList';
 import { Modal } from '../Commons';
 
 function Accordion({ page,TableData, index, contentCtrl, item, AccordionTitle }) {
@@ -12,11 +11,7 @@ const  openModal=()=>{
 console.log("TableData[index]",TableData);
   return (
     <div className={`${contentCtrl}`}>
-     {isModal&& <div>
-          <Modal background>
-            <VideoList setIsModal={setIsModal}/>
-          </Modal>
-      </div>}
+
       <div className="inner_content">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(1, 1fr)",justifyContent:'flex-end',alignItems:"flex-end"}}>
           {AccordionTitle?.length!==0 && AccordionTitle[index]?.map((el, i) => (

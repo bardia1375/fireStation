@@ -115,7 +115,7 @@ serverApi.interceptors.response.use(
           // Clear tokens and redirect to login
           localStorage.removeItem("tickment_token");
           // localStorage.removeItem("refresh_token");
-          // window.location.href = "/login";
+          window.location.href = "/login";
           reject(err);
         } finally {
           isRefreshing = false;
