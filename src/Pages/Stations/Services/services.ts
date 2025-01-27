@@ -33,7 +33,6 @@ export const GetMissionSettings = async stationId => {
   return data.data;
 };
 export const GetPings = async item => {
-  console.log("item", item);
 
   const { data } = await serverApi.post(`/DeviceLogs/GetLogs`,  item );
 

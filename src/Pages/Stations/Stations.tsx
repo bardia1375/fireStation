@@ -207,9 +207,10 @@ const Stations: React.FC = () => {
         title={titles}
         penButton
         navigateEditAddress="/stations"
+        Pagination
       />
       <Modal
-        showModal={role === "Admin" && showModal }
+        showModal={role === "Admin" && showModal}
         closeModal={closeModalContainer}
         width="80vw"
       >

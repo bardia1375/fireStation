@@ -13,19 +13,22 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppProvider } from "Context/AppContext";
+import { PermissionsProvider } from "Context/PermissionContext";
 
 const queryClient = new QueryClient();
 
 render(
   <Provider store={store}>
     <Theme>
-      <ToastContainer />
-      <AppProvider>
-        <QueryClientProvider client={queryClient}>
-          <App />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </AppProvider>
+      <ToastContainer />{" "}
+      <QueryClientProvider client={queryClient}>
+        <AppProvider>
+          <PermissionsProvider>
+            <App />
+            <ReactQueryDevtools initialIsOpen={false} />{" "}
+          </PermissionsProvider>
+        </AppProvider>
+      </QueryClientProvider>
     </Theme>
   </Provider>,
   document.getElementById("app")

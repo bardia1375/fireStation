@@ -2,37 +2,35 @@ import React, { useEffect, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 
 interface DropdownProps {
-  value: string; // مقدار ورودی از پدر
-  onSearch: (query: string) => void; // تابعی برای به‌روزرسانی مقدار ورودی در پدر
+  value: string;
+  onSearch: (query: string) => void; 
   label?: string;
 }
 
 const SearchableInput: React.FC<DropdownProps> = ({ value, onSearch, label }) => {
-  const [inputValue, setInputValue] = React.useState(""); // برای ذخیره مقدار محلی
+  const [inputValue, setInputValue] = React.useState(""); 
 
-  // تابعی که هر زمان ورودی تغییر کند فراخوانی می‌شود
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value); // تغییر مقدار محلی
+    setInputValue(event.target.value);
   };
 
-  // پیاده‌سازی debounce به صورت دستی
   const debounce = (func: Function, delay: number) => {
     let timeoutId: ReturnType<typeof setTimeout>;
 
     return (...args: any[]) => {
       if (timeoutId) {
-        clearTimeout(timeoutId); // اگر درخواست قبلی وجود داشته باشد، آن را لغو می‌کنیم
+        clearTimeout(timeoutId);
       }
       timeoutId = setTimeout(() => {
         func(...args);
-      }, delay); // پس از گذشت زمان delay، تابع اصلی فراخوانی می‌شود
+      }, delay); 
     };
   };
 
   const debouncedSearch = useRef(debounce(onSearch, 500)).current;
 
   useEffect(() => {
-    debouncedSearch(inputValue); // فراخوانی تابع جستجو پس از وقفه
+    debouncedSearch(inputValue); 
   }, [inputValue, debouncedSearch]);
 
   return (

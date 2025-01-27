@@ -1,221 +1,199 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
-import { RootState } from "../../Reducers";
-import { getAllData } from "../../Actions/Table/table";
-import DatePicker from "react-multi-date-picker";
-import { ConfigureButton } from "../../assets/styles/layout/Calendar";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
 import moment from "moment-jalaali";
-import { convertNumbersToEnglish } from "../../Utils/commonFunctions"; // Import the function for number conversion
-
-// Images
-import { TableComponent } from "../../Components/publicTable/Main";
 import serverApi from "Services/httpService";
-import { getReports } from "./services/services";
-import DateRangePicker from "./DateRange";
+import Pagination from "../../Components/publicTable/pagination/Pagination";
+
+// Redux
+import { RootState } from "../../Reducers";
+
+// Components
+import { TableComponent } from "../../Components/publicTable/Main";
 import FormContainer from "./Form/FormContainer";
 import InputSearch from "Components/DropDown/InputSearch";
 
+// Utilities
+import { useMutation } from "@tanstack/react-query";
+import { useLocation } from "react-router-dom";
+
+// Interfaces
 interface Device {
-  DeviceSerial: string;
-  DeviceName: string;
-  DeviceCode: string;
-  Status: number;
+  id: string;
+  fullName: string;
+  stationName: string;
+  date: string;
+  time: string;
+  duration: number;
+  endedType: string;
+  qualityType: string | null;
+}
+
+interface ColumnFilter {
+  filterTitle: string;
+}
+
+interface FetchDevicesParams {
+  query: string;
+  columnFilter: ColumnFilter | null;
 }
 
 const Report: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
-  const [devices, setDevices] = useState<Device[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [userData, setUserData] = useState<any>(null);
-  const [fromTime, setFromTime] = useState<any>("");
-  const [toTime, setToTime] = useState<any>("");
-  const { devicesData, isActive } = useSelector((state: RootState) => state.tableData);
 
-  useEffect(() => {
-    // setFromTime(moment().format("jYYYY-jMM-jDD"))
-    // setToTime(moment().format("jYYYY-jMM-jDD"))
-  }, []);
-  const handleGetOperationList = async () => {
+  // State Management
+  const [devices, setDevices] = useState<Device[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [columnFilter, setColumnFilter] = useState<ColumnFilter | null>(null);
+  const [fromDateReport, setFromDateReport] = useState<string>("");
+  const [toDateReport, setToDateReport] = useState<string>("");
+  const [fromTimeReport, setFromTimeReport] = useState<string>("");
+  const [toTimeReport, setToTimeReport] = useState<string>("");
+  const { devicesData } = useSelector((state: RootState) => state.tableData);
+  const location = useLocation();
+  const [totalCount, setTotalCount] = useState<number>(0);
+
+  const [currentPage, setCurrentPage] = useState(
+    location?.state?.currentPage ? location?.state?.currentPage : 1
+  );
+  const pageSize = 10;
+  // تغییر fetchDevices برای دریافت صفحه
+  const fetchDevices = async ({
+    query,
+    columnFilter,
+    page,
+  }: FetchDevicesParams & { page: number }): Promise<Device[]> => {
     try {
-      const payload = {
-        page: 1,
-        limit: 1000,
-        fromDate: moment().format("YYYY-MM-DD"),
-        toDate: moment().format("YYYY-MM-DD"),
-        // stationId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      const payload: any = {
+        page: currentPage, // شماره صفحه
+        limit: pageSize,
+        fromDate: fromDateReport
+          ? moment(fromDateReport).format("YYYY-MM-DD")
+          : moment().format("YYYY-MM-DD"),
+        toDate: toDateReport
+          ? moment(toDateReport).format("YYYY-MM-DD")
+          : moment().format("YYYY-MM-DD"),
+        fromTime: fromTimeReport,
+        toTime: toTimeReport,
       };
-      // const data = getReports(fromTime, toTime).then(res => res.data);
-      // console.log("sdfsdfsdf", data);
-      serverApi.post(`/Missions/MissionReport`, payload).then(res => {
-        setDevices(res.data.data.data);
-      });
-      setLoading(false);
+
+      if (columnFilter?.filterTitle === "fullName") {
+        payload.fullName = query;
+      } else if (columnFilter?.filterTitle === "quality") {
+        payload.quality = query;
+      }
+
+      const response = await serverApi.post("/Missions/MissionReport", payload);
+      return response.data.data;
     } catch (error) {
       console.error("Error fetching devices:", error);
-      setLoading(false);
+      throw error;
     }
   };
 
-  useEffect(() => {
-    handleGetOperationList();
-  }, []);
+  // به‌روزرسانی useMutation برای پشتیبانی از صفحه‌بندی
+  const {
+    mutate,
+    data: reports,
+    isLoading,
+  } = useMutation<Device[], Error, FetchDevicesParams & { page: number }>({
+    mutationKey: ["devices"],
+    mutationFn: fetchDevices,
+    onSuccess: data => {
+      console.log("sdfsssdf", data?.totalCount);
+      setTotalCount(data?.totalCount);
+    },
+  });
 
+  // به‌روزرسانی useEffect برای گوش دادن به currentPage
+  useEffect(() => {
+    mutate({ query: searchQuery, columnFilter, page: currentPage });
+  }, [fromDateReport, toDateReport, currentPage, mutate]);
+
+  // تنظیم currentPage هنگام تغییر صفحه
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  useEffect(() => {
+    mutate({ query: searchQuery, columnFilter });
+  }, [fromDateReport, toDateReport, mutate, fromTimeReport, toTimeReport]);
+
+  // Table Columns
   const titles = [
     { id: 0, title: "کاربر", filter: true, filterTitle: "fullName" },
     { id: 1, title: "ایستگاه", filter: true, filterTitle: "" },
     { id: 2, title: "تاریخ" },
     { id: 3, title: "ساعت" },
-    // { title: "ip" },
-    // { title: "port" },
     { id: 4, title: "مدت زمان" },
     { id: 5, title: "وضعیت", filter: true, filterTitle: "" },
     { id: 6, title: "کیفیت", filter: true, filterTitle: "quality" },
   ];
 
-  console.log("devicesdevicesdevices", devices);
-  //   {
-  //     "id": "cf59aae5-15b0-4429-6238-08dcdadfd976",
-  //     "fullName": "Admin Admin",
-  //     "stationName": "Station1",
-  //     "ip": "192.168.20.116",
-  //     "port": 8080,
-  //     "date": "1403/07/01",
-  //     "time": "11:53:34",
-  //     "duration": 0,
-  //     "endedType": "در حال انجام",
-  //     "qualityType": null
-  // }
-  //   {
-  //     "id": "f1c66c2e-09e5-4946-d92b-08dcdae59a85",
-  //     "fullName": "Admin Admin",
-  //     "stationName": "Station2",
-  //     "ip": "192.168.20.115",
-  //     "port": 8080,
-  //     "date": "1403/07/01",
-  //     "time": "14:09:15",
-  //     "duration": 36,
-  //     "endedType": "کارت",
-  //     "qualityType": "زشت"
-  // }
-  const dataShow = devices?.map(item => [
-    item.fullName ?? "-",
+  // Prepare Data for Display
+  const dataShow =
+    reports?.data && Array.isArray(reports?.data)
+      ? reports?.data?.map(item => [
+          item.fullName || "-",
+          item.stationName || "-",
+          item.date || "-",
+          item.time || "-",
+          `${item.duration} ثانیه`,
+          item.endedType || "-",
+          item.qualityType || "-",
+          item.id,
+        ])
+      : [];
 
-    item.stationName ?? "1403-12-04",
-    item.date ?? "-",
-    item.time ?? "-",
-
-    // item.ip ?? "12:22",
-    // item.port ?? "13:45",
-    item.duration ?? "345 ثانیه",
-    item.endedType ?? "345",
-    item.qualityType ?? "345",
-    item.id ?? "345",
-  ]);
-
-  const AccordionTitle = devices?.map(item => [{ title: "پیام", value: item.sms }]);
-
-  // const handleSubmit = () => {
-  //   // Check if fromTime and toTime are not null
-  //   if (fromTime && toTime) {
-  //     // Convert fromTime and toTime from Persian to Gregorian
-  //     const formattedFromTime = moment(fromTime).format("jYYYY-jMM-jDD");
-  //     const formattedToTime = moment(toTime).format("jYYYY-jMM-jDD");
-  //     console.log("formattedFromTime", formattedToTime);
-  //     console.log("formattedToTime", formattedToTime);
-
-  //     const data = {
-  //       page: 1,
-  //       limit: 1000,
-  //       fromDate: formattedFromTime,
-  //       toDate: formattedToTime,
-  //     };
-
-  //     // Log the formatted dates
-  //     console.log("From Time:", formattedFromTime);
-  //     console.log("To Time:", formattedToTime);
-
-  //     // Perform your submission or API call with these dates
-  //     serverApi
-  //       .post("/Missions/MissionReport", data)
-  //       .then(response => {
-  //         setDevices(response.data.data.data);
-  //         console.log("Submission successful:", response.data.data.data[0]);
-  //       })
-  //       .catch(error => {
-  //         console.error("Submission error:", error);
-  //       });
-  //   } else {
-  //     console.error("Both fromTime and toTime need to be selected.");
-  //   }
-  // };
-  console.log("devdevicesices", devices);
-  const getData = item => {
-    setDevices(item);
-  };
-  const [searchQuery, setSearchQuery] = useState("");
-  const [columnFilter, setColumnFilter] = useState<{ filterTitle: string }>("");
-  const onSearch = item => {
-    console.log("ssssssdddd", item);
-    setColumnFilter(item);
+  // Handle Filter Selection
+  const handleFilterSelection = (selectedFilter: ColumnFilter) => {
+    setColumnFilter(selectedFilter);
   };
 
+  // Handle Search Input
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    if (query) {
-      try {
-        const payload = {
-          page: 1,
-          limit: 1000,
-          fromDate: moment().format("YYYY-MM-DD"),
-          toDate: moment().format("YYYY-MM-DD"),
-          fullName: columnFilter?.filterTitle === "fullName" ? query : "",
-          quality: columnFilter?.filterTitle === "quality" ? query : "",
-          // stationId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        };
-
-        console.log("ارسال درخواست به سرور با payload:", payload);
-
-        serverApi
-          .post(`/Missions/MissionReport`, payload)
-          .then(res => {
-            console.log("پاسخ سرور:", res);
-            setDevices(res.data.data.data);
-          })
-          .catch(error => {
-            console.error("خطا در پاسخ سرور:", error);
-          });
-
-        setLoading(false);
-      } catch (error) {
-        console.error("خطا در ارسال درخواست:", error);
-        setLoading(false);
-      }
+    if (columnFilter) {
+      mutate({ query, columnFilter });
     }
   };
+
+  // Preserve getData Function
+  const getData = (item: {
+    fromDate: string;
+    toDate: string;
+    fromTime: string;
+    toTime: string;
+  }) => {
+    setFromDateReport(item.fromDate);
+    setFromTimeReport(item?.fromTime);
+    setToTimeReport(item?.toTime);
+    setToDateReport(item.toDate);
+  };
+
   return (
     <>
       <TableComponent
+        pagination={5}
         excelExport
-        loading={loading}
-        // AccordionTitle={AccordionTitle}
-        // accordion
-        InputSearchFilter={
-          <InputSearch
-            value={searchQuery} // مقدار ورودی
-            onSearch={handleSearch} // تابع تغییر ورودی
-          />
-        }
-        onSearch={onSearch}
-        page={"دستگاه"}
+        loading={isLoading}
+        InputSearchFilter={<InputSearch value={searchQuery} onSearch={handleSearch} />}
+        onSearch={handleFilterSelection}
+        page="دستگاه"
         devices={devices}
-        data={dataShow || []}
-        TableData={userData || []}
+        data={dataShow}
+        TableData={devicesData || []}
         title={titles}
-        // dataPrint={dataPrint}
-        reportTiming={<FormContainer getData={getData} setLoading={setLoading} />}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+        reportTiming={<FormContainer getData={getData} isLoading={isLoading} />}
+      />
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={Math.ceil(totalCount / 10)}
+        pageSize={pageSize}
+        onPageChange={handlePageChange} // اینجا
       />
     </>
   );

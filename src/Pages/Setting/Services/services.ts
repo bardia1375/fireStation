@@ -34,6 +34,10 @@ export const StartMission = async item => {
   const { data } = await serverApi.put(`/Missions/StartMission`, item);
   return data.data;
 };
+export const StartGroupMission = async item => {
+  const { data } = await serverApi.put(`/Missions/GroupStartMission`, item);
+  return data.data;
+};
 export const GetMissionSettings = async stationId => {
   const { data } = await serverApi.get(`/Stations`);
   return data.data;

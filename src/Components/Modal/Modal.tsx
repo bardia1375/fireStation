@@ -34,7 +34,7 @@ const Modal: React.FC<ModalProps> = ({
       onClick={handleBackdropClick}
     >
       <div
-        style={{ width, zIndex: 1000, maxHeight: "600px", overflow: "auto" }}
+        style={{ width, zIndex: 1000, maxHeight: "600px" }}
         className={`modal-content ${showModal ? "slide-in" : "slide-out"}`}
       >
         <h2>{title}</h2>

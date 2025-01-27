@@ -4,56 +4,59 @@ import { ConfigureButton } from "../../assets/styles/layout/Calendar";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import moment from "moment-jalaali";
-import { useMutation, useQueryClient } from "@tanstack/react-query"; // Tanstack Query
-import serverApi from "Services/httpService";
-import { errorMessage, successMessage } from "../../Utils/commonFunctions";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
 interface DateRangePickerProps {
   getData: (data: any) => void;
+  isLoading?: boolean;
 }
 
-const DateRangePicker: React.FC<DateRangePickerProps> = ({ getData }) => {
+const DateRangePicker: React.FC<DateRangePickerProps> = ({ getData, isLoading }) => {
   const [fromDate, setFromDate] = useState<any>(null);
   const [toDate, setToDate] = useState<any>(null);
-  const queryClient = useQueryClient();
 
   useEffect(() => {
-    localStorage.setItem("fromDate", moment(fromDate?.toDate()).format("YYYY-MM-DD"));
-    localStorage.setItem("toDate", moment(toDate?.toDate()).format("YYYY-MM-DD"));
+    if (fromDate) {
+      localStorage.setItem("fromDate", moment(fromDate?.toDate()).format("YYYY-MM-DD"));
+    }
+    if (toDate) {
+      localStorage.setItem("toDate", moment(toDate?.toDate()).format("YYYY-MM-DD"));
+    }
   }, [fromDate, toDate]);
-
-  // Mutation for the date submission
-  const { mutate, isLoading } = useMutation({
-    mutationFn: async (dates: { fromDate: string | null; toDate: string | null }) => {
-      const response = await serverApi.post("/Missions/MissionReport", {
-        ...dates,
-        limit: 1000,
-        page: 1,
-      });
-      return response.data.data.data;
-    },
-    onSuccess: data => {
-      queryClient.invalidateQueries({ queryKey: ["devices"] });
-
-      getData(data);
-      successMessage("گزارش گیری انجام شد");
-    },
-    onError: error => {
-      console.error("Submission error:", error);
-      errorMessage("خطایی رخ داده است");
-    },
-  });
 
   const submitDates = () => {
     if (fromDate && toDate && fromDate.toDate() > toDate.toDate()) {
-      errorMessage("ازتاریخ نباید بزرگتر از تاتاریخ باشد");
+      alert("ازتاریخ نباید بزرگتر از تاتاریخ باشد");
       return;
     }
 
-    const fromGregorianDate = fromDate ? moment(fromDate.toDate()).format("YYYY-MM-DD") : null;
-    const toGregorianDate = toDate ? moment(toDate.toDate()).format("YYYY-MM-DD") : null;
+    const now = new Date(); // Current time
+    const fromGregorianDate = fromDate
+      ? moment(fromDate.toDate()).format("YYYY-MM-DD")
+      : moment(now).format("YYYY-MM-DD");
+    const fromGregorianTime = fromDate
+      ? moment(fromDate.toDate()).format("HH:mm")
+      : moment(now).format("HH:mm");
 
-    mutate({ fromDate: fromGregorianDate, toDate: toGregorianDate });
+    const toGregorianDate = toDate
+      ? moment(toDate.toDate()).format("YYYY-MM-DD")
+      : moment(now).format("YYYY-MM-DD");
+    const toGregorianTime = toDate
+      ? moment(toDate.toDate()).format("HH:mm")
+      : moment(now).format("HH:mm");
+    console.log("fromGregorianTime", {
+      fromDate: fromGregorianDate,
+      fromTime: fromGregorianTime,
+      toDate: toGregorianDate,
+      toTime: toGregorianTime,
+    });
+
+    getData({
+      fromDate: fromGregorianDate,
+      fromTime: fromGregorianTime,
+      toDate: toGregorianDate,
+      toTime: toGregorianTime,
+    });
   };
 
   return (
@@ -63,11 +66,12 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ getData }) => {
         onChange={setFromDate}
         calendar={persian}
         locale={persian_fa}
-        format="YYYY/MM/DD"
-        placeholder="از تاریخ"
+        format="YYYY/MM/DD HH:mm" // No seconds
+        plugins={[<TimePicker position="bottom" hideSeconds />]} // Disable seconds
+        placeholder="انتخاب تاریخ و ساعت شروع"
         style={{
           width: "150px",
-          padding: "16px",
+          padding: "12px",
           fontSize: "14px",
           borderRadius: "8px",
           border: "1px solid #ccc",
@@ -85,11 +89,13 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ getData }) => {
         onChange={setToDate}
         calendar={persian}
         locale={persian_fa}
-        format="YYYY/MM/DD"
-        placeholder="تا تاریخ"
+        format="YYYY/MM/DD HH:mm" // No seconds
+        plugins={[<TimePicker position="bottom" hideSeconds />]} // Disable seconds
+        placeholder="انتخاب تاریخ و ساعت پایان"
+        minDate={fromDate?.toDate()} // Disable dates before the selected "fromDate"
         style={{
           width: "150px",
-          padding: "16px",
+          padding: "12px",
           fontSize: "14px",
           borderRadius: "8px",
           border: "1px solid #ccc",
@@ -105,7 +111,6 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ getData }) => {
       <ConfigureButton
         onClick={submitDates}
         style={{ border: "none", padding: 0, height: "30px", width: "100px", margin: 10 }}
-        disabled={isLoading} // Disable button while loading
       >
         {isLoading ? "در حال ارسال..." : "ثبت"}
       </ConfigureButton>

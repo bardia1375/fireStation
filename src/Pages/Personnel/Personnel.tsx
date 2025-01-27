@@ -1,8 +1,10 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { useIsEndpointCrud, useIsEndpointPermitted } from "Utils/permissionUtils";
 
 const Personnel = ({
   id,
@@ -14,7 +16,8 @@ const Personnel = ({
   setShowModal,
   isActive,
 }) => {
-  const role = localStorage.getItem("role");
+  const endpoint = "/UserManagjement/CreateUser";
+  const hasPermission = useIsEndpointCrud(endpoint);
 
   return (
     <>
@@ -26,14 +29,14 @@ const Personnel = ({
           <h3>
             {firstName} {lastName}
           </h3>
-          {role === "Admin" && (
+          {hasPermission && (
             <Link to={`/personnel/${id}`} className="PersonnelEdit-btn" onClick={onEdit}>
               <FaEdit size={16} />
             </Link>
           )}
         </div>
       ) : (
-        role === "Admin" && (
+        hasPermission && (
           <div className="card">
             <div className="card add-card" onClick={() => setShowModal(true)}>
               <div className="add-card-content">

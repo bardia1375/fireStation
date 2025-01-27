@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import { editStationData, postStationData } from "../Services/services";
 import { getSettingData } from "Services/services";
 import { useAppContext } from "Context/AppContext";
+import { useIsEndpointCrud } from "Utils/permissionUtils";
 
 function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState }) {
   const queryClient = useQueryClient(); // دریافت instance از queryClient
@@ -132,10 +133,12 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
         stepFiveFromTime: items[4].seconds,
         stepFiveToTime: items[4].toSeconds,
       };
-      serverApi.post("Stations/UpsertStationSettings", multipleItem);
+      serverApi.post(endpoint, multipleItem);
 
       setShowModal(false);
     },
+    
+    
   });
   const { mutate: EditMutate, data: reza } = useMutation({
     mutationKey: ["editStationData"],

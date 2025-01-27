@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import "./style.css";
 import serverApi from "Services/httpService";
@@ -6,6 +6,7 @@ import { successMessage, errorMessage } from "Utils/commonFunctions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { editUserData } from "../Services/services";
+import Permissions from "./Permissions/Permissions";
 
 function Form({ getData, setShowModal, mockData, oneUser }) {
   const queryClient = useQueryClient(); // دریافت instance از queryClient
@@ -17,9 +18,30 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
   const [role, setRole] = useState(""); // "Admin", "systemUser", "regularUser"
   const [userName, setUsername] = useState(""); // "Admin", "systemUser", "regularUser"
   const params = useParams();
+
+  const [selectedActions, setSelectedActions] = useState<string[]>([]);
+  const preselectedRoutes = [
+    "/BaseSettings/Upsert",
+    "/BaseSettings/GetBaseSetting",
+    "/DeviceRelays/Upsert",
+    "/DeviceRelays/GetDeviceRelay",
+    "/Missions/StartMission",
+    "/Missions/GroupStartMission",
+    "/Missions/StopMission",
+    "/Missions/MissionReport",
+  ];
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState<Record<string, boolean>>(() =>
+    preselectedRoutes.reduce((acc, route) => {
+      acc[route] = true;
+      return acc;
+    }, {} as Record<string, boolean>)
+  );
+
+
+
   const [errors, setErrors] = useState({ userName: "", password: "" });
+
   const history = useHistory();
-  console.log("params", params);
   useEffect(() => {
     setFirstName(oneUser?.firstName);
     setLastName(oneUser?.lastName);
@@ -103,28 +125,35 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
 
     setErrors(newErrors);
     return Object.values(newErrors).every(error => error === "");
-  };
+  }; // تابع برای مدیریت تغییر وضعیت چک‌باکس‌ها
+
   const submit = () => {
+    const selectedRoutes = [
+      ...preselectedRoutes,
+      ...Object.keys(selectedCheckboxes).filter(key => selectedCheckboxes[key]),
+    ];
+    console.log("Routes to send:", selectedRoutes);
+
+    // ارسال داده‌ها
+    console.log("Selected Routes for Submit:", selectedRoutes);
     // بررسی اینکه فیلدهای اجباری پر شده باشند
     if (!firstName || !lastName || !isActive || !role || !userName) {
       errorMessage("لطفا تمام فیلدها پر شود!");
       return;
     }
-  
+
     // اعتبارسنجی پسورد اگر وجود داشته باشد
     if (password && password.length < 6) {
       errorMessage("پسورد ورودی حداقل باید 6 کاراکتر داشته باشد");
       return;
     }
-  
+
     // پیام خطا اگر کاربر بخواهد پسورد جدیدی ثبت کند ولی هنوز دکمه ثبت رمز کلیک نشده باشد
     if (password && params.id) {
-      errorMessage(
-        "اگر میخواهید رمز جدیدی ثبت کنید ابتدا باید بر روی دکمه ثبت رمز کلیک کنید"
-      );
+      errorMessage("اگر میخواهید رمز جدیدی ثبت کنید ابتدا باید بر روی دکمه ثبت رمز کلیک کنید");
       return;
     }
-  
+
     // داده‌ها برای ویرایش کاربر
     if (params.id) {
       const data = {
@@ -150,14 +179,13 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
           role,
           userName,
         };
-  
+
         mutate(data); // ارسال داده‌ها به تابع ایجاد کاربر
       }
     }
-  
+
     getData(data); // نمایش داده‌ها
   };
-  
 
   const onclose = () => {
     setShowModal(false);
@@ -180,6 +208,17 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
   const handleRoleChange = e => {
     setRole(e.target.value);
   };
+
+  const [expanded, setExpanded] = useState<string[]>([]);
+
+  const toggleExpand = (title: string) => {
+    setExpanded(prev =>
+      prev.includes(title) ? prev.filter(item => item !== title) : [...prev, title]
+    );
+  };
+
+
+
   return (
     <Card>
       <div className="mahi_holder" style={{ width: "100%" }}>
@@ -294,44 +333,10 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
               </div>
             </div>
             {/* Custom Switches */}
-            <div className="col-3">
+            <Col>
               <AccessLabel>دسترسی:</AccessLabel>
-              <RadioContainer>
-                <RadioButton>
-                  <input
-                    type="radio"
-                    id="Admin"
-                    name="role"
-                    value="Admin"
-                    checked={role === "Admin"}
-                    onChange={handleRoleChange}
-                  />
-                  <label htmlFor="admin">مدیر</label>
-                </RadioButton>
-                <RadioButton>
-                  <input
-                    type="radio"
-                    id="NormalUser"
-                    name="role"
-                    value="NormalUser"
-                    checked={role === "NormalUser"}
-                    onChange={handleRoleChange}
-                  />
-                  <label htmlFor="watcher">کاربر سامانه</label>
-                </RadioButton>
-                <RadioButton>
-                  <input
-                    type="radio"
-                    id="Watcher"
-                    name="role"
-                    value="Watcher"
-                    checked={role === "Watcher"}
-                    onChange={handleRoleChange}
-                  />
-                  <label htmlFor="normalUser">مشاهده گر</label>
-                </RadioButton>
-              </RadioContainer>
-            </div>
+              <Permissions />
+            </Col>
           </div>
         </div>
       </div>{" "}
@@ -345,7 +350,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
           style={{ width: "10vw", fontSize: "1.5rem" }}
           onClick={onclose}
         >
-          انصراف{" "}
+          انصراف
         </Link>
       </div>
     </Card>
@@ -361,6 +366,51 @@ const SwitchRow = styled.div`
   justify-content: space-between; /* سوییچ‌ها به صورت افقی و با فاصله */
   align-items: center;
 `;
+// Styled Components
+const Col = styled.div`
+  width: 25%;
+  border: 2px solid red;
+`;
+const Row = styled.div`
+  display: grid;
+  grid-template-column: 1fr 1fr 1fr;
+`;
+
+const ParentItem = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 12px;
+`;
+
+const ParentCheckbox = styled.input`
+  margin-right: 8px;
+`;
+
+const ParentText = styled.span`
+  font-weight: bold;
+`;
+
+const ExpandIcon = styled.span`
+  margin-left: auto;
+`;
+
+const ChildItemsContainer = styled.div`
+  padding-left: 24px;
+  margin-top: 8px;
+`;
+
+const ChildItem = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+`;
+
+const ChildCheckbox = styled.input`
+  margin-right: 8px;
+`;
+
+const ChildText = styled.span``;
 
 const AccessLabel = styled.label`
   font-size: 18px;

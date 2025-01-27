@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import RedLed from "../../assets/VideoIcon/redLed.png";
 import GreenLed from "../../assets/VideoIcon/greenLed.png";
 import YellowLed from "../../assets/VideoIcon/yellowLed.png";
@@ -9,7 +9,6 @@ import Modal from "Components/Modal/Modal";
 // import { Button } from "Pages/Setting/Setting";
 import serverApi from "Services/httpService";
 import { Button } from "./Form/Form";
-import styled from "styled-components";
 
 const Dashboard = ({
   firstName,
@@ -28,7 +27,9 @@ const Dashboard = ({
   isActive,
   ids,
   setIds,
-  setIsModal,
+  handleOpenModal,
+  isModalVisible,
+  setIsModalVisible,
 }) => {
   const formatTime = totalSeconds => {
     const minutes = Math.floor(totalSeconds / 60);
@@ -36,7 +37,7 @@ const Dashboard = ({
     return `${String(minutes).padStart(2, "0")} : ${String(seconds).padStart(2, "0")}`;
   };
   // Initialize clockMission based on whether a current mission exists
-  console.log("currentMissionDuration", currentMissionDuration);
+  console.log("currentMissiohasCurrentMissionnDuration", hasCurrentMission);
 
   const [clockMission, setClockMission] = useState(
     hasCurrentMission
@@ -50,16 +51,10 @@ const Dashboard = ({
       setClockMission(formatTime(currentMissionDuration ? currentMissionDuration : "0"));
     }
   }, [hasCurrentMission, currentMissionDuration]);
-
   const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [isClick, setIsClick] = useState(false);
   const role = localStorage.getItem("role");
-  useEffect(() => {
-    if (setIsModal) {
-      setIsModal(() => setIsModalVisible); // تابع setLocalModal را به والد ارسال می‌کنیم
-    }
-  }, [setIsModal]);
+
   // Utility function to format time from seconds to "MM : SS"
 
   useEffect(() => {
@@ -86,6 +81,7 @@ const Dashboard = ({
   // Show the modal on image click
   const handleImageClick = () => {
     // setIsModalVisible(true);
+
     setIsClick(!isClick);
     setIds(prev => {
       // Check if stationId is already in the array
@@ -100,19 +96,23 @@ const Dashboard = ({
   const handleYellowImageClick = () => {
     setIsModalVisible(true);
   };
+  const params = useParams();
+  console.log("paraparamsms", params.id);
+
   // Confirm the operation and start the timer
   const handleConfirm = () => {
     setIsModalVisible(false); // Close the modal
     setIsTimerRunning(true); // Start the timer
     setIsClick(false);
 
-    console.log("2342352435345345", hasCurrentMission, stationId);
-
+  console.log("2342352435345345",hasCurrentMission,stationId);
+  
+  
     if (!hasCurrentMission) {
       serverApi.post(`/Missions/GroupStartMission`, ids).then(res => {
         console.log("res", res.data);
       });
-    } else {
+    } else {      
       serverApi.post(`/Missions/StopMission?stationId=${stationId}`).then(res => {
         console.log("res", res.data);
       });
@@ -174,18 +174,11 @@ const Dashboard = ({
       }
     }
   };
-  const handleOpenModal = () => {
-    setIsModalVisible(true);
-    // به‌روزرسانی ids و باز کردن مودال
-    console.log("Updated IDs:", ids);
-    // setShowModal(true);
-  };
+  
   return (
     <>
-      {/* <CustomButton onClick={handleOpenModal}>شروع عملیات</CustomButton> */}
-
       <Link
-        to={`/dashboard/${id}`}
+        to={`/dashboard/${stationId}`}
         className="DashboardCards"
         // onClick={() => setIsModalVisible(true)}
       >
@@ -216,7 +209,8 @@ const Dashboard = ({
         showModal={hasConnection && isModalVisible && role !== "Watcher"}
         Submit={handleConfirm} // Start the timer when the user clicks "OK"
         closeModal={handleCancel} // Close the modal when the user clicks "Cancel"
-        footer={<Button onClick={handleConfirm}>تایید</Button>}
+        footer={<Button onClick={()=>console.log("hhasCurrentMissionasCurrentMission",hasCurrentMission)
+        }>تایید</Button>}
         width="30vw"
       >
         <div>
@@ -235,22 +229,3 @@ const Dashboard = ({
 };
 
 export default Dashboard;
-const CustomButton = styled.button`
-  background-color: rgb(205, 230, 233);
-  color: black;
-  padding: 4px 12px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  margin-bottom: 16px;
-  &:hover {
-    background-color: rgb(243, 243, 243);
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-`;

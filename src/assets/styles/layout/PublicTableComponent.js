@@ -130,7 +130,7 @@ export const ListBody = styled.div`
   }
 
   @media (min-height: 920px) {
-    height: 44vh;
+    height:max-content;
   }
 
   @media (min-height: 1120px) {

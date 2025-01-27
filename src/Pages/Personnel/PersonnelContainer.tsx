@@ -2,20 +2,22 @@ import Modal from "Components/Modal/Modal";
 import { useEffect, useState } from "react";
 import Personnel from "./Personnel";
 import FormContainer from "./Form/FormContainer";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import "./style.css";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { getUsers } from "./Services/services";
+import { isAdmin, useIsEndpointNavbar, useIsEndpointPermitted } from "Utils/permissionUtils";
 
 const PersonnelContainer = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [userData, setUserData] = useState([]);
   const params = useParams();
-  console.log("params", params);
-
+  const history = useHistory();
+  const endpoint = "/UserManagement/GetUsers"; // فرضی، اندپوینت جاری که می‌خواهید چک کنید
+  // const [hasPermission, setHasPermission] = useState<boolean>(false);
+  const hasPermission = useIsEndpointNavbar(endpoint);
   // استفاده از React Query برای دریافت داده‌ها
   const {
     data: apiData,
@@ -24,8 +26,8 @@ const PersonnelContainer = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: getUsers,
+    enabled: hasPermission, // only fetch if permission is true
   });
-  console.log(apiData);
 
   // Mock data state
   const [mockData, setMockData] = useState([]);
@@ -43,7 +45,6 @@ const PersonnelContainer = () => {
       } else {
         setMockData(apiData);
       }
-      // افزودن یک عنصر جدید به mockData پس از دریافت داده‌ها
     }
   }, [apiData, isLoading]);
 

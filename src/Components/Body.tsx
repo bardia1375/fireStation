@@ -23,10 +23,10 @@ import DashboardContainer from "Pages/Dashboard/DashboardContainer";
 import Stations from "Pages/Stations/Stations";
 import ReportContainer from "Pages/Report/ReportContainer";
 import LogsContainer from "Pages/Logs/LogsContainer";
+import Notpermission from "./Notpermission";
 
 export default function Body() {
   const { isNewTicketModalOpen, isMobileMenueOpen } = useSelector(state => state.modal);
-
 
   //handle mobileMenue
   useEffect(() => {
@@ -43,7 +43,6 @@ export default function Body() {
   };
   const location = useLocation();
 
-
   return (
     <div className="body__container">
       <Navbar />
@@ -54,13 +53,10 @@ export default function Body() {
           }}
           className="Tickment"
         >
-
           {isMobileMenueOpen && <Menue />}
 
           <Main>
             <Switch>
-
-
               <Route path="/questions" component={Devices} />
               <Route path="/devices" component={Devices} />
               <Route path="/setting" component={Setting} />
@@ -75,6 +71,7 @@ export default function Body() {
               <Route path="/personnel" exact component={PersonnelContainer} />
               {/* Route with :id for editing personnel */}
               <Route path="/personnel/:id" component={PersonnelContainer} />
+              <Route path="/notpermission" component={Notpermission} />
 
               {/* <Route path="*" render={() => <Redirect to="/" />} /> */}
             </Switch>

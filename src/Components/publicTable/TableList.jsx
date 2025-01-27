@@ -36,6 +36,8 @@ import { MdFilterListAlt } from "react-icons/md";
 let pageSize = 10;
 
 export const TableList = ({
+  setCurrentPage,
+  currentPage,
   page,
   devices,
   InputSearchFilter,
@@ -137,9 +139,9 @@ export const TableList = ({
   const filteredData = [];
 
   // states for pagination
-  const [currentPage, setCurrentPage] = useState(
-    location?.state?.currentPage ? location?.state?.currentPage : 1
-  );
+  // const [currentPage, setCurrentPage] = useState(
+  //   location?.state?.currentPage ? location?.state?.currentPage : 1
+  // );
 
   // State for Jalali calendar time range
   const [fromTime, setFromTime] = useState(null);
@@ -500,13 +502,13 @@ export const TableList = ({
           )}
         </PublicTableComponent.ListBody>
 
-        <Pagination
+        {/* <Pagination
           className="pagination-bar"
           currentPage={currentPage}
           totalCount={pagination ? pagination : null}
           pageSize={pageSize}
           onPageChange={page => setCurrentPage(page)}
-        />
+        /> */}
       </PublicTableComponent.ContainerBody>
     </PublicTableComponent.SContainer>
   );

@@ -9,6 +9,7 @@ import {
   getSettingRele,
 } from "./Services/services";
 import { MdDownloadDone } from "react-icons/md";
+import { useIsEndpointCrud } from "Utils/permissionUtils";
 
 function Setting() {
   const { data, isLoading, isError } = useQuery({
@@ -20,6 +21,11 @@ function Setting() {
     queryFn: getSettingRele,
   });
   console.log("releDatareleData", releData);
+  const endpoint = "DeviceRelays";
+  const endpointNameAndSms = "/Stations/UpsertStationSettings";
+
+  const hasPermissionRele = useIsEndpointCrud(endpoint);
+  const hasPermissionNameAndSms = useIsEndpointCrud(endpointNameAndSms);
 
   const queryClient = useQueryClient(); // Access the query client
 
@@ -32,12 +38,12 @@ function Setting() {
     { name: "5:", value: "" },
   ]);
   const [rele, setRele] = useState([
-    { name: "رله زنگ:", value: "" },
-    { name: "رله یک:", value: "" },
-    { name: "رله دو:", value: "" },
-    { name: "رله سه:", value: "" },
-    { name: "رله چهار:", value: "" },
-    { name: "رله پنج:", value: "" },
+    { name: "رله زنگ:", time: "", interval: "", delay: "" },
+    { name: "رله یک:", time: "", interval: "", delay: "" },
+    { name: "رله دو:", time: "", interval: "", delay: "" },
+    { name: "رله سه:", time: "", interval: "", delay: "" },
+    { name: "رله چهار:", time: "", interval: "", delay: "" },
+    { name: "رله پنج:", time: "", interval: "", delay: "" },
   ]);
   const [companyName, setCompanyName] = useState(""); // جدید
 
@@ -51,12 +57,42 @@ function Setting() {
         { name: "5 .", value: data?.fifthStage },
       ]);
       setRele([
-        { name: "رله زنگ", value: releData?.firstRelay },
-        { name: "رله یک:", value: releData?.secondRelay },
-        { name: "رله دو:", value: releData?.thirdRelay },
-        { name: "رله سه:", value: releData?.fourthRelay },
-        { name: "رله چهار:", value: releData?.fifthRelay },
-        { name: "رله پنج:", value: releData?.sixthRelay },
+        {
+          name: "رله زنگ:",
+          time: releData?.firstRelay,
+          interval: releData?.firstRelayFrequency,
+          delay: releData?.firstRelayDelay,
+        },
+        {
+          name: "رله دو:",
+          time: releData?.secondRelay,
+          interval: releData?.secondRelayFrequency,
+          delay: releData?.secondRelayDelay,
+        },
+        {
+          name: "رله سه:",
+          time: releData?.thirdRelay,
+          interval: releData?.thirdRelayFrequency,
+          delay: releData?.thirdRelayDelay,
+        },
+        {
+          name: "رله چهارم:",
+          time: releData?.fourthRelay,
+          interval: releData?.fourthRelayFrequency,
+          delay: releData?.fourthRelayDelay,
+        },
+        {
+          name: "رله پنجم:",
+          time: releData?.fifthRelay,
+          interval: releData?.fifthRelayFrequency,
+          delay: releData?.fifthRelayDelay,
+        },
+        {
+          name: "رله ششم:",
+          time: releData?.sixthRelay,
+          interval: releData?.sixthRelayFrequency,
+          delay: releData?.sixthRelayDelay,
+        },
       ]);
       setCompanyName(data?.companyName || ""); // جدید
     }
@@ -89,13 +125,13 @@ function Setting() {
     setItems(updatedItems);
   };
   const handleReleChange = (index, field, value) => {
-    const updatedItems = rele.map((item, i) => {
+    const updatedRele = rele.map((item, i) => {
       if (i === index) {
         return { ...item, [field]: value };
       }
       return item;
     });
-    setRele(updatedItems);
+    setRele(updatedRele);
   };
 
   const handleCompanyNameChange = e => {
@@ -103,18 +139,25 @@ function Setting() {
   };
 
   const submitRele = () => {
-    // if (items.some(item => item.value.trim() === "") || companyName.trim() === "") {
-    //   errorMessage("لطفا تمام فیلدها پر شوند!");
-    //   return;
-    // }
-
     const submitData = {
-      firstRelay: rele[0].value,
-      secondRelay: rele[1].value,
-      thirdRelay: rele[2].value,
-      fourthRelay: rele[3].value,
-      fifthRelay: rele[4].value,
-      sixthRelay: rele[5].value,
+      firstRelay: rele[0].time,
+      firstRelayDelay: rele[0].delay,
+      firstRelayFrequency: rele[0].interval,
+      secondRelay: rele[1].time,
+      secondRelayDelay: rele[1].delay,
+      secondRelayFrequency: rele[1].interval,
+      thirdRelay: rele[2].time,
+      thirdRelayDelay: rele[2].delay,
+      thirdRelayFrequency: rele[2].interval,
+      fourthRelay: rele[3].time,
+      fourthRelayDelay: rele[3].delay,
+      fourthRelayFrequency: rele[3].interval,
+      fifthRelay: rele[4].time,
+      fifthRelayDelay: rele[4].delay,
+      fifthRelayFrequency: rele[4].interval,
+      sixthRelay: rele[5].time,
+      sixthRelayDelay: rele[5].delay,
+      sixthRelayFrequency: rele[5].interval,
     };
 
     console.log("ارسال داده:", submitData);
@@ -161,7 +204,7 @@ function Setting() {
           >
             <Label fontSize="1.8rem"> عنوان:</Label>
 
-            <MdDownloadDone color="green" size={20} onClick={submit} />
+            {hasPermissionNameAndSms && <MdDownloadDone color="green" size={20} onClick={submit} />}
           </div>
           {items.map((item, index) => (
             <InputWrapper key={index}>
@@ -175,9 +218,7 @@ function Setting() {
             </InputWrapper>
           ))}
         </InputSection>
-
         <InputSectionRele>
-          {" "}
           <div
             style={{
               textAlign: "left",
@@ -188,27 +229,53 @@ function Setting() {
             }}
           >
             <Label fontSize="1.8rem"> تنظیمات رله:</Label>
-
-            <MdDownloadDone color="green" size={20} onClick={submitRele} />
+            {hasPermissionRele && <MdDownloadDone color="green" size={20} onClick={submitRele} />}
           </div>
-          <InputSectionInline>
-            {rele.map((item, index) => (
-              <InputWrapper key={index}>
-                <Label>{item.name}</Label>
+          {rele.map((item, index) => (
+            <InputSectionInline key={index}>
+              <InputWrapper>
+                <Label>{item.name} زمان:</Label>
                 <Input
                   type="number"
                   min={0}
-                  max={256}
-                  value={item.value}
-                  placeholder="عدد مدنظر را وارد کنید"
+                  max={255}
+                  value={item.time}
+                  placeholder="زمان را وارد کنید"
                   onChange={e =>
-                    handleReleChange(index, "value", Math.max(0, Math.min(255, +e.target.value)))
+                    handleReleChange(index, "time", Math.max(0, Math.min(255, +e.target.value)))
                   }
                 />
               </InputWrapper>
-            ))}
-          </InputSectionInline>
+              <InputWrapper>
+                <Label>{item.name} تناوب:</Label>
+                <Input
+                  type="number"
+                  min={0}
+                  max={255}
+                  value={item.interval}
+                  placeholder="تناوب را وارد کنید"
+                  onChange={e =>
+                    handleReleChange(index, "interval", Math.max(0, Math.min(255, +e.target.value)))
+                  }
+                />
+              </InputWrapper>
+              <InputWrapper>
+                <Label>{item.name} تاخیر:</Label>
+                <Input
+                  type="number"
+                  min={0}
+                  max={255}
+                  value={item.delay}
+                  placeholder="تاخیر را وارد کنید"
+                  onChange={e =>
+                    handleReleChange(index, "delay", Math.max(0, Math.min(255, +e.target.value)))
+                  }
+                />
+              </InputWrapper>
+            </InputSectionInline>
+          ))}
         </InputSectionRele>
+
         <InputSection>
           {" "}
           <div
@@ -222,7 +289,7 @@ function Setting() {
           >
             <Label fontSize="1.8rem"> تنظیمات نام و پیامک:</Label>
 
-            <MdDownloadDone color="green" size={20} onClick={submit} />
+            {hasPermissionNameAndSms && <MdDownloadDone color="green" size={20} onClick={submit} />}
           </div>
           <InputWrapper>
             <Label> نام شرکت:</Label>

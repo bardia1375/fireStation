@@ -19,6 +19,8 @@ const DashboardContainer = () => {
 
   const [deviceState, setDeviceState] = useState([]); // Initialize as an empty array
   const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [ids, setIds] = useState<string[]>([]);
+  const [dashboardModalState, setDashboardModalState] = useState(null);
 
   useEffect(() => {
     const connection = startConnection(setDeviceState);
@@ -53,8 +55,21 @@ const DashboardContainer = () => {
     });
     console.log("barbardiadia", bardia);
   }, [deviceState]);
+  console.log("ididss", ids);
+
+  const handleOpenModal = () => {
+    console.log("Updated IDs:", ids);
+
+    // اگر تابع setIsModal تنظیم شده باشد، آن را صدا بزنید
+    if (dashboardModalState) {
+      dashboardModalState(true); // استیت فرزند را true می‌کنیم
+    }
+  };
+
   return (
     <SContainer style={{ width: "100%", position: "relative" }}>
+      <CustomButton onClick={handleOpenModal}>شروع عملیات</CustomButton>
+
       <div
         style={{
           display: "grid",
@@ -69,6 +84,9 @@ const DashboardContainer = () => {
                 .filter(station => station.isActive === true) // Filter stations with isActive true
                 .map((station, index) => (
                   <Dashboard
+                    setIsModal={setDashboardModalState}
+                    ids={ids}
+                    setIds={setIds}
                     id={station.id + index}
                     stationId={station.id}
                     key={station.id}
@@ -84,7 +102,7 @@ const DashboardContainer = () => {
                     isActive={station.isActive}
                     connect={station.connect}
                     dataLength={index === 0}
-                    setShowModal={setShowModal}
+                    handleOpenModal={handleOpenModal}
                     lastDailyMissionDuration={station.lastDailyMissionDuration}
                     dailyMissionCount={station.dailyMissionCount}
                   />
@@ -111,7 +129,7 @@ export const SContainer = styled.div`
   background: #fff;
   box-shadow: inset 0px -30px 99px #0000000a, 0px 8px 36px #a0bdc180;
   border-radius: 24px;
-  padding: 24px;
+  padding: 12px;
   height: 100%;
   overflow: auto;
 `;
@@ -121,4 +139,23 @@ const SkeletonContainer = styled.div`
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+`;
+const CustomButton = styled.button`
+  background-color: rgb(205, 230, 233);
+  color: black;
+  padding: 4px 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 16px;
+  &:hover {
+    background-color: rgb(243, 243, 243);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
 `;

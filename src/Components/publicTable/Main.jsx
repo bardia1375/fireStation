@@ -7,6 +7,8 @@ export const TableComponent = props => {
     <>
       {/* <SubHeader /> */}
       <TableList
+        setCurrentPage={props.setCurrentPage}
+        currentPage={props.currentPage}
         devices={props.devices}
         onSearch={props.onSearch}
         InputSearchFilter={props.InputSearchFilter}
