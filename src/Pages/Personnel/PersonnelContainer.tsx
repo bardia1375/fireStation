@@ -7,7 +7,13 @@ import "./style.css";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { getUsers } from "./Services/services";
-import { isAdmin, useIsEndpointNavbar, useIsEndpointPermitted } from "Utils/permissionUtils";
+import {
+  isAdmin,
+  useIsEndpointCrud,
+  useIsEndpointNavbar,
+  
+} from "Utils/permissionUtils";
+import Permissions from "./Form/Permissions/Permissions";
 
 const PersonnelContainer = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -31,12 +37,13 @@ const PersonnelContainer = () => {
 
   // Mock data state
   const [mockData, setMockData] = useState([]);
-
+  const endpointCreate = "/UserManagement/CreateUser";
+  const hasPermissionCreate = useIsEndpointCrud(endpointCreate);
   useEffect(() => {
     const role = localStorage.getItem("role");
 
     if (apiData && !isLoading) {
-      if (role === "Admin") {
+      if (hasPermissionCreate) {
         const updatedMockData = [
           { id: 999, firstName: "اضافه کردن", lastName: "", imgUrl: "" },
           ...apiData,
@@ -86,10 +93,10 @@ const PersonnelContainer = () => {
         ))}
       </div>
 
-      <Modal width="80vw" showModal={showModal} closeModal={closeModal} Submit={Submit}>
-        <FormContainer getData={getData} setShowModal={setShowModal} mockData={mockData} />
-      </Modal>
-    </SContainer>
+    <Modal width="80vw" showModal={showModal} closeModal={closeModal} Submit={Submit}>
+      <FormContainer getData={getData} setShowModal={setShowModal} mockData={mockData} />
+    </Modal>
+  </SContainer>
   );
 };
 

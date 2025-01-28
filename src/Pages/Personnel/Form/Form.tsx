@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { editUserData } from "../Services/services";
 import Permissions from "./Permissions/Permissions";
+import Modal from "Components/Modal/Modal";
 
 function Form({ getData, setShowModal, mockData, oneUser }) {
   const queryClient = useQueryClient(); // دریافت instance از queryClient
@@ -20,16 +21,13 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
   const params = useParams();
 
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
-  const preselectedRoutes = [
-  ];
+  const preselectedRoutes = [];
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<Record<string, boolean>>(() =>
     preselectedRoutes.reduce((acc, route) => {
       acc[route] = true;
       return acc;
     }, {} as Record<string, boolean>)
   );
-
-
 
   const [errors, setErrors] = useState({ userName: "", password: "" });
 
@@ -57,7 +55,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
       lastName,
       isActive: isActive ? true : false,
       password,
-    
+
       userName,
     };
 
@@ -129,7 +127,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     // ارسال داده‌ها
     console.log("Selected Routes for Submit:", selectedRoutes);
     // بررسی اینکه فیلدهای اجباری پر شده باشند
-    if (!firstName || !lastName || !isActive  || !userName) {
+    if (!firstName || !lastName || !isActive || !userName) {
       errorMessage("لطفا تمام فیلدها پر شود!");
       return;
     }
@@ -153,7 +151,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
         firstName,
         lastName,
         isActive: isActive === "فعال" ? true : false,
-      
+
         userName,
       };
       EditMutate(data); // ارسال داده‌ها به تابع ویرایش
@@ -168,7 +166,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
           lastName,
           isActive: isActive === "فعال" ? true : false,
           password,
-          
+
           userName,
         };
 
@@ -208,9 +206,15 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
       prev.includes(title) ? prev.filter(item => item !== title) : [...prev, title]
     );
   };
+  const [permissionModal, setShowPermissionModal] = useState(false);
 
+  const closeModal = () => {
+    setShowPermissionModal(false);
+  };
 
-
+  const Submit = data => {
+    console.log("userData", data);
+  };
   return (
     <Card>
       <div className="mahi_holder" style={{ width: "100%" }}>
@@ -327,14 +331,28 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
             {/* Custom Switches */}
             <Col>
               <AccessLabel>دسترسی:</AccessLabel>
-              <Permissions />
+              <Button
+                className="col-3 input-effect"
+                style={{ width: "max-content" }}
+                onClick={() => setShowPermissionModal(true)}
+              >
+                تنظیم دسترسی‌ها
+              </Button>
+              <Modal
+                width="80vw"
+                showModal={permissionModal}
+                closeModal={closeModal}
+                Submit={Submit}
+              >
+                <Permissions closeModal={closeModal} />
+              </Modal>
             </Col>
           </div>
         </div>
       </div>{" "}
       <div style={{ display: "flex", alignItems: "center", marginTop: "8px" }}>
         <Button className="col-3 input-effect" style={{ width: "10vw" }} onClick={submit}>
-          ثبت
+          {isLoading ? "در حال ثبت" : "ثبت"}
         </Button>
         <Link
           to="/personnel"
@@ -361,7 +379,6 @@ const SwitchRow = styled.div`
 // Styled Components
 const Col = styled.div`
   width: 25%;
-  border: 2px solid red;
 `;
 const Row = styled.div`
   display: grid;

@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import serverApi from "Services/httpService";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { successMessage, errorMessage } from "Utils/commonFunctions";
 
 const fetchPermissions = async () => {
@@ -21,7 +21,7 @@ const fetchUserPermissions = async (userId: string) => {
   return response.data; // Assuming the response contains an array of routes
 };
 
-function Permissions() {
+function Permissions({ closeModal }) {
   const queryClient = useQueryClient();
   const parentRefs = useRef<Record<string, HTMLInputElement | null>>({});
   const [expanded, setExpanded] = useState<string[]>([]);
@@ -126,11 +126,11 @@ function Permissions() {
   }
 
   return (
-    <Col>
-      <AccessLabel>دسترسی:</AccessLabel>
-      <Row>
+    <Container>
+      <Header>دسترسی‌ها</Header>
+      <Grid>
         {permissionsData?.map((item: any) => (
-          <div key={item.title}>
+          <Card key={item.title}>
             <ParentItem onClick={() => toggleExpand(item.title)}>
               <ParentCheckbox
                 type="checkbox"
@@ -159,34 +159,79 @@ function Permissions() {
                 ))}
               </ChildItemsContainer>
             )}
-          </div>
+          </Card>
         ))}
-      </Row>
-      <Button className="col-3 input-effect" style={{ width: "10vw" }} onClick={submit}>
-        ثبت
-      </Button>
-    </Col>
+      </Grid>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginTop: "8px",
+          width: "100%",
+          justifyContent: "center",
+        }}
+      >
+        <Link
+          to="/personnel"
+          className="col-3 input-effect"
+          style={{ width: "10vw", fontSize: "1.5rem" }}
+          onClick={closeModal}
+        >
+          انصراف
+        </Link>
+        <SubmitButton className="col-3 input-effect" style={{ width: "10vw" }} onClick={submit}>
+          {mutation.isLoading ? "در حال ثبت" : "ثبت"}
+        </SubmitButton>
+      </div>
+    </Container>
   );
 }
 
 export default Permissions;
 
 // Styled Components
-
-// Styled Components
-const Col = styled.div`
-  width: 25%;
-  border: 2px solid red;
+const Container = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  direction: ltr;
 `;
-const Row = styled.div`
+
+const Header = styled.h1`
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 0px;
+`;
+
+const Grid = styled.div`
   display: grid;
-  grid-template-column: 1fr 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;
+
+const Card = styled.div`
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 const ParentItem = styled.div`
   display: flex;
   align-items: center;
-  cursor: pointer;
   margin-bottom: 12px;
 `;
 
@@ -196,15 +241,16 @@ const ParentCheckbox = styled.input`
 
 const ParentText = styled.span`
   font-weight: bold;
+  font-size: 16px;
+  white-space: nowrap;
 `;
-
 const ExpandIcon = styled.span`
-  margin-left: auto;
+  margin-left: 8px;
 `;
-
 const ChildItemsContainer = styled.div`
-  padding-left: 24px;
+  padding-left: 16px;
   margin-top: 8px;
+  white-space: nowrap;
 `;
 
 const ChildItem = styled.div`
@@ -217,66 +263,21 @@ const ChildCheckbox = styled.input`
   margin-right: 8px;
 `;
 
-const ChildText = styled.span``;
+const ChildText = styled.span`
+  font-size: 14px;
+`;
 
-const AccessLabel = styled.label`
+const SubmitButton = styled.button`
+  margin-top: 20px;
+  padding: 12px 24px;
   font-size: 18px;
-  font-weight: 500;
-  display: block;
-  margin: 4px;
-  text-align: right;
-`;
-
-// Styled Button
-export const Card = styled.div`
-  position: relative;
-  width: 100%;
-  background: #fff;
-  box-shadow: inset 0px -30px 99px #0000000a, 0px 8px 36px #a0bdc180;
-  border-radius: 24px;
-  padding: 24px;
-  height: 100%;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const Button = styled.div`
-  justify-content: space-between;
-  gap: 10px;
-  padding: 4px 12px;
-  font-size: 20px;
-  border-width: 2px;
-  border-style: none;
-  border-radius: 24px;
-  box-shadow: 0px 7px 15px #00000033;
-  white-space: nowrap;
-  margin: auto 0;
-  align-items: center;
+  background-color: #0089a7;
+  color: white;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 500ms;
-  color: #fff;
-  text-align: center;
-  width: 100%;
-  ${props => {
-    switch (props.bg) {
-      case "red":
-        return css`
-          background: red;
-        `;
-      case "blue":
-        return css`
-          background: blue;
-        `;
-      default:
-        return css`
-          background: #0089a7;
-        `;
-    }
-  }}
+  transition: background-color 0.3s ease;
   &:hover {
-    transform: scale(0.9);
+    background-color: #006f8a;
   }
 `;
