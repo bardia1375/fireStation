@@ -139,7 +139,7 @@ function Permissions() {
                   item?.actions?.every((action: any) => selectedCheckboxes[action.route]) &&
                   item?.actions?.length > 0
                 }
-                onChange={e => handleParentCheckboxChange(item.title, e.target.checked)}
+                onChange={e => handleParentCheckboxChange(item?.title, e.target.checked)}
               />
               <ParentText>{item.displayName}</ParentText>
               <ExpandIcon>{expanded.includes(item.title) ? "🔽" : "◀️"}</ExpandIcon>
@@ -147,12 +147,12 @@ function Permissions() {
 
             {expanded.includes(item.title) && (
               <ChildItemsContainer>
-                {item?.actions.map((action: any) => (
+                {item?.actions?.map((action: any) => (
                   <ChildItem key={action.name}>
                     <ChildCheckbox
                       type="checkbox"
-                      checked={!!selectedCheckboxes[action.route]}
-                      onChange={e => handleChildCheckboxChange(action.route, e.target.checked)}
+                      checked={!!selectedCheckboxes[action?.route]}
+                      onChange={e => handleChildCheckboxChange(action?.route ?? "", e.target.checked)}
                     />
                     <ChildText>{action.displayName}</ChildText>
                   </ChildItem>

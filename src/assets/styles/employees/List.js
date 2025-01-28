@@ -80,9 +80,7 @@ export const ListBody = styled.div`
     height: 44vh;
   }
 
-  @media (min-height: 1120px) {
-    height: 52vh;
-  }
+
 `;
 
 // List Item Styles

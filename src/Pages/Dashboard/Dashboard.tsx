@@ -54,8 +54,7 @@ const Dashboard = ({
 
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const endpoint = "/Missions/GroupStartMission";
-  const hasPermissionRele = useIsEndpointCrud(endpoint);
+
   const [isClick, setIsClick] = useState(false);
   const role = localStorage.getItem("role");
   useEffect(() => {
@@ -216,7 +215,7 @@ const Dashboard = ({
 
       {/* Modal for confirmation */}
       <Modal
-        showModal={hasConnection && isModalVisible && hasPermissionRele}
+        showModal={hasConnection && isModalVisible}
         Submit={handleConfirm} // Start the timer when the user clicks "OK"
         closeModal={handleCancel} // Close the modal when the user clicks "Cancel"
         footer={<Button onClick={handleConfirm}>تایید</Button>}

@@ -133,9 +133,7 @@ export const ListBody = styled.div`
     height:max-content;
   }
 
-  @media (min-height: 1120px) {
-    height: 52vh;
-  }
+
 `;
 
 // List Item

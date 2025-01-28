@@ -21,7 +21,7 @@ function Setting() {
     queryFn: getSettingRele,
   });
   console.log("releDatareleData", releData);
-  const endpoint = "DeviceRelays";
+  const endpoint = "/DeviceRelays/Upsert";
   const endpointNameAndSms = "/Stations/UpsertStationSettings";
 
   const hasPermissionRele = useIsEndpointCrud(endpoint);

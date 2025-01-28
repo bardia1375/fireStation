@@ -334,7 +334,7 @@ export const TableList = ({
         <div
           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
         >
-          {role === "Admin" && AddStationsIcon && (
+          { AddStationsIcon && (
             <div
               onClick={AddStations}
               variant="linear"

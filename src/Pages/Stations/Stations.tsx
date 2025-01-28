@@ -195,7 +195,7 @@ const Stations: React.FC = () => {
   };
   console.log("deviceStatdeviceStatee", deviceState);
   const editEndpoint = "/Stations/EditStation";
-  const addEndpoint = "/Stations/EditStation";
+  const addEndpoint = "/Stations/UpsertStationSettings";
 
   const editHasPermissionRele = useIsEndpointCrud(editEndpoint);
   const addHasPermissionRele = useIsEndpointCrud(addEndpoint);
@@ -216,7 +216,7 @@ const Stations: React.FC = () => {
         Pagination
       />
       <Modal
-        showModal={role === "Admin" && showModal}
+        showModal={showModal}
         closeModal={closeModalContainer}
         width="80vw"
       >

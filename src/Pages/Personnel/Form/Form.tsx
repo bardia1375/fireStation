@@ -57,7 +57,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
       lastName,
       isActive: isActive ? true : false,
       password,
-      role,
+    
       userName,
     };
 
@@ -129,7 +129,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
     // ارسال داده‌ها
     console.log("Selected Routes for Submit:", selectedRoutes);
     // بررسی اینکه فیلدهای اجباری پر شده باشند
-    if (!firstName || !lastName || !isActive || !role || !userName) {
+    if (!firstName || !lastName || !isActive  || !userName) {
       errorMessage("لطفا تمام فیلدها پر شود!");
       return;
     }
@@ -153,7 +153,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
         firstName,
         lastName,
         isActive: isActive === "فعال" ? true : false,
-        role,
+      
         userName,
       };
       EditMutate(data); // ارسال داده‌ها به تابع ویرایش
@@ -168,7 +168,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
           lastName,
           isActive: isActive === "فعال" ? true : false,
           password,
-          role,
+          
           userName,
         };
 

@@ -8,6 +8,7 @@ import Dashboard from "./Dashboard";
 import { createSignalRConnection, startConnection } from "../../signalrService.js";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css"; // Include skeleton CSS for styling
+import { useIsEndpointCrud } from "Utils/permissionUtils";
 
 const DashboardContainer = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -65,11 +66,11 @@ const DashboardContainer = () => {
       dashboardModalState(true); // استیت فرزند را true می‌کنیم
     }
   };
-
+  const endpoint = "/Missions/GroupStartMission";
+  const hasPermissionRele = useIsEndpointCrud(endpoint);
   return (
     <SContainer style={{ width: "100%", position: "relative" }}>
-      <CustomButton onClick={handleOpenModal}>شروع عملیات</CustomButton>
-
+      {hasPermissionRele && <CustomButton onClick={handleOpenModal}>شروع عملیات</CustomButton>}
       <div
         style={{
           display: "grid",

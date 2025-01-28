@@ -17,7 +17,7 @@ function LogsContainer({}: Props) {
       GetPings({
         stationId: "",
         page: 1,
-        limit: 12,
+        limit: 100,
       }),
   });
   const endpoint = "/SystemLogs/GetLogs";

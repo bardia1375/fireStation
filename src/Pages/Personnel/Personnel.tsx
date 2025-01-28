@@ -16,8 +16,10 @@ const Personnel = ({
   setShowModal,
   isActive,
 }) => {
-  const endpoint = "/UserManagjement/CreateUser";
+  const endpoint = "/UserManagement/CreateUser";
   const hasPermission = useIsEndpointCrud(endpoint);
+  const editEndpoint = "/UserManagement/EditUser";
+  const editHasPermission = useIsEndpointCrud(editEndpoint);
 
   return (
     <>
@@ -29,7 +31,7 @@ const Personnel = ({
           <h3>
             {firstName} {lastName}
           </h3>
-          {hasPermission && (
+          {editHasPermission && (
             <Link to={`/personnel/${id}`} className="PersonnelEdit-btn" onClick={onEdit}>
               <FaEdit size={16} />
             </Link>
