@@ -11,6 +11,7 @@ import Modal from "Components/Modal/Modal";
 import FormContainer from "./Form/FormContainer";
 import FormPingContainer from "./Form/FormPingContainer";
 import { useParams } from "react-router-dom";
+import { useIsEndpointCrud } from "Utils/permissionUtils";
 
 interface Device {
   DeviceSerial: string;
@@ -193,6 +194,11 @@ const Stations: React.FC = () => {
     setUserData(data);
   };
   console.log("deviceStatdeviceStatee", deviceState);
+  const editEndpoint = "/Stations/EditStation";
+  const addEndpoint = "/Stations/EditStation";
+
+  const editHasPermissionRele = useIsEndpointCrud(editEndpoint);
+  const addHasPermissionRele = useIsEndpointCrud(addEndpoint);
 
   return (
     <>
@@ -200,12 +206,12 @@ const Stations: React.FC = () => {
         EditModalOpen={() => EditModalOpen()}
         // AccordionTitle={AccordionTitle}
         // accordion
-        AddStationsIcon
+        AddStationsIcon={addHasPermissionRele}
         page={"دستگاه"}
         data={dataShow || []}
         TableData={userData || []}
         title={titles}
-        penButton
+        penButton={editHasPermissionRele}
         navigateEditAddress="/stations"
         Pagination
       />

@@ -10,6 +10,7 @@ import Modal from "Components/Modal/Modal";
 import serverApi from "Services/httpService";
 import { Button } from "./Form/Form";
 import styled from "styled-components";
+import { useIsEndpointCrud } from "Utils/permissionUtils";
 
 const Dashboard = ({
   firstName,
@@ -53,6 +54,8 @@ const Dashboard = ({
 
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const endpoint = "/Missions/GroupStartMission";
+  const hasPermissionRele = useIsEndpointCrud(endpoint);
   const [isClick, setIsClick] = useState(false);
   const role = localStorage.getItem("role");
   useEffect(() => {
@@ -213,7 +216,7 @@ const Dashboard = ({
 
       {/* Modal for confirmation */}
       <Modal
-        showModal={hasConnection && isModalVisible && role !== "Watcher"}
+        showModal={hasConnection && isModalVisible && hasPermissionRele}
         Submit={handleConfirm} // Start the timer when the user clicks "OK"
         closeModal={handleCancel} // Close the modal when the user clicks "Cancel"
         footer={<Button onClick={handleConfirm}>تایید</Button>}

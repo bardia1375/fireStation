@@ -129,15 +129,15 @@ function Permissions() {
     <Col>
       <AccessLabel>دسترسی:</AccessLabel>
       <Row>
-        {permissionsData.map((item: any) => (
+        {permissionsData?.map((item: any) => (
           <div key={item.title}>
             <ParentItem onClick={() => toggleExpand(item.title)}>
               <ParentCheckbox
                 type="checkbox"
                 ref={el => (parentRefs.current[item.title] = el)}
                 checked={
-                  item?.actions.every((action: any) => selectedCheckboxes[action.route]) &&
-                  item?.actions.length > 0
+                  item?.actions?.every((action: any) => selectedCheckboxes[action.route]) &&
+                  item?.actions?.length > 0
                 }
                 onChange={e => handleParentCheckboxChange(item.title, e.target.checked)}
               />

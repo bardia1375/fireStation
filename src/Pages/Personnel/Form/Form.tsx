@@ -21,14 +21,6 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
 
   const [selectedActions, setSelectedActions] = useState<string[]>([]);
   const preselectedRoutes = [
-    "/BaseSettings/Upsert",
-    "/BaseSettings/GetBaseSetting",
-    "/DeviceRelays/Upsert",
-    "/DeviceRelays/GetDeviceRelay",
-    "/Missions/StartMission",
-    "/Missions/GroupStartMission",
-    "/Missions/StopMission",
-    "/Missions/MissionReport",
   ];
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<Record<string, boolean>>(() =>
     preselectedRoutes.reduce((acc, route) => {
