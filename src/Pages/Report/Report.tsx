@@ -16,6 +16,7 @@ import InputSearch from "Components/DropDown/InputSearch";
 // Utilities
 import { useMutation } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
+import { useIsEndpointCrud } from "Utils/permissionUtils";
 
 // Interfaces
 interface Device {
@@ -120,7 +121,7 @@ const Report: React.FC = () => {
   }, [fromDateReport, toDateReport, mutate, fromTimeReport, toTimeReport]);
 
   // Table Columns
-  const titles = [
+  const [titles, setTitle] = useState([
     { id: 0, title: "کاربر", filter: true, filterTitle: "fullName" },
     { id: 1, title: "ایستگاه", filter: true, filterTitle: "" },
     { id: 2, title: "تاریخ" },
@@ -128,23 +129,44 @@ const Report: React.FC = () => {
     { id: 4, title: "مدت زمان" },
     { id: 5, title: "وضعیت", filter: true, filterTitle: "" },
     { id: 6, title: "کیفیت", filter: true, filterTitle: "quality" },
-  ];
-
+  ]);
+    const endpoint = "/CustomPermissions/TimeInMission";
+    const hasPermission = useIsEndpointCrud(endpoint);
+  const [dataTable, setDataTable] = useState(reports);
+  useEffect(() => {
+    setDataTable(reports);
+  }, []);
+  useEffect(() => {
+    if (!hasPermission) {
+      setTitle(prev => {
+        const filterDuration = prev.filter(el => el.id !== 4);
+        return filterDuration;
+      });
+    }
+  }, [hasPermission]);
+  // Prepare Data for Display
   // Prepare Data for Display
   const dataShow =
     reports?.data && Array.isArray(reports?.data)
-      ? reports?.data?.map(item => [
-          item.fullName || "-",
-          item.stationName || "-",
-          item.date || "-",
-          item.time || "-",
-          `${item.duration} ثانیه`,
-          item.endedType || "-",
-          item.qualityType || "-",
-          item.id,
-        ])
-      : [];
+      ? reports?.data.map((item: any) => {
+          const baseData = [
+            item.fullName || "-",
+            item.stationName || "-",
+            item.date || "-",
+            item.time || "-",
+            item.endedType || "-",
+            item.qualityType || "-",
+            item.id,
+          ];
 
+          // اضافه کردن duration در صورت وجود دسترسی
+          if (hasPermission) {
+            baseData.splice(4, 0, `${item.duration} ثانیه`);
+          }
+
+          return baseData;
+        })
+      : [];
   // Handle Filter Selection
   const handleFilterSelection = (selectedFilter: ColumnFilter) => {
     setColumnFilter(selectedFilter);
