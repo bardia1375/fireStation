@@ -10,11 +10,11 @@ export const getStatiosById = async id => {
   return data.data;
 };
 export const editSettingData = async item => {
-  const { data } = await serverApi.post(`/BaseSettings/Upsert`, item);
+  const { data } = await serverApi.post(`/BaseSettings/UpsertSetting`, item);
   return data.data;
 };
 export const editSettingRele = async item => {
-  const { data } = await serverApi.post(`/DeviceRelays/Upsert`, item);
+  const { data } = await serverApi.post(`/BaseSettings/UpsertSettingRelays`, item);
   return data.data;
 };
 export const getSettingData = async () => {
@@ -22,7 +22,7 @@ export const getSettingData = async () => {
   return data.data;
 };
 export const getSettingRele = async () => {
-  const { data } = await serverApi.get(`/DeviceRelays/GetDeviceRelay
+  const { data } = await serverApi.get(`/BaseSettings/GetDeviceRelays
 `);
   return data.data;
 };

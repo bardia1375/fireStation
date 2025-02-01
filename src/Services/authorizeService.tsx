@@ -18,10 +18,11 @@ export const loginService = async (loginInfo: LoginInfoType) => {
       username: loginInfo.UserName,
       password: loginInfo.Password,
     });
-
+  console.log("response.data.data",response.data.data);
+  
     localStorage.setItem("tickment_token", response.data.data.token);
     localStorage.setItem("refresh_token", response.data.data.refreshToken);
-    localStorage.setItem("role", response.data.data.role);
+    localStorage.setItem("role", response.data.data.hasAllAccess);
 
     return response;
   } catch (error) {

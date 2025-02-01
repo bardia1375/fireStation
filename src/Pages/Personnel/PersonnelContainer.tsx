@@ -7,12 +7,7 @@ import "./style.css";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { getUsers } from "./Services/services";
-import {
-  isAdmin,
-  useIsEndpointCrud,
-  useIsEndpointNavbar,
-  
-} from "Utils/permissionUtils";
+import { isAdmin, useIsEndpointCrud, useIsEndpointNavbar } from "Utils/permissionUtils";
 import Permissions from "./Form/Permissions/Permissions";
 
 const PersonnelContainer = () => {
@@ -93,10 +88,10 @@ const PersonnelContainer = () => {
         ))}
       </div>
 
-    <Modal width="80vw" showModal={showModal} closeModal={closeModal} Submit={Submit}>
-      <FormContainer getData={getData} setShowModal={setShowModal} mockData={mockData} />
-    </Modal>
-  </SContainer>
+      <Modal width="80vw" showModal={showModal} closeModal={closeModal} Submit={Submit}>
+        <FormContainer getData={getData} setShowModal={setShowModal} mockData={mockData} />
+      </Modal>
+    </SContainer>
   );
 };
 

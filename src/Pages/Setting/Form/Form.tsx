@@ -201,7 +201,7 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
                   <SwitchContainer>
                     <SwitchInput
                       type="checkbox"
-                      checked={role === "Admin"}
+                      checked={!!role}
                       onChange={() => handleAccessSwitch("Admin")}
                     />
                     <Slider />

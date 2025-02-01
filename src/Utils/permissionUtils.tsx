@@ -10,24 +10,23 @@ export const useIsEndpointCrud = (endpoint: string): boolean => {
   const { userPermissions } = usePermissions();
   const role = localStorage.getItem("role");
 
-  return userPermissions?.data?.includes(endpoint) || role === "Admin";
+  return userPermissions?.data?.includes(endpoint) || role === "true" ? true : false;
 };
 export const useIsEndpointNavbar = (endpoint: string): boolean => {
   const history = useHistory(); // تغییر به useNavigate
   const { userPermissions } = usePermissions();
   const role = localStorage.getItem("role");
 
-  useEffect(() => {
-    if (userPermissions && !userPermissions?.data?.includes(endpoint) && role !== "Admin") {
-      history.push("/notpermission"); // انتقال به صفحه بدون مجوز
-    }
-  }, [endpoint, userPermissions, role, history]);
+  // useEffect(() => {
+  //   if (userPermissions && !userPermissions?.data?.includes(endpoint) && !!role) {
+  //     history.push("/notpermission"); // انتقال به صفحه بدون مجوز
+  //   }
+  // }, [endpoint, userPermissions, role, history]);
 
-  return userPermissions?.data?.includes(endpoint) || role === "Admin";
+  return userPermissions?.data?.includes(endpoint) || role === "true" ? true : false;
 };
 
 // تابع بررسی مجوز برای ادمین
 export const isAdmin = (): boolean => {
-  const role = localStorage.getItem("role");
-  return role === "Admin";
+  return localStorage.getItem("role") === "true" ? true : false;
 };

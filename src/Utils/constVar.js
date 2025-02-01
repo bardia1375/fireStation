@@ -1,3 +1,5 @@
+const isAdmin = localStorage.getItem("role");
+
 export const menues = [
   // {
   //   url: "/club",
@@ -15,33 +17,44 @@ export const menues = [
     url: "/personnel",
     title: "کاربران",
     imgUrl: "/images/menuIcon/people.svg",
+    role: "/UserManagement/GetUsers",
   },
   {
     url: "/dashboard",
     title: "داشبورد",
     imgUrl: "/images/menuIcon/device.svg",
+    Permission: "/Reports/TimeInMission",
+    role: "/dashboard",
   },
   {
     url: "/stations",
     title: "ایستگاه‌ها",
     imgUrl: "/images/menuIcon/device.svg",
+    Permission: "",
+    role: "Stations",
   },
   {
     url: "/reports",
     title: "گزارشات",
     imgUrl: "/images/menuIcon/message.svg",
+    Permission: "",
+    role: "/Reports/MissionReport",
   },
   {
     url: "/setting",
     title: "تنظیمات",
     imgUrl: "/images/menuIcon/setting.svg",
+    Permission: "",
+    role: "/BaseSettings/GetBaseSetting",
   },
   {
     url: "/logs",
     title: "تاریخچه سیستم",
     imgUrl: "/images/menuIcon/message.svg",
+    Permission: "",
+    role: "/SystemLogs/GetLogs",
   },
-  
+
   // {
   //   url: "/mycontract",
   //   title: "قراردادهای من",

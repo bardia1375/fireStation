@@ -15,14 +15,15 @@ function Setting() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["qualityTime"],
     queryFn: getSettingData,
+    
   });
   const { data: releData } = useQuery({
     queryKey: ["qualityRele"],
     queryFn: getSettingRele,
   });
   console.log("releDatareleData", releData);
-  const endpoint = "/DeviceRelays/Upsert";
-  const endpointNameAndSms = "/Stations/UpsertStationSettings";
+  const endpoint = "/BaseSettings/UpsertSetting";
+  const endpointNameAndSms = "/BaseSettings/UpsertSetting";
 
   const hasPermissionRele = useIsEndpointCrud(endpoint);
   const hasPermissionNameAndSms = useIsEndpointCrud(endpointNameAndSms);

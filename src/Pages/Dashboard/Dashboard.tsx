@@ -182,6 +182,10 @@ const Dashboard = ({
     console.log("Updated IDs:", ids);
     // setShowModal(true);
   };
+
+
+  console.log("hasConnectiohasConnectionn",hasConnection);
+  
   return (
     <>
       {/* <CustomButton onClick={handleOpenModal}>شروع عملیات</CustomButton> */}
@@ -215,7 +219,7 @@ const Dashboard = ({
 
       {/* Modal for confirmation */}
       <Modal
-        showModal={hasConnection && isModalVisible}
+        showModal={isModalVisible}
         Submit={handleConfirm} // Start the timer when the user clicks "OK"
         closeModal={handleCancel} // Close the modal when the user clicks "Cancel"
         footer={<Button onClick={handleConfirm}>تایید</Button>}

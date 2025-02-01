@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import serverApi from "Services/httpService";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { successMessage, errorMessage } from "Utils/commonFunctions";
 
 const fetchPermissions = async () => {
@@ -21,11 +21,11 @@ const fetchUserPermissions = async (userId: string) => {
   return response.data; // Assuming the response contains an array of routes
 };
 
-function Permissions({ closeModal }) {
+function Permissions() {
   const queryClient = useQueryClient();
   const parentRefs = useRef<Record<string, HTMLInputElement | null>>({});
   const [expanded, setExpanded] = useState<string[]>([]);
-  const [selectedCheckboxes, setSelectedCheckboxes] = useState({});
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState<Record<string, boolean>>({});
   const params = useParams();
   const userId = params?.id;
 
@@ -47,7 +47,6 @@ function Permissions({ closeModal }) {
       queryClient.invalidateQueries(["permissions"]);
       queryClient.invalidateQueries(["userPermissions"]);
       successMessage("عملیات با موفقیت انجام شد");
-      closeModal();
     },
     onError: error => {
       console.error("Failed to submit permissions:", error);
@@ -127,122 +126,67 @@ function Permissions({ closeModal }) {
   }
 
   return (
-    <Container>
-      <Header>دسترسی‌ها</Header>
-      <Grid>
-        {permissionsData?.length > 0 &&
-          !!selectedCheckboxes &&
-          permissionsData?.map((item: any) => (
-            <Card key={item.title}>
-              <ParentItem onClick={() => toggleExpand(item.title)}>
-                <ParentCheckbox
-                  type="checkbox"
-                  ref={el => (parentRefs.current[item.title] = el)}
-                  checked={
-                    item?.actions
-                      ? item?.actions?.every((action: any) => selectedCheckboxes[action?.route]) &&
-                        item?.actions?.length > 0
-                      : []
-                  }
-                  onChange={e => handleParentCheckboxChange(item?.title, e.target.checked)}
-                />
-                <ParentText>{item.displayName}</ParentText>
-                <ExpandIcon>{expanded.includes(item.title) ? "🔽" : "◀️"}</ExpandIcon>
-              </ParentItem>
+    <Col>
+      <AccessLabel>دسترسی:</AccessLabel>
+      <Row>
+        {permissionsData?.map((item: any) => (
+          <div key={item.title}>
+            <ParentItem onClick={() => toggleExpand(item.title)}>
+              <ParentCheckbox
+                type="checkbox"
+                ref={el => (parentRefs.current[item.title] = el)}
+                checked={
+                  item?.actions?.every((action: any) => selectedCheckboxes[action.route]) &&
+                  item?.actions?.length > 0
+                }
+                onChange={e => handleParentCheckboxChange(item?.title, e.target.checked)}
+              />
+              <ParentText>{item.displayName}</ParentText>
+              <ExpandIcon>{expanded.includes(item.title) ? "🔽" : "◀️"}</ExpandIcon>
+            </ParentItem>
 
-              {expanded.includes(item.title) && (
-                <ChildItemsContainer>
-                  {item?.actions?.map((action: any) => (
-                    <ChildItem key={action.name}>
-                      <ChildCheckbox
-                        type="checkbox"
-                        checked={!!selectedCheckboxes[action?.route]}
-                        onChange={e =>
-                          handleChildCheckboxChange(action?.route ?? "", e.target.checked)
-                        }
-                      />
-                      <ChildText>{action.displayName}</ChildText>
-                    </ChildItem>
-                  ))}
-                </ChildItemsContainer>
-              )}
-            </Card>
-          ))}
-      </Grid>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginTop: "8px",
-          width: "100%",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          className="col-3 input-effect"
-          style={{ width: "10vw", fontSize: "1.5rem", cursor: "poiter" }}
-          onClick={closeModal}
-        >
-          انصراف
-        </div>
-        <SubmitButton
-          disabled={isLoading}
-          className="col-3 input-effect"
-          style={{ width: "10vw" }}
-          onClick={submit}
-        >
-          {mutation.isLoading ? "در حال ثبت" : "ثبت"}
-        </SubmitButton>
-      </div>
-    </Container>
+            {expanded.includes(item.title) && (
+              <ChildItemsContainer>
+                {item?.actions?.map((action: any) => (
+                  <ChildItem key={action.name}>
+                    <ChildCheckbox
+                      type="checkbox"
+                      checked={!!selectedCheckboxes[action?.route]}
+                      onChange={e => handleChildCheckboxChange(action?.route ?? "", e.target.checked)}
+                    />
+                    <ChildText>{action.displayName}</ChildText>
+                  </ChildItem>
+                ))}
+              </ChildItemsContainer>
+            )}
+          </div>
+        ))}
+      </Row>
+      <Button className="col-3 input-effect" style={{ width: "10vw" }} onClick={submit}>
+        ثبت
+      </Button>
+    </Col>
   );
 }
 
 export default Permissions;
 
 // Styled Components
-const Container = styled.div`
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  direction: ltr;
-`;
 
-const Header = styled.h1`
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 0px;
+// Styled Components
+const Col = styled.div`
+  width: 25%;
+  border: 2px solid red;
 `;
-
-const Grid = styled.div`
+const Row = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-`;
-
-const Card = styled.div`
-  padding: 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-  }
+  grid-template-column: 1fr 1fr 1fr;
 `;
 
 const ParentItem = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
   margin-bottom: 12px;
 `;
 
@@ -252,16 +196,15 @@ const ParentCheckbox = styled.input`
 
 const ParentText = styled.span`
   font-weight: bold;
-  font-size: 16px;
-  white-space: nowrap;
 `;
+
 const ExpandIcon = styled.span`
-  margin-left: 8px;
+  margin-left: auto;
 `;
+
 const ChildItemsContainer = styled.div`
-  padding-left: 16px;
+  padding-left: 24px;
   margin-top: 8px;
-  white-space: nowrap;
 `;
 
 const ChildItem = styled.div`
@@ -274,21 +217,66 @@ const ChildCheckbox = styled.input`
   margin-right: 8px;
 `;
 
-const ChildText = styled.span`
-  font-size: 14px;
+const ChildText = styled.span``;
+
+const AccessLabel = styled.label`
+  font-size: 18px;
+  font-weight: 500;
+  display: block;
+  margin: 4px;
+  text-align: right;
 `;
 
-const SubmitButton = styled.button`
-  margin-top: 20px;
-  padding: 12px 24px;
-  font-size: 18px;
-  background-color: #0089a7;
-  color: white;
-  border: none;
-  border-radius: 8px;
+// Styled Button
+export const Card = styled.div`
+  position: relative;
+  width: 100%;
+  background: #fff;
+  box-shadow: inset 0px -30px 99px #0000000a, 0px 8px 36px #a0bdc180;
+  border-radius: 24px;
+  padding: 24px;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Button = styled.div`
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 12px;
+  font-size: 20px;
+  border-width: 2px;
+  border-style: none;
+  border-radius: 24px;
+  box-shadow: 0px 7px 15px #00000033;
+  white-space: nowrap;
+  margin: auto 0;
+  align-items: center;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: 500ms;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  ${props => {
+    switch (props.bg) {
+      case "red":
+        return css`
+          background: red;
+        `;
+      case "blue":
+        return css`
+          background: blue;
+        `;
+      default:
+        return css`
+          background: #0089a7;
+        `;
+    }
+  }}
   &:hover {
-    background-color: #006f8a;
+    transform: scale(0.9);
   }
 `;

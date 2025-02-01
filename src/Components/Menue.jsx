@@ -24,9 +24,9 @@ export default function Menue() {
     <div className="menue__Container">
       <div className="menue">
         <ul className="menue__body">
-          {menues.map((item, idx) => {
+          {/* {menues.map((item, idx) => {
             return <MenueItem item={item} key={`${item.title} ${idx}`} />;
-          })}
+          })} */}
         </ul>
       </div>
       <Footer

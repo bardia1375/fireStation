@@ -9,7 +9,7 @@ export const getUsersById = async id => {
   return data.data;
 };
 export const editUserData = async items => {
-  const { data } = await serverApi.put(`/UserManagement/EditUser`,items);
+  const { data } = await serverApi.put(`/UserManagement/EditUser`, items);
   return data;
 };
 export const postUserData = async items => {

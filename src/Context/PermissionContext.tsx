@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import serverApi from "Services/httpService";
 
-// تعریف نوع داده‌های دسترسی
+// Define the permissions context type
 interface PermissionsContextType {
   userPermissions: string[] | null;
   isLoading: boolean;
@@ -12,25 +12,45 @@ interface PermissionsContextType {
 
 const PermissionsContext = createContext<PermissionsContextType | undefined>(undefined);
 
-// تابع برای گرفتن دسترسی‌های کاربر جاری
+// Fetch permissions for the current user
 const fetchCurrentUserPermissions = async (): Promise<string[]> => {
-  const response = await serverApi.get(`/Permission/GetCurrentUserPermissions`);
-  return response.data; // فرض بر اینکه پاسخ، آرایه‌ای از مسیرها باشد
+  const response = await serverApi.get(`/Permission/GetCurrentUsferPermissions`);
+  return response.data; // Assume response is an array of routesf
 };
 
 export const PermissionsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Simulate authentication status (replace with your real auth logic)
+  const [isAuthenticated, setIsAuthenticated] = useState(() =>
+    Boolean(localStorage.getItem("authToken"))
+  );
+
+  // Query to fetch permissions
   const {
     data: userPermissions,
     isLoading,
     error,
     refetch,
   } = useQuery(["userPermissions"], fetchCurrentUserPermissions, {
-    enabled: false, // از فراخوانی خودکار جلوگیری می‌کنیم
+    enabled: false, // Prevent automatic fetch
   });
 
+  // Fetch permissions when user logs in
   useEffect(() => {
-    refetch(); // هنگام بارگذاری کامپوننت، اطلاعات دسترسی را بگیریم
-  }, [refetch]);
+    if (isAuthenticated) {
+      refetch(); // Fetch permissions after login
+    }
+  }, [isAuthenticated, refetch]);
+
+  // Example: Simulate login detection (replace with your actual login logic)
+  useEffect(() => {
+    const handleAuthChange = () => {
+      const token = localStorage.getItem("authToken");
+      setIsAuthenticated(Boolean(token));
+    };
+
+    window.addEventListener("storage", handleAuthChange); // Listen for login via token storage
+    return () => window.removeEventListener("storage", handleAuthChange);
+  }, []);
 
   const contextValue = {
     userPermissions: userPermissions || null,

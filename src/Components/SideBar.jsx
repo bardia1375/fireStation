@@ -4,12 +4,19 @@ import { useDispatch } from "react-redux";
 import { menues } from "../Utils/constVar";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { userLogOut } from "../Actions/User/user";
+import { isAdmin, useIsEndpointCrud, useIsEndpointNavbar } from "Utils/permissionUtils";
+import { usePermissions } from "../Context/PermissionContext";
+
 export default function SideBar() {
   const dispatch = useDispatch();
 
   const [height, setHeight] = useState(true);
-
-
+  const { userPermissions } = usePermissions();
+  const role = localStorage.getItem("Admin");
+  const [newData, setNewData] = useState([]);
+  useEffect(() => {
+    setNewData(userPermissions?.data);
+  }, [userPermissions?.data.length > 0]);
   const onScroll = e => {
     const bottom =
       e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
@@ -50,23 +57,29 @@ export default function SideBar() {
         break;
     }
   };
+  console.log("item?.role", newData);
+
   return (
     <>
       <ul className="SidebarList" style={style} onScroll={onScroll}>
         {menues.map(item => {
-          return (
-            <NavLink
-              activeClassName="activeRouteSideBar"
-              to={item.url}
-              className="SidebarListItem"
-              onClick={() => handleChange(item.title)}
-            >
-              <div>
-                <img src={item.imgUrl} alt="" />
-              </div>
-              <p>{item.title}</p>
-            </NavLink>
-          );
+          console.log("item?.role", newData?.includes(item?.role));
+
+          if (isAdmin() || newData?.includes(item?.role) || item?.role === "/dashboard") {
+            return (
+              <NavLink
+                activeClassName="activeRouteSideBar"
+                to={item.url}
+                className="SidebarListItem"
+                onClick={() => handleChange(item.title)}
+              >
+                <div>
+                  <img src={item.imgUrl} alt="" />
+                </div>
+                <p>{item.title}</p>
+              </NavLink>
+            );
+          }
         })}
       </ul>
     </>

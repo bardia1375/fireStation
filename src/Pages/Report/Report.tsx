@@ -84,7 +84,7 @@ const Report: React.FC = () => {
         payload.quality = query;
       }
 
-      const response = await serverApi.post("/Missions/MissionReport", payload);
+      const response = await serverApi.post("/Reports/MissionReport", payload);
       return response.data.data;
     } catch (error) {
       console.error("Error fetching devices:", error);
@@ -130,8 +130,9 @@ const Report: React.FC = () => {
     { id: 5, title: "وضعیت", filter: true, filterTitle: "" },
     { id: 6, title: "کیفیت", filter: true, filterTitle: "quality" },
   ]);
-    const endpoint = "/CustomPermissions/TimeInMission";
-    const hasPermission = useIsEndpointCrud(endpoint);
+  const endpoint = "/Reports/TimeInMission";
+  
+  const hasPermission = useIsEndpointCrud(endpoint);
   const [dataTable, setDataTable] = useState(reports);
   useEffect(() => {
     setDataTable(reports);
