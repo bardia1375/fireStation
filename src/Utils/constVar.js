@@ -31,7 +31,7 @@ export const menues = [
     title: "ایستگاه‌ها",
     imgUrl: "/images/menuIcon/device.svg",
     Permission: "",
-    role: "Stations",
+    role: "/Stations/EditStation",
   },
   {
     url: "/reports",

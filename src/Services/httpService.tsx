@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { toast } from "react-toastify";
 import api from "./config.json";
+import { errorMessage } from "Utils/commonFunctions";
 
 // Create an Axios instance
 const serverApi: AxiosInstance = axios.create({
@@ -111,11 +112,16 @@ serverApi.interceptors.response.use(
           
           resolve(serverApi(originalRequest));
         } catch (err) {
-          processQueue(err, null);
-          // Clear tokens and redirect to login
-          localStorage.removeItem("tickment_token");
-          // localStorage.removeItem("refresh_token");
-          window.location.href = "/login";
+          console.log("sdfsdfsdfsdf",originalRequest.url);
+          
+          if (!originalRequest.url?.includes("/Permission/GetCurrentUserPermissions")) {
+            errorMessage("هه هه")
+            processQueue(err, null);
+            // Clear tokens and redirect to login
+            localStorage.removeItem("tickment_token");
+            // localStorage.removeItem("refresh_token");
+            window.location.href = "/login";
+          }
           reject(err);
         } finally {
           isRefreshing = false;
@@ -125,7 +131,7 @@ serverApi.interceptors.response.use(
 
     // Optionally handle other error statuses
     if (error.response?.status === 403) {
-      toast.error("You do not have permission to perform this action.");
+      // toast.error("You do not have permission to perform this action.");
     } else if (error.response?.status === 500) {
       toast.error("An unexpected error occurred on the server.");
     }

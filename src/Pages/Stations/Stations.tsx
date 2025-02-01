@@ -194,9 +194,9 @@ const Stations: React.FC = () => {
     setUserData(data);
   };
   console.log("deviceStatdeviceStatee", deviceState);
-  const editEndpoint = "/Stations/EditStation";
-  const addEndpoint = "/Stations/UpsertStationSettings";
-
+  const editEndpoint ="/Stations/EditStation";
+  const addEndpoint ="/Stations/CreateStation";
+  
   const editHasPermissionRele = useIsEndpointCrud(editEndpoint);
   const addHasPermissionRele = useIsEndpointCrud(addEndpoint);
 

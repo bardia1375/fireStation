@@ -14,7 +14,7 @@ const PermissionsContext = createContext<PermissionsContextType | undefined>(und
 
 // Fetch permissions for the current user
 const fetchCurrentUserPermissions = async (): Promise<string[]> => {
-  const response = await serverApi.get(`/Permission/GetCurrentUsferPermissions`);
+  const response = await serverApi.get(`/Permission/GetCurrentUserPermissions`);
   return response.data; // Assume response is an array of routesf
 };
 
