@@ -21,7 +21,7 @@ const fetchCurrentUserPermissions = async (): Promise<string[]> => {
 export const PermissionsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Simulate authentication status (replace with your real auth logic)
   const [isAuthenticated, setIsAuthenticated] = useState(() =>
-    Boolean(localStorage.getItem("authToken"))
+    Boolean(localStorage.getItem("access-token"))
   );
 
   // Query to fetch permissions

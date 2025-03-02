@@ -133,7 +133,7 @@ serverApi.interceptors.response.use(
     if (error.response?.status === 403) {
       // toast.error("You do not have permission to perform this action.");
     } else if (error.response?.status === 500) {
-      toast.error("An unexpected error occurred on the server.");
+      // toast.error("An unexpected error occurred on the server.");
     }
 
     return Promise.reject(error);

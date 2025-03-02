@@ -14,7 +14,7 @@ export const editSettingData = async item => {
   return data.data;
 };
 export const editSettingRele = async item => {
-  const { data } = await serverApi.post(`/BaseSettings/UpsertSettingRelays`, item);
+  const { data } = await serverApi.post(`/BaseSettings/UpsertRelays`, item);
   return data.data;
 };
 export const getSettingData = async () => {
