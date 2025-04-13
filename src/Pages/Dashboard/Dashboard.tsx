@@ -57,6 +57,34 @@ const Dashboard = ({
 
   const [isClick, setIsClick] = useState(false);
   const role = localStorage.getItem("role");
+
+
+
+  // Create ref outside the useEffect
+const prevHasCurrentMissionRef = React.useRef(hasCurrentMission);
+
+// Fix the effect to use the ref properly
+useEffect(() => {
+  // If hasCurrentMission was true before and is now false (mission ended)
+  if (prevHasCurrentMissionRef.current === true && hasCurrentMission === false) {
+    setIsClick(false); // Reset isClick when mission ends
+    setIds([])
+  }
+  
+  // Update the ref with current value for next render
+  prevHasCurrentMissionRef.current = hasCurrentMission;
+}, [hasCurrentMission]);
+
+useEffect(() => {
+  if (setIsModal) {
+    setIsModal(() => setIsModalVisible);
+  }
+}, [setIsModal]);
+
+
+
+
+
   useEffect(() => {
     if (setIsModal) {
       setIsModal(() => setIsModalVisible); // تابع setLocalModal را به والد ارسال می‌کنیم
@@ -107,11 +135,11 @@ const Dashboard = ({
     setIsModalVisible(false); // Close the modal
     setIsTimerRunning(true); // Start the timer
     setIsClick(false);
-
-    console.log("2342352435345345", hasCurrentMission, stationId);
+    // setIds([])
+    console.log("2342352435345345", hasCurrentMission, stationId,ids);
 
     if (!hasCurrentMission) {
-      serverApi.post(`/Missions/GroupStartMission`, ids).then(res => {
+      serverApi.post(`/Missions/GroupStartMission`, ids).then(res => { 
         console.log("res", res.data);
       });
     } else {
@@ -123,6 +151,7 @@ const Dashboard = ({
 
   // Cancel the operation
   const handleCancel = () => {
+    setIds([])
     setIsModalVisible(false); // Close the modal without starting the timer
   };
 
@@ -176,15 +205,10 @@ const Dashboard = ({
       }
     }
   };
-  const handleOpenModal = () => {
-    setIsModalVisible(true);
-    // به‌روزرسانی ids و باز کردن مودال
-    console.log("Updated IDs:", ids);
-    // setShowModal(true);
-  };
 
 
-  console.log("hasConnectiohasConnectionn",hasConnection);
+
+  console.log("hasConnectiohasConnectionn",ids);
   
   return (
     <>

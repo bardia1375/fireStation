@@ -71,6 +71,15 @@ const refresh_token = async (): Promise<string> => {
     return tickment_token;
   } catch (error) {
     console.error("Failed to refresh token:", error);
+    
+    // Check if the refresh token request itself returned 401
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      console.log("Refresh token expired or invalid, redirecting to login");
+      localStorage.removeItem("tickment_token");
+      localStorage.removeItem("refresh_token");
+      window.location.href = "/login";
+    }
+    
     throw error;
   }
 };
@@ -115,7 +124,6 @@ serverApi.interceptors.response.use(
           console.log("sdfsdfsdfsdf",originalRequest.url);
           
           if (!originalRequest.url?.includes("/Permission/GetCurrentUserPermissions")) {
-            errorMessage("هه هه")
             processQueue(err, null);
             // Clear tokens and redirect to login
             localStorage.removeItem("tickment_token");
