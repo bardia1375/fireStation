@@ -10,7 +10,7 @@ export const useIsEndpointCrud = (endpoint: string): boolean => {
   const { userPermissions } = usePermissions();
   const role = localStorage.getItem("role");
 
-  return userPermissions?.data?.includes(endpoint) || role === "true" ? true : false;
+  return userPermissions?.data?.includes(endpoint) || role === "Admin" ? true : false;
 };
 export const useIsEndpointNavbar = (endpoint: string): boolean => {
   const history = useHistory(); // تغییر به useNavigate
@@ -23,10 +23,10 @@ export const useIsEndpointNavbar = (endpoint: string): boolean => {
   //   }
   // }, [endpoint, userPermissions, role, history]);
 
-  return userPermissions?.data?.includes(endpoint) || role === "true" ? true : false;
+  return userPermissions?.data?.includes(endpoint) || role === "Admin" ? true : false;
 };
 
 // تابع بررسی مجوز برای ادمین
 export const isAdmin = (): boolean => {
-  return localStorage.getItem("role") === "true" ? true : false;
+  return localStorage.getItem("role") === "Admin" ? true : false;
 };

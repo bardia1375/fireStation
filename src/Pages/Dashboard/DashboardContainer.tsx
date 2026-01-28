@@ -9,6 +9,8 @@ import { createSignalRConnection, startConnection } from "../../signalrService.j
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css"; // Include skeleton CSS for styling
 import { useIsEndpointCrud } from "Utils/permissionUtils";
+import { Button } from "./Form/Form"; // Add this import
+import serverApi from "Services/httpService";
 
 const DashboardContainer = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -22,6 +24,7 @@ const DashboardContainer = () => {
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   const [ids, setIds] = useState<string[]>([]);
   const [dashboardModalState, setDashboardModalState] = useState(null);
+  const [showGroupMissionModal, setShowGroupMissionModal] = useState(false);
 
   useEffect(() => {
     const connection = startConnection(setDeviceState);
@@ -61,16 +64,47 @@ const DashboardContainer = () => {
   const handleOpenModal = () => {
     console.log("Updated IDs:", ids);
 
-    // اگر تابع setIsModal تنظیم شده باشد، آن را صدا بزنید
-    if (dashboardModalState) {
-      dashboardModalState(true); // استیت فرزند را true می‌کنیم
+    // Only show the confirmation modal if there are selected IDs
+    if (ids.length > 0) {
+      setShowGroupMissionModal(true);
+    } else {
+      // Maybe show an alert or toast that no stations are selected
+      alert("لطفا حداقل یک ایستگاه را انتخاب کنید");
     }
   };
+
+  const handleConfirmGroupMission = () => {
+    // Start the mission for selected stations
+    serverApi.post(`/Missions/GroupStartMission`, ids).then(res => {
+      console.log("Group mission started:", res.data);
+      setShowGroupMissionModal(false);
+      // Optional: clear IDs after starting mission
+      // setIds([]);
+    });
+  };
+
   const endpoint = "/Missions/GroupStartMission";
   const hasPermissionRele = useIsEndpointCrud(endpoint);
+
   return (
     <SContainer style={{ width: "100%", position: "relative" }}>
       {hasPermissionRele && <CustomButton onClick={handleOpenModal}>شروع عملیات</CustomButton>}
+
+      {/* Group Mission Modal */}
+      <Modal
+        showModal={showGroupMissionModal}
+        closeModal={() => setShowGroupMissionModal(false)}
+        footer={<Button onClick={handleConfirmGroupMission}>تایید</Button>}
+        width="30vw"
+      >
+        <div>
+          <h2>
+            <i style={{ color: "#0089a7" }}>عملیات گروهی</i>
+          </h2>
+          <p style={{ margin: "16px 0", fontSize: "2vw" }}>آیا از شروع عملیات اطمینان دارید؟</p>
+        </div>
+      </Modal>
+
       <div
         style={{
           display: "grid",

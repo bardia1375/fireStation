@@ -151,7 +151,7 @@ useEffect(() => {
 
   // Cancel the operation
   const handleCancel = () => {
-    setIds([])
+    // setIds([])
     setIsModalVisible(false); // Close the modal without starting the timer
   };
 

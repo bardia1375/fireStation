@@ -2,7 +2,8 @@ import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 
 const startConnection = updateDeviceState => {
   const connection = new HubConnectionBuilder()
-    .withUrl("http://192.168.20.33:8888/StationsHub")
+  //حتما این مورد تغییر کند مطابق ایپی
+    .withUrl("http://192.168.31.33:2220/StationsHub")
     .configureLogging(LogLevel.Information)
     .withAutomaticReconnect() // اضافه کردن قابلیت اتصال مجدد خودکار
     .build();

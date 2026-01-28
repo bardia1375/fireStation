@@ -9,7 +9,7 @@ import { editUserData } from "../Services/services";
 import Permissions from "./Permissions/Permissions";
 import Modal from "Components/Modal/Modal";
 
-function Form({ getData, setShowModal, mockData, oneUser }) {
+function Form({ getData, setShowModal, mockData, oneUser, isAdd }) {
   const queryClient = useQueryClient(); // دریافت instance از queryClient
 
   const [firstName, setFirstName] = useState("");
@@ -330,14 +330,19 @@ function Form({ getData, setShowModal, mockData, oneUser }) {
             </div>
             {/* Custom Switches */}
             <Col>
-              <AccessLabel>دسترسی:</AccessLabel>
-              <Button
-                className="col-3 input-effect"
-                style={{ width: "max-content" }}
-                onClick={() => setShowPermissionModal(true)}
-              >
-                تنظیم دسترسی‌ها
-              </Button>
+              {!isAdd && (
+                <>
+                  {" "}
+                  <AccessLabel>دسترسی:</AccessLabel>
+                  <Button
+                    className="col-3 input-effect"
+                    style={{ width: "max-content" }}
+                    onClick={() => setShowPermissionModal(true)}
+                  >
+                    تنظیم دسترسی‌ها
+                  </Button>
+                </>
+              )}
               <Modal
                 width="80vw"
                 showModal={permissionModal}

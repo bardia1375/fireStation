@@ -65,7 +65,7 @@ export default function SideBar() {
         {menues.map(item => {
           console.log("item?.role", newData?.includes(item?.role));
 
-          if (isAdmin() || newData?.includes(item?.role) || item?.role === "/dashboard"||item?.role === "/stations") {
+          if ( true) {
             return (
               <NavLink
                 activeClassName="activeRouteSideBar"

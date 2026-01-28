@@ -15,12 +15,13 @@ const Personnel = ({
   dataLength,
   setShowModal,
   isActive,
+  setIsAdd
 }) => {
+
   const endpoint = "/UserManagement/CreateUser";
   const hasPermission = useIsEndpointCrud(endpoint);
   const editEndpoint = "/UserManagement/EditUser";
   const editHasPermission = useIsEndpointCrud(editEndpoint);
-
   return (
     <>
       {!dataLength ? (
@@ -32,7 +33,7 @@ const Personnel = ({
             {firstName} {lastName}
           </h3>
           {editHasPermission && (
-            <Link to={`/personnel/${id}`} className="PersonnelEdit-btn" onClick={onEdit}>
+            <Link to={`/personnel/${id}`} className="PersonnelEdit-btn" onClick={onEdit} >
               <FaEdit size={16} />
             </Link>
           )}
@@ -40,7 +41,7 @@ const Personnel = ({
       ) : (
         hasPermission && (
           <div className="card">
-            <div className="card add-card" onClick={() => setShowModal(true)}>
+            <div className="card add-card" onClick={() => { setShowModal(true); setIsAdd(true); }}>
               <div className="add-card-content">
                 <FaPlus className="plus-icon" color="#ffa700" /> {/* آیکون به‌علاوه */}
                 {/* <BsFillPersonPlusFill /> */}

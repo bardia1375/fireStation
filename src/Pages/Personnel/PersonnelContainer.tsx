@@ -13,6 +13,7 @@ import Permissions from "./Form/Permissions/Permissions";
 const PersonnelContainer = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [isAdd, setIsAdd]  = useState(false);
   const [userData, setUserData] = useState([]);
   const params = useParams();
   const history = useHistory();
@@ -27,7 +28,7 @@ const PersonnelContainer = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: getUsers,
-    enabled: hasPermission, // only fetch if permission is true
+    // enabled: hasPermission, // only fetch if permission is true
   });
 
   // Mock data state
@@ -81,15 +82,16 @@ const PersonnelContainer = () => {
             firstName={person.firstName}
             lastName={person.lastName}
             imgUrl={person.imgUrl}
-            onEdit={() => handleEdit(person)}
+            onEdit={() => { handleEdit(person); setIsAdd(false); }}
             dataLength={index === 0}
             setShowModal={setShowModal}
+            setIsAdd={setIsAdd}
           />
         ))}
       </div>
 
       <Modal width="80vw" showModal={showModal} closeModal={closeModal} Submit={Submit}>
-        <FormContainer getData={getData} setShowModal={setShowModal} mockData={mockData} />
+        <FormContainer getData={getData} setShowModal={setShowModal} mockData={mockData}  isAdd={isAdd} />
       </Modal>
     </SContainer>
   );

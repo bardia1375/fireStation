@@ -219,7 +219,7 @@ export const TableList = ({
     const worksheet = XLSX.utils.json_to_sheet(formattedDevices);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-    XLSX.writeFile(workbook, "table_data.xlsx"); // ذخیره فایل به عنوان اکسل
+    XLSX.writeFile(workbook, "table.xlsx"); // ذخیره فایل به عنوان اکسل
   };
 
   // Your font files in base64

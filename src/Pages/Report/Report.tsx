@@ -74,8 +74,8 @@ const Report: React.FC = () => {
         toDate: toDateReport
           ? moment(toDateReport).format("YYYY-MM-DD")
           : moment().format("YYYY-MM-DD"),
-        fromTime: fromTimeReport,
-        toTime: toTimeReport,
+        // fromTime: fromTimeReport,
+        // toTime: toTimeReport,
       };
 
       if (columnFilter?.filterTitle === "fullName") {
@@ -101,8 +101,8 @@ const Report: React.FC = () => {
     mutationKey: ["devices"],
     mutationFn: fetchDevices,
     onSuccess: data => {
-      console.log("sdfsssdf", data?.totalCount);
       setTotalCount(data?.totalCount);
+      setDevices(data?.data)
     },
   });
 

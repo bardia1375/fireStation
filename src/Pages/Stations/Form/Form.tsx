@@ -25,6 +25,7 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
   const [priority, setPriority] = useState("");
   const [role, setRole] = useState("");
   const [ip, setIp] = useState("");
+  const [id125, setId125] = useState("");
   const { id } = useParams();
   useEffect(() => {
     const data = deviceState.filter(item => {
@@ -75,6 +76,7 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
     setPriority(stationFilter?.priority);
     setRole(stationFilter?.role);
     setIp(stationFilter?.ip);
+    setId125(stationFilter?.id125);
     setItems([
       {
         name: data?.firstStage,
@@ -179,6 +181,7 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
         isActive: isActive == "فعال" ? true : false,
         priority,
         ip,
+        id125
       };
       console.log("paramsfsdfsdfid", data);
       const multipleItem = {
@@ -210,6 +213,7 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
         isActive: isActive == "فعال" ? true : false,
         priority,
         ip,
+        id125
       };
       console.log("paramsfsdfsdfid", data);
 
@@ -263,6 +267,20 @@ function Form({ getData, setShowModal, mockData, oneStationSetting, deviceState 
                   className="effect-21"
                   type="string"
                   placeholder="آی پی دستگاه"
+                />
+                {/* <span className="focus-border">
+                  <i></i>
+                </span> */}
+              </div>
+
+              <div className="col-3">
+                <label>شناسه سامانه 125</label>
+                <input
+                  value={id125}
+                  onChange={e => setId125(e.target.value)}
+                  className="effect-21"
+                  type="string"
+                  placeholder="شناسه"
                 />
                 {/* <span className="focus-border">
                   <i></i>
